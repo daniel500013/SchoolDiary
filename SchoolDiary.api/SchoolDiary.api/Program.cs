@@ -1,4 +1,11 @@
+using SchoolDiary.api;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Sql Server to container
+builder.Services.AddDbContext<DiaryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectionString")));
 
 // Add services to the container.
 
