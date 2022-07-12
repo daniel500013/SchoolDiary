@@ -8,5 +8,10 @@ namespace SchoolDiary.api
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }
