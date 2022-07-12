@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712015914_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,8 @@ namespace SchoolDiary.api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonRoleID"), 1L, 1);
 
                     b.Property<int>("FK_RoleID")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("FK_RoleID");
 
                     b.Property<Guid>("FK_UserUUID")
                         .HasColumnType("uniqueidentifier");
@@ -97,38 +100,6 @@ namespace SchoolDiary.api.Migrations
                     b.HasKey("RoleID");
 
                     b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleID = 1,
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            RoleID = 2,
-                            Name = "Parent"
-                        },
-                        new
-                        {
-                            RoleID = 3,
-                            Name = "Teacher"
-                        },
-                        new
-                        {
-                            RoleID = 4,
-                            Name = "Tutor"
-                        },
-                        new
-                        {
-                            RoleID = 5,
-                            Name = "LocalAdmin"
-                        },
-                        new
-                        {
-                            RoleID = 6,
-                            Name = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("SchoolDiary.api.Model.PersonRole", b =>

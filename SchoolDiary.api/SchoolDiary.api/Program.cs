@@ -1,12 +1,6 @@
-using SchoolDiary.api;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using SchoolDiary.api.Service;
-using SchoolDiary.api.ViewModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +12,9 @@ builder.Services.AddDbContext<DiaryDbContext>(options =>
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
 
+// Configure JwtData Globaly
 var auth = new JwtData();
+builder.Configuration.GetSection("Jwt").Bind(auth);
 builder.Services.AddSingleton(auth);
 
 builder.Services.AddControllers();

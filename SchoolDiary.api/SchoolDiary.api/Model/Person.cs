@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolDiary.api.Model
 {
@@ -19,5 +19,8 @@ namespace SchoolDiary.api.Model
         public string? City { get; set; }
         public string? ZipCode { get; set; }
         public string? Phone { get; set; }
+
+        [ForeignKey("FK_UserUUID")]
+        public ICollection<PersonRole>? Roles { get; set; }
     }
 }

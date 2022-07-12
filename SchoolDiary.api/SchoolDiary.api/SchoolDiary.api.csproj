@@ -29,5 +29,18 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Using Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <Using Include="SchoolDiary.api" />
+    <Using Include="SchoolDiary.api.Service" />
+    <Using Include="SchoolDiary.api.ViewModel" />
+    <Using Include="SchoolDiary.api.Model" />
+    <Using Include="Microsoft.EntityFrameworkCore" />
+    <Using Include="Microsoft.IdentityModel.Tokens" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
+    <Using Include="System.Text" />
+    <Using Include="System.Text.Json.Serialization" />
+  </ItemGroup>
 
 </Project>

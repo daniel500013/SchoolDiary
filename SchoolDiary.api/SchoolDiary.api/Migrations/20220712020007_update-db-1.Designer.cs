@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712020007_update-db-1")]
+    partial class updatedb1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,38 +99,6 @@ namespace SchoolDiary.api.Migrations
                     b.HasKey("RoleID");
 
                     b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleID = 1,
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            RoleID = 2,
-                            Name = "Parent"
-                        },
-                        new
-                        {
-                            RoleID = 3,
-                            Name = "Teacher"
-                        },
-                        new
-                        {
-                            RoleID = 4,
-                            Name = "Tutor"
-                        },
-                        new
-                        {
-                            RoleID = 5,
-                            Name = "LocalAdmin"
-                        },
-                        new
-                        {
-                            RoleID = 6,
-                            Name = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("SchoolDiary.api.Model.PersonRole", b =>
