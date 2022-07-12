@@ -1,36 +1,44 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SchoolDiary.api.ViewModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SchoolDiary.api.Service
 {
     public class AccountService
     {
-        private readonly DiaryDbContext diaryDbContext;
-        private readonly IPasswordHasher<LoginViewModel> passwordHasher;
+        private readonly DiaryDbContext DiaryDbContext;
+        private readonly IPasswordHasher<LoginViewModel> PasswordHasher;
 
         public AccountService(DiaryDbContext diaryDbContext, IPasswordHasher<LoginViewModel> passwordHasher)
         {
-            this.diaryDbContext = diaryDbContext;
-            this.passwordHasher = passwordHasher;
+            this.DiaryDbContext = diaryDbContext;
+            this.PasswordHasher = passwordHasher;
         }
 
-        public async Task Register(LoginViewModel login)
+        public async Task Register(LoginViewModel User)
         {
-            if (login is null)
+            if (User is null)
             {
                 throw new ArgumentNullException("Invalid login data");
             }
 
-            var passwordHash = passwordHasher.HashPassword(login, login.Password);
+            var EmailValidation = new EmailAddressAttribute().IsValid(User.Email);
 
-            await diaryDbContext.Person.AddAsync(new Model.Person()
+            if (!EmailValidation)
+            {
+                throw new InvalidDataException("Wrong email format");
+            }
+
+            var PasswordHash = PasswordHasher.HashPassword(User, User.Password);
+
+            await DiaryDbContext.Person.AddAsync(new Model.Person()
             {
                 UserUUID = Guid.NewGuid(),
-                Email = login.Email,
-                PasswordHashed = passwordHash
+                Email = User.Email,
+                PasswordHash = PasswordHash
             });
 
-            await diaryDbContext.SaveChangesAsync();
+            await DiaryDbContext.SaveChangesAsync();
         }
     }
 }
