@@ -6,6 +6,7 @@ using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SchoolDiary.api.Service;
+using SchoolDiary.api.ViewModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<DiaryDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
 
 var auth = new JwtData();
 builder.Services.AddSingleton(auth);

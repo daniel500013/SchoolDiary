@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolDiary.api.Service;
+using SchoolDiary.api.ViewModel;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -15,10 +16,11 @@ namespace SchoolDiary.api.Controllers
             this.AccountService = AccountService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Register()
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register(LoginViewModel login)
         {
-            AccountService.Register();
+            await AccountService.Register(login);
 
             return Ok();
         }

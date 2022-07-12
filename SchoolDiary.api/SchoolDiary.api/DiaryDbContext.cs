@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolDiary.api.Model;
 
 namespace SchoolDiary.api
 {
@@ -9,9 +10,11 @@ namespace SchoolDiary.api
 
         }
 
+        public DbSet<Person> Person { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Person>();
         }
     }
 }

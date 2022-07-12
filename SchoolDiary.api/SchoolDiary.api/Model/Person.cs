@@ -11,8 +11,6 @@ namespace SchoolDiary.api.Model
         public string? Email { get; set; }
 
         [Required]
-        public string? Password { get; set; }
-        
         public string? PasswordHashed { get; set; }
     }
 }
