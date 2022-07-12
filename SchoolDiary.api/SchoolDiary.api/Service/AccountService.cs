@@ -2,7 +2,14 @@
 {
     public class AccountService
     {
-        public AccountService()
+        private readonly DiaryDbContext diaryDbContext;
+
+        public AccountService(DiaryDbContext diaryDbContext)
+        {
+            this.diaryDbContext = diaryDbContext;
+        }
+
+        public async Task Register()
         {
 
         }
