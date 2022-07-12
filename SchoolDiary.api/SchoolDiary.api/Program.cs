@@ -10,6 +10,7 @@ builder.Services.AddDbContext<DiaryDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
 
 // Configure JwtData Globaly
@@ -22,7 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "School Diary API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "School Diary API", Version = "v2" });
 
     var securitySchema = new OpenApiSecurityScheme
     {
@@ -80,6 +81,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 
