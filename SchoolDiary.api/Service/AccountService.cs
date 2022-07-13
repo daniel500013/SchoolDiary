@@ -33,6 +33,15 @@ namespace SchoolDiary.api.Service
                 throw new InvalidDataException("Wrong email format");
             }
 
+            var EmailExist = await DiaryDbContext.Person
+                .Where(x => x.Email == User.Email)
+                .ToListAsync();
+
+            if (EmailExist.Count >= 1)
+            {
+                throw new ArgumentNullException("Email already exist");
+            }
+
             var PasswordHash = PasswordHasher.HashPassword(User, User.Password);
 
             var UserUUID = Guid.NewGuid();
