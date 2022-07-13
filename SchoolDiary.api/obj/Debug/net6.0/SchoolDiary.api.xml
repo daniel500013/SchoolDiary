@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SchoolDiary.api</name>
+    </assembly>
+    <members>
+        <member name="M:SchoolDiary.api.Controllers.RoleController.GetAllRoles">
+            <summary>
+            Return list of roles
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleController.AssingRoleToUser(System.Guid,System.Int32)">
+             <summary>
+             Adds role to user
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Role
+                 {
+                    "UserUUID": "sample-uuid" - User uuid whose you want to change role
+                    "RoleID": 3 - Role who's you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleController.ChangeRoleUser(System.Int32,System.Guid,System.Int32)">
+             <summary>
+             Replace user role by another typed role
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Role/{id}
+                 {
+                    "id": 1 - Role whos you want to change
+                    "UserUUID": "sample-uuid" - User uuid whose you want to change role
+                    "NewRoleID": 3 - Role where you want to replace instead of old role
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleController.DeleteRoleUser(System.Int32,System.Guid)">
+             <summary>
+             Delete user role
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /Role/{id}
+                 {
+                    "id": 1 - Role whos you want to delete
+                    "UserUUID": "sample-uuid" - User uuid where you want to delete role
+                 }
+            
+             </remarks>
+        </member>
+    </members>
+</doc>
