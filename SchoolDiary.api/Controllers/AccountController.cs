@@ -18,7 +18,7 @@ namespace SchoolDiary.api.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(LoginViewModel model)
+        public async Task<IActionResult> Register([FromBody] LoginViewModel model)
         {
             await AccountService.Register(model);
 
@@ -27,7 +27,7 @@ namespace SchoolDiary.api.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
             var token = await AccountService.Login(model);
 

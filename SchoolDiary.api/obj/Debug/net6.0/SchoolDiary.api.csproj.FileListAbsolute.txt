@@ -451,3 +451,4 @@ C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\System.
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\obj\Debug\net6.0\MvcTestingAppManifest.json
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\obj\Debug\net6.0\refint\SchoolDiary.api.dll
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\obj\Debug\net6.0\ref\SchoolDiary.api.dll
+C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll

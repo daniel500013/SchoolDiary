@@ -1,10 +1,14 @@
-﻿namespace SchoolDiary.api
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace SchoolDiary.api
 {
     public class DiaryDbContext : DbContext
     {
-        public DiaryDbContext(DbContextOptions<DiaryDbContext> options) : base(options)
-        {
+        private IPasswordHasher<LoginViewModel> PasswordHasher { get; set; }
 
+        public DiaryDbContext(DbContextOptions<DiaryDbContext> options, IPasswordHasher<LoginViewModel> passwordHasher) : base(options)
+        {
+            PasswordHasher = passwordHasher;
         }
 
         public DbSet<Person> Person { get; set; }
@@ -51,6 +55,14 @@
                 {
                     RoleID = 6,
                     Name = "Admin"
+                });
+
+            modelBuilder.Entity<Person>()
+                .HasData(new Person()
+                {
+                    UserUUID = Guid.NewGuid(),
+                    Email = "test@test.com",
+                    PasswordHash = PasswordHasher.HashPassword(new LoginViewModel() { Email = "test@test.com", Password = "test" }, "test"),
                 });
         }
     }

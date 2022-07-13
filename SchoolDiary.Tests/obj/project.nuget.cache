@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "a23NPrJ5hydQiSYn2I/wg3sXclbmS94z0W5pK+oeq0xxhF/zOxH6Jm6VH0M5I+8wr7ria/74a/D0v2gY6O03Gw==",
+  "dgSpecHash": "hCFmoSOjzaSJKXAUsExt5R9fhfxrq/KkzHZ1Tkr82kBnbyfV3tGdmu+vZxTusoLhN3SfP8ZU+iDcCnm5+ZO2GQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.Tests\\SchoolDiary.Tests.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.6\\microsoft.entityframeworkcore.6.0.6.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.6\\microsoft.entityframeworkcore.abstractions.6.0.6.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.6\\microsoft.entityframeworkcore.analyzers.6.0.6.nupkg.sha512",
+    "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.6\\microsoft.entityframeworkcore.inmemory.6.0.6.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.6\\microsoft.entityframeworkcore.relational.6.0.6.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.6\\microsoft.entityframeworkcore.sqlserver.6.0.6.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

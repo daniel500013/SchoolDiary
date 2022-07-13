@@ -441,3 +441,4 @@ C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.Tests\obj\Debug\net6.0\Schoo
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.Tests\obj\Debug\net6.0\SchoolDiary.Tests.genruntimeconfig.cache
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.Tests\obj\Debug\net6.0\refint\SchoolDiary.Tests.dll
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.Tests\obj\Debug\net6.0\ref\SchoolDiary.Tests.dll
+C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.Tests\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
