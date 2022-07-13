@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220713225023_update-db-3")]
+    partial class updatedb3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,9 +88,9 @@ namespace SchoolDiary.api.Migrations
                     b.HasData(
                         new
                         {
-                            UserUUID = new Guid("259764c6-c2b6-461a-9c62-8fc3121e2bf2"),
+                            UserUUID = new Guid("2a5a6c19-e060-4b68-970a-14bcf84ceeb6"),
                             Email = "test@test.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENDXpGfYNV19p4FajpQzCx+gOMeAUxFBffyyyvKCOzSbyhEIrSaAUohsI5X+Xv1wrQ=="
+                            PasswordHash = "AQAAAAEAACcQAAAAEM8IgGU60dYUZXFF4fWVllbhM1VogG7n9FIvQ0okw0zxoEEzlreBklgK8AmWKqRI0g=="
                         });
                 });
 
@@ -100,17 +102,17 @@ namespace SchoolDiary.api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonParentID"), 1L, 1);
 
-                    b.Property<int>("FK_ParentID")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("FK_UserUUID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("ParentID")
+                        .HasColumnType("int");
+
                     b.HasKey("PersonParentID");
 
-                    b.HasIndex("FK_ParentID");
-
                     b.HasIndex("FK_UserUUID");
+
+                    b.HasIndex("ParentID");
 
                     b.ToTable("PersonParent");
                 });
@@ -189,15 +191,15 @@ namespace SchoolDiary.api.Migrations
 
             modelBuilder.Entity("SchoolDiary.api.Model.PersonParent", b =>
                 {
-                    b.HasOne("SchoolDiary.api.Model.Parent", "Parent")
-                        .WithMany()
-                        .HasForeignKey("FK_ParentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SchoolDiary.api.Model.Person", "Person")
                         .WithMany("Parent")
                         .HasForeignKey("FK_UserUUID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolDiary.api.Model.Parent", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

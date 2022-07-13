@@ -22,5 +22,8 @@ namespace SchoolDiary.api.Model
 
         [ForeignKey("FK_UserUUID")]
         public ICollection<PersonRole>? Roles { get; set; }
+
+        [ForeignKey("FK_UserUUID")]
+        public ICollection<PersonParent>? Parent { get; set; }
     }
 }
