@@ -46,7 +46,7 @@ namespace SchoolDiary.Tests
         }
 
         [Fact]
-        public async Task Login_WithoutParams_ReturnOkRequest()
+        public async Task Login_WithoutParams_NotEmptyResult()
         {
             var model = new LoginViewModel()
             {

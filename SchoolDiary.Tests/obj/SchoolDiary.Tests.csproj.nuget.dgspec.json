@@ -83,6 +83,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.3.1, )"
+            },
+            "WebMotions.Fake.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.1.0, )"
             }
           },
           "imports": [
