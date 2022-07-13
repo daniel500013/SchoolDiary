@@ -4,14 +4,14 @@
         <name>SchoolDiary.api</name>
     </assembly>
     <members>
-        <member name="M:SchoolDiary.api.Controllers.RoleController.GetAllRoles">
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetAllRoles">
             <summary>
             Return list of roles
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.RoleController.AssingRoleToUser(System.Guid,System.Int32)">
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.AssingRoleToUser(System.Guid,System.Int32)">
              <summary>
-             Adds role to user
+             Assign role to user
              </summary>
              <remarks>
              Sample request:
@@ -24,7 +24,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.RoleController.ChangeRoleUser(System.Int32,System.Guid,System.Int32)">
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.ChangeRoleUser(System.Int32,System.Guid,System.Int32)">
              <summary>
              Replace user role by another typed role
              </summary>
@@ -40,7 +40,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.RoleController.DeleteRoleUser(System.Int32,System.Guid)">
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.DeleteRoleUser(System.Int32,System.Guid)">
              <summary>
              Delete user role
              </summary>

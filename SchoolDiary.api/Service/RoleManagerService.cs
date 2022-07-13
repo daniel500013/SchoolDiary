@@ -1,10 +1,10 @@
 ﻿namespace SchoolDiary.api.Service
 {
-    public class RoleService
+    public class RoleManagerService
     {
         private readonly DiaryDbContext DiaryDbContext;
 
-        public RoleService(DiaryDbContext diaryDbContext)
+        public RoleManagerService(DiaryDbContext diaryDbContext)
         {
             DiaryDbContext = diaryDbContext;
         }

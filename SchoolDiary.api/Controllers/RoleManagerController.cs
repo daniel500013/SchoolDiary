@@ -6,11 +6,11 @@ namespace SchoolDiary.api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
-    public class RoleController : ControllerBase
+    public class RoleManagerController : ControllerBase
     {
-        private readonly RoleService RoleService;
+        private readonly RoleManagerService RoleService;
 
-        public RoleController(RoleService roleService)
+        public RoleManagerController(RoleManagerService roleService)
         {
             RoleService = roleService;
         }
@@ -27,7 +27,7 @@ namespace SchoolDiary.api.Controllers
         }
 
         /// <summary>
-        /// Adds role to user
+        /// Assign role to user
         /// </summary>
         /// <remarks>
         /// Sample request:
