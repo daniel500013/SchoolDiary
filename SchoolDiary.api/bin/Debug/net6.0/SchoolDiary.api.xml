@@ -39,6 +39,57 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.GetAllClass">
+            <summary>
+            Returns list of classes
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.CreateClass(SchoolDiary.api.ViewModel.ClassViewModel)">
+             <summary>
+             Create class in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Class
+                 {
+                    "classNumber": 1, - Number of class whose you want to add
+                    "profile": "PZ", - Class profile
+                    "description": "Sample description of class" - Class description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.PutClass(System.Int32,SchoolDiary.api.ViewModel.ClassViewModel)">
+             <summary>
+             Change class in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Class/{id}
+                 {
+                    "classNumber": 1, - Number of class whose you want to add
+                    "profile": "PZ", - Class profile
+                    "description": "Sample description of class" - Class description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.DeleteClass(System.Int32)">
+             <summary>
+             Remove class from diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /Class/{id}
+                 {
+                    "id": 1, - ID of class whose you want to delete
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents

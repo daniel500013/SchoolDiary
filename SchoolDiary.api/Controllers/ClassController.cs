@@ -14,6 +14,9 @@ namespace SchoolDiary.api.Controllers
             ClassService = classService;
         }
 
+        /// <summary>
+        /// Returns list of classes
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllClass()
         {
@@ -22,6 +25,20 @@ namespace SchoolDiary.api.Controllers
             return Ok(Classes);
         }
 
+        /// <summary>
+        /// Create class in diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Class
+        ///     {
+        ///        "classNumber": 1, - Number of class whose you want to add
+        ///        "profile": "PZ", - Class profile
+        ///        "description": "Sample description of class" - Class description
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         public async Task<IActionResult> CreateClass(ClassViewModel Class)
         {
@@ -30,6 +47,20 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Change class in diary by specify id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /Class/{id}
+        ///     {
+        ///        "classNumber": 1, - Number of class whose you want to add
+        ///        "profile": "PZ", - Class profile
+        ///        "description": "Sample description of class" - Class description
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> PutClass(int id, ClassViewModel Class)
@@ -39,6 +70,18 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Remove class from diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /Class/{id}
+        ///     {
+        ///        "id": 1, - ID of class whose you want to delete
+        ///     }
+        ///
+        /// </remarks>
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteClass(int id)
