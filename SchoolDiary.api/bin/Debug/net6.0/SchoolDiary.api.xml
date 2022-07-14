@@ -4,6 +4,41 @@
         <name>SchoolDiary.api</name>
     </assembly>
     <members>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.GetAllUsers">
+            <summary>
+            Return all users
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Register(SchoolDiary.api.ViewModel.LoginViewModel)">
+             <summary>
+             Register user in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Register
+                 {
+                    "email": "admin@admin.com", - user email to register/login
+                    "password": "admin" - user password
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Login(SchoolDiary.api.ViewModel.LoginViewModel)">
+             <summary>
+             Login users and authenticate by return JWT token
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Login
+                 {
+                    "email": "admin@admin.com", - user email to register/login
+                    "password": "admin" - user password
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents

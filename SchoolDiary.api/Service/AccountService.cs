@@ -19,6 +19,30 @@ namespace SchoolDiary.api.Service
             Auth = auth;
         }
 
+        public async Task<List<PersonViewModel>> GetAllUsers()
+        {
+            var users = await DiaryDbContext.Person.ToListAsync();
+
+            var PersonViewModel = new List<PersonViewModel>();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                PersonViewModel.Add(new PersonViewModel()
+                {
+                    UserUUID = users[i].UserUUID,
+                    FirstName = users[i].FirstName,
+                    LastName = users[i].LastName,
+                    Address = users[i].Address,
+                    City = users[i].City,
+                    Email = users[i].Email,
+                    Phone = users[i].Phone,
+                    ZipCode = users[i].ZipCode,
+                });
+            }
+
+            return PersonViewModel;
+        }
+
         public async Task Register(LoginViewModel User)
         {
             if (User is null)

@@ -16,6 +16,31 @@ namespace SchoolDiary.api.Controllers
             this.AccountService = AccountService;
         }
 
+        /// <summary>
+        /// Return all users
+        /// </summary>
+        [Authorize(Roles = "LocalAdmin,Admin")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await AccountService.GetAllUsers();
+
+            return Ok(users);
+        }
+
+        /// <summary>
+        /// Register user in diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Register
+        ///     {
+        ///        "email": "admin@admin.com", - user email to register/login
+        ///        "password": "admin" - user password
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] LoginViewModel model)
@@ -25,6 +50,19 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Login users and authenticate by return JWT token
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Login
+        ///     {
+        ///        "email": "admin@admin.com", - user email to register/login
+        ///        "password": "admin" - user password
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)

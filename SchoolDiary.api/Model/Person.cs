@@ -20,9 +20,11 @@ namespace SchoolDiary.api.Model
         public string? ZipCode { get; set; }
         public string? Phone { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_UserUUID")]
         public ICollection<PersonRole>? Roles { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_UserUUID")]
         public ICollection<PersonParent>? Parent { get; set; }
     }
