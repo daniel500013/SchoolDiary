@@ -5,6 +5,7 @@ namespace SchoolDiary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClassController : ControllerBase
     {
         private readonly ClassService ClassService;
@@ -17,6 +18,7 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Returns list of classes
         /// </summary>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllClass()
         {
@@ -39,6 +41,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] ClassViewModel Class)
         {
@@ -61,6 +64,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> PutClass(int id, [FromBody] ClassViewModel Class)
@@ -82,6 +86,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteClass(int id)
