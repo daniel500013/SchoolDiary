@@ -28,6 +28,16 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Assign person to class
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /ClassManager
+        ///     {
+        ///        "UserUUID": "sample-uuid", - UUID of person whos you want to assign class
+        ///        "ClassID": 1 - ClassID of class whose you want to assign to user
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         public async Task<IActionResult> AssignUserToClass(Guid UserUUID, int ClassID)
         {
@@ -39,6 +49,17 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Change person class
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /ClassManager/{id}
+        ///     {
+        ///        "UserUUID": "sample-uuid", - UUID of person whos you want to change
+        ///        "id": 1 - ID whos you want to change
+        ///        "ClassID": 1 - New ID whos you want to assign to user
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeUserClass(Guid UserUUID, int id, int ClassID)
@@ -51,6 +72,15 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Delete person from class
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /ClassManager/{id}
+        ///     {
+        ///        "id": 1 - ID of record whose you want to delete
+        ///     }
+        ///
+        /// </remarks>
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeUserClass(int id)
