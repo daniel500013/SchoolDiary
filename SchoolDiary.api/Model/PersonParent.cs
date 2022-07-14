@@ -12,8 +12,8 @@ namespace SchoolDiary.api.Model
         [InverseProperty("Parent")]
         public virtual Person? Person { get; set; }
 
-        public int FK_ParentID { get; set; }
+        public int? FK_ParentID { get; set; }
         [ForeignKey(nameof(FK_ParentID))]
-        public virtual Parent Parent { get; set; }
+        public virtual Parent? Parent { get; set; }
     }
 }

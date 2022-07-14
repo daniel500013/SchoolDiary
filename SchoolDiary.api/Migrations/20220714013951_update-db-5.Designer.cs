@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220714013951_update-db-5")]
+    partial class updatedb5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,9 +89,9 @@ namespace SchoolDiary.api.Migrations
                     b.HasData(
                         new
                         {
-                            UserUUID = new Guid("2017f210-3bae-4642-a8e4-fb2c879f0e20"),
+                            UserUUID = new Guid("dd2326c0-b238-4048-b152-42b7b538ac71"),
                             Email = "test@test.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKagpYTaF6bqrs3Uufuuk2W90+hfPoz5uVR11oFOOvbx9rIMWML4udQCEtyaPNPY6Q=="
+                            PasswordHash = "AQAAAAEAACcQAAAAEFJFQYavpv+yu6oassXo+OaejZRcuK0SreqRfln3QRVeLbdcvUR6Ftrh+xosasA0OA=="
                         });
                 });
 
@@ -101,7 +103,7 @@ namespace SchoolDiary.api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonParentID"), 1L, 1);
 
-                    b.Property<int?>("FK_ParentID")
+                    b.Property<int>("FK_ParentID")
                         .HasColumnType("int");
 
                     b.Property<Guid>("FK_UserUUID")
@@ -192,7 +194,9 @@ namespace SchoolDiary.api.Migrations
                 {
                     b.HasOne("SchoolDiary.api.Model.Parent", "Parent")
                         .WithMany()
-                        .HasForeignKey("FK_ParentID");
+                        .HasForeignKey("FK_ParentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolDiary.api.Model.Person", "Person")
                         .WithMany("Parent")
