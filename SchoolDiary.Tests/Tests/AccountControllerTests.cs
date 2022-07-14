@@ -1,8 +1,3 @@
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using SchoolDiary.api;
-
 namespace SchoolDiary.Tests.Tests
 {
     public class AccountControllerTests

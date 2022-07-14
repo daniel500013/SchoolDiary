@@ -3,3 +3,8 @@ global using Microsoft.AspNetCore.Mvc.Testing;
 global using Newtonsoft.Json;
 global using SchoolDiary.api.ViewModel;
 global using System.Text;
+global using FluentAssertions;
+global using Microsoft.AspNetCore.Authorization.Policy;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using SchoolDiary.api;
