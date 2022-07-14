@@ -1,18 +1,16 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SchoolDiary.api;
-using WebMotions.Fake.Authentication.JwtBearer;
 
 namespace SchoolDiary.Tests.Tests
 {
-    public class RoleManagerControllerTests
+    public class ParentManagerTests
     {
         private HttpClient Client { get; set; }
 
-        public RoleManagerControllerTests()
+        public ParentManagerTests()
         {
             var factory = new WebApplicationFactory<Program>();
             Client = factory
@@ -33,11 +31,9 @@ namespace SchoolDiary.Tests.Tests
         }
 
         [Fact]
-        public async Task GetPersonParent_WithoutParams_ReturnOkRequest()
+        public async Task GetParent_WithoutParams_ReturnOkRequest()
         {
-            var response = await Client.GetAsync("/api/RoleManager");
-
-            await response.Content.ReadAsStringAsync();
+            var response = await Client.GetAsync("/api/ParentManager");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
