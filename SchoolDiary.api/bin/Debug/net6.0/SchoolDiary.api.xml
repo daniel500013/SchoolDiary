@@ -90,6 +90,26 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.GetAllUserClassRelation">
+            <summary>
+            Return Person-Class List
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(System.Guid,System.Int32)">
+            <summary>
+            Assign person to class
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            Change person class
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Int32)">
+            <summary>
+            Delete person from class
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents
