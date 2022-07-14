@@ -58,7 +58,7 @@ namespace SchoolDiary.Tests.Tests
 
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var RegisterUser = await Client.PostAsync("/api/Account/Register", httpContext);
+            await Client.PostAsync("/api/Account/Register", httpContext);
 
             var response = await Client.PostAsync("/api/Account/Login", httpContext);
 

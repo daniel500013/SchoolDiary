@@ -37,7 +37,7 @@ namespace SchoolDiary.Tests.Tests
         {
             var response = await Client.GetAsync("/api/RoleManager");
 
-            var Roles = await response.Content.ReadAsStringAsync();
+            await response.Content.ReadAsStringAsync();
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
