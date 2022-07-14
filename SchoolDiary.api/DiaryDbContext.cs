@@ -16,6 +16,8 @@ namespace SchoolDiary.api
         public DbSet<Role> Role { get; set; }
         public DbSet<Parent> Parent { get; set; }
         public DbSet<PersonParent> PersonParent { get; set; }
+        public DbSet<Class> Class { get; set; }
+        public DbSet<PersonClass> UserClass { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +28,10 @@ namespace SchoolDiary.api
                 .IsRequired();
 
             modelBuilder.Entity<PersonRole>();
+
+            modelBuilder.Entity<Class>();
+
+            modelBuilder.Entity<PersonClass>();
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
@@ -57,14 +63,6 @@ namespace SchoolDiary.api
                 {
                     RoleID = 6,
                     Name = "Admin"
-                });
-
-            modelBuilder.Entity<Person>()
-                .HasData(new Person()
-                {
-                    UserUUID = Guid.NewGuid(),
-                    Email = "test@test.com",
-                    PasswordHash = PasswordHasher.HashPassword(new LoginViewModel() { Email = "test@test.com", Password = "test" }, "test"),
                 });
         }
     }

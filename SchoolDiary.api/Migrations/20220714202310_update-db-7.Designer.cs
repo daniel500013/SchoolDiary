@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220714202310_update-db-7")]
+    partial class updatedb7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,13 +32,7 @@ namespace SchoolDiary.api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassID"), 1L, 1);
 
-                    b.Property<int>("ClassNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Profile")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClassID");

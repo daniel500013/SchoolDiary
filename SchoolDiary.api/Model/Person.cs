@@ -27,5 +27,9 @@ namespace SchoolDiary.api.Model
         [JsonIgnore]
         [ForeignKey("FK_UserUUID")]
         public ICollection<PersonParent>? Parent { get; set; }
+
+        [JsonIgnore]
+        [ForeignKey("FK_UserUUID")]
+        public ICollection<PersonClass>? Class { get; set; }
     }
 }
