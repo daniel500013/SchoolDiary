@@ -14,6 +14,8 @@ namespace SchoolDiary.api
         public DbSet<Person> Person { get; set; }
         public DbSet<PersonRole> PersonRole { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<Parent> Parent { get; set; }
+        public DbSet<PersonParent> PersonParent { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

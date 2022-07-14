@@ -4,6 +4,59 @@
         <name>SchoolDiary.api</name>
     </assembly>
     <members>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
+            <summary>
+            Return list of parents
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.AddParent(SchoolDiary.api.ViewModel.ParentViewModel)">
+             <summary>
+             Add parent to diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Role
+                 {
+                    "firstName": "Tom", - Parent first name
+                    "lastName": "Jones", - Parent last name
+                    "email": "tom.jones@gmail.com", - Parent email
+                    "phone": "123456789" - Parent phone number
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.ChangeParent(System.Int32,SchoolDiary.api.ViewModel.ParentViewModel)">
+             <summary>
+             Modify parent specify by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Role/{id}
+                 {
+                    "firstName": "Tom", - Parent first name
+                    "lastName": "Jones", - Parent last name
+                    "email": "tom.jones@gmail.com", - Parent email
+                    "phone": "123456789" - Parent phone number
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.DeleteParent(System.Int32)">
+             <summary>
+             Remove parent from diary by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /Role/{id}
+                 {
+                    "id": 1, - id of parent whose you want to remove
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetAllRoles">
             <summary>
             Return list of roles

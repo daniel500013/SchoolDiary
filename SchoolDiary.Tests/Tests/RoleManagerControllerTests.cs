@@ -6,13 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using SchoolDiary.api;
 using WebMotions.Fake.Authentication.JwtBearer;
 
-namespace SchoolDiary.Tests
+namespace SchoolDiary.Tests.Tests
 {
-    public class RoleControllerTests
+    public class RoleManagerControllerTests
     {
         private HttpClient Client { get; set; }
 
-        public RoleControllerTests()
+        public RoleManagerControllerTests()
         {
             var factory = new WebApplicationFactory<Program>();
             Client = factory
@@ -35,7 +35,7 @@ namespace SchoolDiary.Tests
         [Fact]
         public async Task GetRoles_WithoutParams_ReturnOkRequest()
         {
-            var response = await Client.GetAsync("/api/Role");
+            var response = await Client.GetAsync("/api/RoleManager");
 
             var Roles = await response.Content.ReadAsStringAsync();
 

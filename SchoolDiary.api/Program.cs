@@ -14,6 +14,7 @@ builder.Services.AddDbContext<DiaryDbContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<RoleManagerService>();
+builder.Services.AddScoped<ParentService>();
 builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
 
 // Configure JwtData Globaly
