@@ -57,6 +57,54 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.GetAllPersonParent">
+            <summary>
+            Return list of Person Parent correlation
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.CreatePersonParent(System.Guid,System.Int32)">
+             <summary>
+             Create new person-parent correlation
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /ParentManager
+                 {
+                    "UserUUID": "sample-uuid" - User uuid where you want to assign parent
+                    "ParentID": 3 - Parent id whos you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.ChangePersonParent(System.Int32,System.Int32)">
+             <summary>
+             Change person-parent correlation
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /ParentManager/{id}
+                 {
+                    "id": 5 - id of relation person-parent whos you want to change
+                    "ParentID": 3 - Parent id whos you want to change
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.DeletePersonParent(System.Int32)">
+             <summary>
+             Delete person-parent correlation
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /ParentManager/{id}
+                 {
+                    "id": 5 - id of relation person-parent whos you want to delete
+                 }
+             </remarks>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetAllRoles">
             <summary>
             Return list of roles
