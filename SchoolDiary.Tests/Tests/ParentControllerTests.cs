@@ -63,14 +63,6 @@ namespace SchoolDiary.Tests.Tests
         {
             var model = new ParentViewModel()
             {
-                FirstName = "Jon",
-                LastName = "Testman",
-                Email = "jon.testman@gmail.com",
-                Phone = "123456789"
-            };
-
-            var modelToChange = new ParentViewModel()
-            {
                 FirstName = "Andrew",
                 LastName = "Gorgeman",
                 Email = "an.gorgeman@gmail.com",
@@ -79,13 +71,8 @@ namespace SchoolDiary.Tests.Tests
 
             var json = JsonConvert.SerializeObject(model);
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            await Client.PostAsync("/api/Parent", httpContext);
 
-            var json_2 = JsonConvert.SerializeObject(modelToChange);
-            var httpContext_2 = new StringContent(json_2, Encoding.UTF8, "application/json");
-
-            var response = await Client.PutAsync("/api/Parent/1", httpContext_2);
+            var response = await Client.PutAsync("/api/Parent/1", httpContext);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
@@ -93,19 +80,6 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task DeleteParent_WithoutParams_ReturnOkRequest()
         {
-            var model = new ParentViewModel()
-            {
-                FirstName = "Jon",
-                LastName = "Testman",
-                Email = "jon.testman@gmail.com",
-                Phone = "123456789"
-            };
-
-            var json = JsonConvert.SerializeObject(model);
-            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
-
-            await Client.PostAsync("/api/Parent", httpContext);
-
             var response = await Client.DeleteAsync("/api/Parent/1");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
