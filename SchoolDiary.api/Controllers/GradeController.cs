@@ -7,32 +7,35 @@ namespace SchoolDiary.api.Controllers
     [ApiController]
     public class GradeController : ControllerBase
     {
-        public GradeController()
-        {
+        private readonly GradeService GradeService;
 
+        public GradeController(GradeService gradeService)
+        {
+            GradeService = gradeService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllGrades()
         {
-            return Ok();
+            var grades = await GradeService.GetAllGrades();
+
+            return Ok(grades);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGrade()
+        public async Task<IActionResult> CreateGrade(GradeViewModel grade)
         {
-            return Ok();
-        }
+            await GradeService.CreateGrade(grade);
 
-        [HttpPut]
-        public async Task<IActionResult> ChangeGrade()
-        {
             return Ok();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteGrade()
+        [Route("{id:int}")]
+        public async Task<IActionResult> DeleteGrade(int id)
         {
+            await GradeService.DeleteGrade(id);
+
             return Ok();
         }
     }
