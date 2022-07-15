@@ -14,6 +14,9 @@ namespace SchoolDiary.api.Controllers
             TeacherService = teacherService;
         }
 
+        /// <summary>
+        /// Returns list of teachers
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllTeachers()
         {
@@ -22,6 +25,22 @@ namespace SchoolDiary.api.Controllers
             return Ok(teachers);
         }
 
+        /// <summary>
+        /// Add teacher to diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Teacher
+        ///     {
+        ///        "firstName": "Jon", - First name of teacher
+        ///        "lastName": "Testman", - Last name of teacher
+        ///        "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+        ///        "email": "jon.testman@gmail.com", - Teacher email
+        ///        "phone": "123456789" - Teacher phone
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         public async Task<IActionResult> AddTeacher(TeacherViewModel teacher)
         {
@@ -30,7 +49,24 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Change teacher information by specify id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUI /Teacher/{id}
+        ///     {
+        ///        "firstName": "Jon", - First name of teacher
+        ///        "lastName": "Testman", - Last name of teacher
+        ///        "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+        ///        "email": "jon.testman@gmail.com", - Teacher email
+        ///        "phone": "123456789" - Teacher phone
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut]
+        [Route("{id:int}")]
         public async Task<IActionResult> ChangeTeacher(int id, TeacherViewModel teacher)
         {
             await TeacherService.ChangeTeacher(id, teacher);
@@ -38,7 +74,11 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Delete teacher from diary by specify id
+        /// </summary>
         [HttpDelete]
+        [Route("{id:int}")]
         public async Task<IActionResult> DeleteTeacher(int id)
         {
             await TeacherService.DeleteTeacher(id);
