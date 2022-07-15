@@ -4,6 +4,7 @@ namespace SchoolDiary.api.Model
 {
     public class LessonMark
     {
+        [Key]
         public int LessonMarkID { get; set; }
 
         public int FK_LessonID { get; set; }
