@@ -22,6 +22,7 @@ builder.Services.AddScoped<TeacherService>();
 builder.Services.AddScoped<MarkService>();
 builder.Services.AddScoped<GradeService>();
 builder.Services.AddScoped<ApproveService>();
+builder.Services.AddScoped<MarkManagerService>();
 builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
 
 // Configure JwtData Globaly
