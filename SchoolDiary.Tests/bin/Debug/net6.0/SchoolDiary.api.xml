@@ -39,6 +39,46 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.GetAllApproves">
+            <summary>
+            Return list of approves
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.CreateApprove(SchoolDiary.api.ViewModel.ApproveViewModel)">
+             <summary>
+             Create Approve in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Approve
+                 {
+                    "positive": true, - Positivity of approve
+                    "description": "Approve desc" - Approve description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.ChangeApprove(System.Int32,SchoolDiary.api.ViewModel.ApproveViewModel)">
+             <summary>
+             Change Approve in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Approve/{id}
+                 {
+                    "positive": true, - Positivity of approve
+                    "description": "Approve desc" - Approve description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.DeleteApprove(System.Int32)">
+            <summary>
+            Remove Approve from diary by specify id
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ClassController.GetAllClass">
             <summary>
             Returns list of classes
@@ -139,6 +179,32 @@
                  }
             
              </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.GetAllGrades">
+            <summary>
+            Return list of grades
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.ViewModel.GradeViewModel)">
+             <summary>
+             Create grade in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Grade
+                 {
+                    "gradeValue": 5, - Grade value 
+                    "weight": 2, - Weight of grade
+                    "description": "History of rome" - Description of grade
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.DeleteGrade(System.Int32)">
+            <summary>
+            Remove grade from diary
+            </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.GetAllMarks">
             <summary>
