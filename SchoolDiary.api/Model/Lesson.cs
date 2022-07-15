@@ -11,5 +11,8 @@ namespace SchoolDiary.api.Model
 
         [ForeignKey("FK_LessonID")]
         public ICollection<Subject>? Subjects { get; set; }
+
+        [ForeignKey("FK_LessonID")]
+        public ICollection<LessonMark>? LessonMarks { get; set; }
     }
 }
