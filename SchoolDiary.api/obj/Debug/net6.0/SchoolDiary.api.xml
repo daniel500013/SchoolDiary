@@ -140,6 +140,44 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetAllMarks">
+            <summary>
+            Returns list of marks
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.ViewModel.MarkViewModel)">
+             <summary>
+             Create mark in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Mark
+                 {
+                    "present": true - set person present
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(System.Int32,SchoolDiary.api.ViewModel.MarkViewModel)">
+             <summary>
+             Change mark in diary by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Mark
+                 {
+                    "present": true - set person present
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.DeleteMark(System.Int32)">
+            <summary>
+            Remove mark from diary by specify id
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents
