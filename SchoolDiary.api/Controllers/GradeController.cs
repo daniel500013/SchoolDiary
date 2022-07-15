@@ -5,6 +5,7 @@ namespace SchoolDiary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GradeController : ControllerBase
     {
         private readonly GradeService GradeService;
@@ -14,6 +15,7 @@ namespace SchoolDiary.api.Controllers
             GradeService = gradeService;
         }
 
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllGrades()
         {
@@ -22,6 +24,7 @@ namespace SchoolDiary.api.Controllers
             return Ok(grades);
         }
 
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateGrade(GradeViewModel grade)
         {
@@ -30,6 +33,7 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteGrade(int id)
