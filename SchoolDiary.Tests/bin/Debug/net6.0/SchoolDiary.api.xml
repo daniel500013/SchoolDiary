@@ -292,5 +292,51 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.GetAllTeachers">
+            <summary>
+            Returns list of teachers
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.AddTeacher(SchoolDiary.api.ViewModel.TeacherViewModel)">
+             <summary>
+             Add teacher to diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Teacher
+                 {
+                    "firstName": "Jon", - First name of teacher
+                    "lastName": "Testman", - Last name of teacher
+                    "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+                    "email": "jon.testman@gmail.com", - Teacher email
+                    "phone": "123456789" - Teacher phone
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.ChangeTeacher(System.Int32,SchoolDiary.api.ViewModel.TeacherViewModel)">
+             <summary>
+             Change teacher information by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUI /Teacher/{id}
+                 {
+                    "firstName": "Jon", - First name of teacher
+                    "lastName": "Testman", - Last name of teacher
+                    "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+                    "email": "jon.testman@gmail.com", - Teacher email
+                    "phone": "123456789" - Teacher phone
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.DeleteTeacher(System.Int32)">
+            <summary>
+            Delete teacher from diary by specify id
+            </summary>
+        </member>
     </members>
 </doc>
