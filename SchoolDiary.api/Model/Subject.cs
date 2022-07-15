@@ -16,5 +16,10 @@ namespace SchoolDiary.api.Model
 
         [InverseProperty("Subject")]
         public virtual PersonClass? PersonClass { get; set; }
+
+        public int FK_LessonID { get; set; }
+
+        [InverseProperty("Subjects")]
+        public virtual Lesson? Lesson { get; set; }
     }
 }

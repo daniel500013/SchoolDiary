@@ -4,11 +4,9 @@ namespace SchoolDiary.api
 {
     public class DiaryDbContext : DbContext
     {
-        private IPasswordHasher<LoginViewModel> PasswordHasher { get; set; }
-
-        public DiaryDbContext(DbContextOptions<DiaryDbContext> options, IPasswordHasher<LoginViewModel> passwordHasher) : base(options)
+        public DiaryDbContext(DbContextOptions<DiaryDbContext> options) : base(options)
         {
-            PasswordHasher = passwordHasher;
+
         }
 
         public DbSet<Person> Person { get; set; }
@@ -20,6 +18,7 @@ namespace SchoolDiary.api
         public DbSet<PersonClass> PersonClass { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Teacher> Teacher { get; set; }
+        public DbSet<Lesson> Lesson { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +37,8 @@ namespace SchoolDiary.api
             modelBuilder.Entity<Subject>();
             
             modelBuilder.Entity<Teacher>();
+            
+            modelBuilder.Entity<Lesson>();
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
