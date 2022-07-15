@@ -58,7 +58,7 @@ namespace SchoolDiary.api.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     PUI /Teacher/{id}
+        ///     PUT /Teacher/{id}
         ///     {
         ///        "firstName": "Jon", - First name of teacher
         ///        "lastName": "Testman", - Last name of teacher
