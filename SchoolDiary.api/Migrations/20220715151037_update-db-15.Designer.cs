@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220715151037_update-db-15")]
+    partial class updatedb15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,7 +118,10 @@ namespace SchoolDiary.api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessonApproveID"), 1L, 1);
 
-                    b.Property<int>("FK_ApproveID")
+                    b.Property<int?>("FK_ApproveID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FK_GradeID")
                         .HasColumnType("int");
 
                     b.Property<int>("FK_LessonID")
@@ -437,9 +442,7 @@ namespace SchoolDiary.api.Migrations
                 {
                     b.HasOne("SchoolDiary.api.Model.Approve", "Approve")
                         .WithMany("LessonApproves")
-                        .HasForeignKey("FK_ApproveID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FK_ApproveID");
 
                     b.HasOne("SchoolDiary.api.Model.Lesson", "Lesson")
                         .WithMany("LessonApproves")
