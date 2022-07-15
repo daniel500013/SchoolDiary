@@ -140,6 +140,32 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.GetAllGrades">
+            <summary>
+            Return list of grades
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.ViewModel.GradeViewModel)">
+             <summary>
+             Create grade in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Grade
+                 {
+                    "gradeValue": 5, - Grade value 
+                    "weight": 2, - Weight of grade
+                    "description": "History of rome" - Description of grade
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.DeleteGrade(System.Int32)">
+            <summary>
+            Remove grade from diary
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.GetAllMarks">
             <summary>
             Returns list of marks

@@ -15,6 +15,9 @@ namespace SchoolDiary.api.Controllers
             GradeService = gradeService;
         }
 
+        /// <summary>
+        /// Return list of grades
+        /// </summary>
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllGrades()
@@ -24,6 +27,20 @@ namespace SchoolDiary.api.Controllers
             return Ok(grades);
         }
 
+        /// <summary>
+        /// Create grade in diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Grade
+        ///     {
+        ///        "gradeValue": 5, - Grade value 
+        ///        "weight": 2, - Weight of grade
+        ///        "description": "History of rome" - Description of grade
+        ///     }
+        ///
+        /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateGrade(GradeViewModel grade)
@@ -33,6 +50,9 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Remove grade from diary
+        /// </summary>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpDelete]
         [Route("{id:int}")]
