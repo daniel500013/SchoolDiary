@@ -90,6 +90,56 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.GetAllUserClassRelation">
+            <summary>
+            Return Person-Class List
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(System.Guid,System.Int32)">
+             <summary>
+             Assign person to class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /ClassManager
+                 {
+                    "UserUUID": "sample-uuid", - UUID of person whos you want to assign class
+                    "ClassID": 1 - ClassID of class whose you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Guid,System.Int32,System.Int32)">
+             <summary>
+             Change person class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /ClassManager/{id}
+                 {
+                    "UserUUID": "sample-uuid", - UUID of person whos you want to change
+                    "id": 1 - ID whos you want to change
+                    "ClassID": 1 - New ID whos you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Int32)">
+             <summary>
+             Delete person from class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /ClassManager/{id}
+                 {
+                    "id": 1 - ID of record whose you want to delete
+                 }
+            
+             </remarks>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents
