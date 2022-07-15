@@ -18,5 +18,8 @@ namespace SchoolDiary.api.Model
         [JsonIgnore]
         [ForeignKey(nameof(FK_ClassID))]
         public virtual Class? Class { get; set; }
+
+        [ForeignKey("FK_PersonClass")]
+        public ICollection<Subject>? Subject { get; set; }
     }
 }

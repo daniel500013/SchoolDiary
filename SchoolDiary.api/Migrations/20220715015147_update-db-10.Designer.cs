@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolDiary.api;
 
@@ -11,9 +12,10 @@ using SchoolDiary.api;
 namespace SchoolDiary.api.Migrations
 {
     [DbContext(typeof(DiaryDbContext))]
-    partial class DiaryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220715015147_update-db-10")]
+    partial class updatedb10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,15 +235,10 @@ namespace SchoolDiary.api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectID"), 1L, 1);
 
-                    b.Property<int>("FK_PersonClass")
-                        .HasColumnType("int");
-
                     b.Property<int>("FK_TeacherID")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectID");
-
-                    b.HasIndex("FK_PersonClass");
 
                     b.HasIndex("FK_TeacherID");
 
@@ -333,19 +330,11 @@ namespace SchoolDiary.api.Migrations
 
             modelBuilder.Entity("SchoolDiary.api.Model.Subject", b =>
                 {
-                    b.HasOne("SchoolDiary.api.Model.PersonClass", "PersonClass")
-                        .WithMany("Subject")
-                        .HasForeignKey("FK_PersonClass")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SchoolDiary.api.Model.Teacher", "Teacher")
                         .WithMany("Subject")
                         .HasForeignKey("FK_TeacherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PersonClass");
 
                     b.Navigation("Teacher");
                 });
@@ -357,11 +346,6 @@ namespace SchoolDiary.api.Migrations
                     b.Navigation("Parent");
 
                     b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("SchoolDiary.api.Model.PersonClass", b =>
-                {
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("SchoolDiary.api.Model.Teacher", b =>

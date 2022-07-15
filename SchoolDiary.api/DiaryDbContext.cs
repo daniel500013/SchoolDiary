@@ -18,6 +18,8 @@ namespace SchoolDiary.api
         public DbSet<PersonParent> PersonParent { get; set; }
         public DbSet<Class> Class { get; set; }
         public DbSet<PersonClass> PersonClass { get; set; }
+        public DbSet<Subject> Subject { get; set; }
+        public DbSet<Teacher> Teacher { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +34,10 @@ namespace SchoolDiary.api
             modelBuilder.Entity<Class>();
 
             modelBuilder.Entity<PersonClass>();
+            
+            modelBuilder.Entity<Subject>();
+            
+            modelBuilder.Entity<Teacher>();
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()
