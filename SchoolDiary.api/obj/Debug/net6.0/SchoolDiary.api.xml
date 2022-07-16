@@ -286,6 +286,46 @@
             Remove mark from diary by specify id
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.GetAllAssignMarkToUser">
+            <summary>
+            Return list of Mark assign to lessons
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.AssignMarkToUser(SchoolDiary.api.ViewModel.LessonMarkViewModel)">
+             <summary>
+             Assign Mark to lesson
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /MarkManager
+                 {
+                    "fK_LessonID": 1, - ID of lesson whos you want to assign
+                    "fK_MarkID": 2 - ID of mark whos you want to assign
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.ChangeAssignMarkToUser(System.Int32,SchoolDiary.api.ViewModel.LessonMarkViewModel)">
+             <summary>
+             Change mark assign to lesson
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /MarkManager/{id}
+                 {
+                    "fK_LessonID": 1, - ID of lesson whos you want to assign
+                    "fK_MarkID": 2 - ID of mark whos you want to assign
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.DeleteAssignMarkToUser(System.Int32)">
+            <summary>
+            Delete mark assign
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents
