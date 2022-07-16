@@ -5,6 +5,7 @@ namespace SchoolDiary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LessonController : ControllerBase
     {
         private readonly LessonService LessonService;
@@ -14,6 +15,10 @@ namespace SchoolDiary.api.Controllers
             LessonService = lessonService;
         }
 
+        /// <summary>
+        /// Return list of lessons
+        /// </summary>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllLessons()
         {
@@ -22,6 +27,21 @@ namespace SchoolDiary.api.Controllers
             return Ok(lessons);
         }
 
+        /// <summary>
+        /// Create lesson in diary
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Lesson
+        ///     {
+        ///        "name": "Physics", - Name of lesson
+        ///        "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+        ///        "hour": 3 - Hour of lesson
+        ///     }
+        ///
+        /// </remarks>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateLesson(LessonViewModel lesson)
         {
@@ -30,6 +50,21 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Change lesson in diary by specify id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /Lesson/{id}
+        ///     {
+        ///        "name": "Physics", - Name of lesson
+        ///        "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+        ///        "hour": 3 - Hour of lesson
+        ///     }
+        ///
+        /// </remarks>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeLesson(int id, LessonViewModel lesson)
@@ -39,6 +74,10 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Delete lesson from diary by specify id
+        /// </summary>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> DeleteLesson(int id)
