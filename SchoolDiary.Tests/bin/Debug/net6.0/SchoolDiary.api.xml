@@ -206,6 +206,48 @@
             Remove grade from diary
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.GetAllLessons">
+            <summary>
+            Return list of lessons
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.CreateLesson(SchoolDiary.api.ViewModel.LessonViewModel)">
+             <summary>
+             Create lesson in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Lesson
+                 {
+                    "name": "Physics", - Name of lesson
+                    "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+                    "hour": 3 - Hour of lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.ChangeLesson(System.Int32,SchoolDiary.api.ViewModel.LessonViewModel)">
+             <summary>
+             Change lesson in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Lesson/{id}
+                 {
+                    "name": "Physics", - Name of lesson
+                    "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+                    "hour": 3 - Hour of lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.DeleteLesson(System.Int32)">
+            <summary>
+            Delete lesson from diary by specify id
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.GetAllMarks">
             <summary>
             Returns list of marks
@@ -242,6 +284,46 @@
         <member name="M:SchoolDiary.api.Controllers.MarkController.DeleteMark(System.Int32)">
             <summary>
             Remove mark from diary by specify id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.GetAllAssignMarkToUser">
+            <summary>
+            Return list of Mark assign to lessons
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.AssignMarkToUser(SchoolDiary.api.ViewModel.LessonMarkViewModel)">
+             <summary>
+             Assign Mark to lesson
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /MarkManager
+                 {
+                    "fK_LessonID": 1, - ID of lesson whos you want to assign
+                    "fK_MarkID": 2 - ID of mark whos you want to assign
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.ChangeAssignMarkToUser(System.Int32,SchoolDiary.api.ViewModel.LessonMarkViewModel)">
+             <summary>
+             Change mark assign to lesson
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /MarkManager/{id}
+                 {
+                    "fK_LessonID": 1, - ID of lesson whos you want to assign
+                    "fK_MarkID": 2 - ID of mark whos you want to assign
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.DeleteAssignMarkToUser(System.Int32)">
+            <summary>
+            Delete mark assign
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
