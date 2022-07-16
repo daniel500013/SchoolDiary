@@ -9,15 +9,19 @@ namespace SchoolDiary.api.Model
         public int Day { get; set; }
         public int Hour { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_LessonID")]
         public ICollection<Subject>? Subjects { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_LessonID")]
         public ICollection<LessonMark>? LessonMarks { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_LessonID")]
         public ICollection<LessonGrade>? LessonGrades { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_LessonID")]
         public ICollection<LessonApprove>? LessonApproves { get; set; }
     }
