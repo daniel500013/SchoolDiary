@@ -206,6 +206,26 @@
             Remove grade from diary
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.GetAllLessonGrades">
+            <summary>
+            Return assign between grade and lesson
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.AssignGradeToLesson(SchoolDiary.api.ViewModel.GradeManagerViewModel)">
+            <summary>
+            Create Grade-Lesson assign in diary
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.ChangeAssignGradeToLesson(System.Int32,SchoolDiary.api.ViewModel.GradeManagerViewModel)">
+            <summary>
+            Change Grade-Lesson assign in diary by id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.DeleteAssignGradeToLesson(System.Int32)">
+            <summary>
+            Remove Grade-Lesson assign from diary
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.LessonController.GetAllLessons">
             <summary>
             Return list of lessons
