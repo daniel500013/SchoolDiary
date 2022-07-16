@@ -252,14 +252,34 @@
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.GradeManagerController.AssignGradeToLesson(SchoolDiary.api.ViewModel.GradeManagerViewModel)">
-            <summary>
-            Create Grade-Lesson assign in diary
-            </summary>
+             <summary>
+             Create Grade-Lesson assign in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /GradeManager
+                 {
+                    "fK_LessonID": 1, - Lesson ID to assign approve
+                    "fK_GradeID": 2 - Grade ID whos you want to assign
+                 }
+            
+             </remarks>
         </member>
         <member name="M:SchoolDiary.api.Controllers.GradeManagerController.ChangeAssignGradeToLesson(System.Int32,SchoolDiary.api.ViewModel.GradeManagerViewModel)">
-            <summary>
-            Change Grade-Lesson assign in diary by id
-            </summary>
+             <summary>
+             Change Grade-Lesson assign in diary by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /GradeManager/{id}
+                 {
+                    "fK_LessonID": 1, - Lesson ID to assign approve
+                    "fK_GradeID": 2 - Grade ID whos you want to assign
+                 }
+            
+             </remarks>
         </member>
         <member name="M:SchoolDiary.api.Controllers.GradeManagerController.DeleteAssignGradeToLesson(System.Int32)">
             <summary>
