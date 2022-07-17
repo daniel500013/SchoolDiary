@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolDiary.api.Service;
 using SchoolDiary.api.ViewModel;
@@ -64,6 +65,7 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPost]
+        [Produces("application/json")]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
