@@ -7,7 +7,6 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Email { get; set; }
-        [MaxLength(9)]
         public string? Phone { get; set; }
     }
 }
