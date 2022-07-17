@@ -10,14 +10,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
+  lessons: any;
+
   ngOnInit() {
-    this.http.get("https://localhost:7249/api/Account").subscribe(
+    this.http.get("https://localhost:7249/api/Lesson/2").subscribe(
       (res) => {
-        console.log(res);
-      },
-      (err) => {
-        console.log(err);
-        
+        this.lessons = res;
       }
     );
   }

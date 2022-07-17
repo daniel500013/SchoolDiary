@@ -454,3 +454,4 @@ C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\obj\Debug\net6.0\ref\Sch
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\WebMotions.Fake.Authentication.JwtBearer.dll
+C:\Users\bakuc\source\repos\SchoolDiary\SchoolDiary.api\bin\Debug\net6.0\Bogus.dll

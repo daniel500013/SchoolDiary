@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Bogus;
+using Microsoft.AspNetCore.Identity;
 
 namespace SchoolDiary.api
 {
@@ -9,7 +10,7 @@ namespace SchoolDiary.api
 
         }
 
-        public DbSet<Person> Person { get; set; }
+        public DbSet<SchoolDiary.api.Model.Person> Person { get; set; }
         public DbSet<PersonRole> PersonRole { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Parent> Parent { get; set; }
@@ -28,7 +29,7 @@ namespace SchoolDiary.api
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>();
+            modelBuilder.Entity<SchoolDiary.api.Model.Person>();
             
             modelBuilder.Entity<Role>()
                 .Property(x => x.Name)
@@ -57,6 +58,8 @@ namespace SchoolDiary.api
             modelBuilder.Entity<Approve>();
 
             modelBuilder.Entity<LessonApprove>();
+
+            var faker = new Faker();
 
             modelBuilder.Entity<Role>()
                 .HasData(new Role()

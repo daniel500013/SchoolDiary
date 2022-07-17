@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>
+
+<div class="row">
+  <div class="col-4">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Lesson</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lesson of lessons">
+          <th scope="row">1</th>
+          <td>{{lesson.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+
+  </div>
+  <div class="col-4">
+
+  </div>
+</div>

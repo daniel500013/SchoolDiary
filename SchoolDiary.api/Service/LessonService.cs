@@ -15,6 +15,29 @@
             return lessons;
         }
 
+        public async Task<List<Lesson>> GetClassLessons(int ClassID)
+        {
+            if (ClassID.Equals(0))
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Lessons = await DiaryDbContext.Subject
+                .Include(x => x.Lesson)
+                .Include(x => x.PersonClass)
+                .Where(x => x.PersonClass.FK_ClassID == ClassID)
+                .Select(x => x.Lesson)
+                .OrderBy(x => x.Hour)
+                .ToListAsync();
+
+            if (Lessons is null)
+            {
+                throw new ArgumentNullException("Lessons class dosen't exists");
+            }
+
+            return Lessons;
+        }
+
         public async Task CreateLesson(LessonViewModel lesson)
         {
             if (lesson is null)

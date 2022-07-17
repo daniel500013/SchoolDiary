@@ -27,6 +27,16 @@ namespace SchoolDiary.api.Controllers
             return Ok(lessons);
         }
 
+        [Authorize(Roles = "Student,Parent,Teacher,Tutor,LocalAdmin,Admin")]
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetClassLessons(int id)
+        {
+            var lessons = await LessonService.GetClassLessons(id);
+
+            return Ok(lessons);
+        }
+
         /// <summary>
         /// Create lesson in diary
         /// </summary>
