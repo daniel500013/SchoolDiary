@@ -15,7 +15,7 @@
             return lessons;
         }
 
-        public async Task<List<Lesson>> GetClassLessons(int ClassID)
+        public async Task<List<List<Lesson>>> GetClassLessons(int ClassID)
         {
             if (ClassID.Equals(0))
             {
@@ -35,7 +35,14 @@
                 throw new ArgumentNullException("Lessons class dosen't exists");
             }
 
-            return Lessons;
+            List<List<Lesson>> PackPessons = new List<List<Lesson>>();
+
+            for (int i = 1; i < 6; i++)
+            {
+                PackPessons.Add(Lessons.Where(x => x.Day == i).ToList());
+            }
+
+            return PackPessons;
         }
 
         public async Task CreateLesson(LessonViewModel lesson)
