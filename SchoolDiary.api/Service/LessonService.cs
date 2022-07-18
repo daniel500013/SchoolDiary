@@ -27,7 +27,7 @@
                 .Include(x => x.PersonClass)
                 .Where(x => x.PersonClass.FK_ClassID == ClassID)
                 .Select(x => x.Lesson)
-                .OrderBy(x => x.Hour)
+                .OrderBy(x => x.Day)
                 .ToListAsync();
 
             if (Lessons is null)
