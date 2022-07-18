@@ -181,22 +181,29 @@ namespace SchoolDiary.api
                 "History"
             };
 
-            for (int i = 1; i < 8; i++)
-            {
-                for (int j = 1; j < 8; j++)
-                {
-                    Random rnd = new Random();
+            int TwiceIteration = 0;
 
-                    modelBuilder.Entity<Lesson>().HasData
-                    (
-                        new Lesson()
-                        {
-                            LessonID = (7*i+j-7),
-                            Day = i,
-                            Hour = j,
-                            Name = lessosn[rnd.Next(0,8)]
-                        }
-                    );
+            for (int z = 0; z < 10; z++)
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    for (int j = 1; j < 9; j++)
+                    {
+                        TwiceIteration++;
+
+                        Random rnd = new Random();
+
+                        modelBuilder.Entity<Lesson>().HasData
+                        (
+                            new Lesson()
+                            {
+                                LessonID = TwiceIteration,
+                                Day = i,
+                                Hour = j,
+                                Name = lessosn[rnd.Next(0, 8)]
+                            }
+                        );
+                    }
                 }
             }
 
@@ -269,12 +276,18 @@ namespace SchoolDiary.api
                     );
             }
 
+            int ClassAssign = 1;
+
             //Subject
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i < 401; i++)
             {
                 Random rnd = new Random();
-                int RandomClass = rnd.Next(1, 11);
                 int RandomTeacher = rnd.Next(1, 19);
+
+                if (i % 40 == 0 && ClassAssign < 10)
+                {
+                    ClassAssign++;
+                }
 
                 modelBuilder.Entity<Subject>().HasData
                     (
@@ -282,7 +295,7 @@ namespace SchoolDiary.api
                         {
                             SubjectID = i,
                             FK_LessonID = i,
-                            FK_PersonClass = RandomClass,
+                            FK_PersonClass = ClassAssign,
                             FK_TeacherID = RandomTeacher,
                         }
                     );
