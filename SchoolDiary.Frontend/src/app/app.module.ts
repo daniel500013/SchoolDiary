@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
@@ -39,7 +39,10 @@ const routes: Routes = [
       useClass: AuthInterceptor,
       multi: true
     },
-    AuthGuard
+    { 
+      provide: JWT_OPTIONS, 
+      useValue: JWT_OPTIONS 
+    }, JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
