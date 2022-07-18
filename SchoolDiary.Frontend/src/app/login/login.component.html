@@ -1,15 +1,36 @@
-<main>
-  <form [formGroup]="form" (submit)="submit()">
-    <h1 class="text-center">Login</h1>
+<div class="mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <div class="card px-5 py-5">
+        <form class="form-data" [formGroup]="form" (submit)="submit()">
+          <div class="text-center mb-5">
+            <h2>Login</h2>
+          </div>
+          <div class="forms-inputs mb-4">
+            <span>Email or username</span>
+            <input class="form-control" autocomplete="off" type="text" formControlName="email" />
+          </div>
+          <div class="forms-inputs mb-4">
+            <span>Password</span>
+            <input class="form-control" autocomplete="off" type="password" formControlName="password" />
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-dark w-100">
+              Login
+            </button>
+          </div>
 
-    <div class="form-floating m-3">
-      <input class="form-control" placeholder="Email" formControlName="email">
+          <div class="text-center mb-3">
+            <button type="button" class="btn btn-dark w-50 border" (click)="ToLogin()">
+              Login
+            </button>
+
+            <button type="button" class="btn btn-dark w-50 border" (click)="ToRegister()">
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="form-floating m-3">
-      <input type="password" class="form-control" placeholder="Password" formControlName="password">
-    </div>
-
-    <input class="btn btn-primary m-3" type="submit" value="Login">
-  </form>
-</main>
+  </div>
+</div>

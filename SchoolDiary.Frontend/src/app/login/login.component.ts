@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthInterceptor } from '../interceptor/auth.interceptor';
-import { LoginService } from '../service/login/login.service';
+import { AuthService } from '../service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +12,8 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private loginService: LoginService) { }
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -24,6 +23,14 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.loginService.login(this.form);
+    this.authService.login(this.form);
+  }
+
+  ToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  ToRegister() {
+    this.router.navigate(['/register']);
   }
 }

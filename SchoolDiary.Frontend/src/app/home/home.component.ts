@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.http.get("https://localhost:7249/api/Lesson/2").subscribe(
       (res) => {
+        console.log(res);
         this.lessons = res;
       }
     );
