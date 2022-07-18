@@ -295,7 +295,7 @@ namespace SchoolDiary.api
                         {
                             SubjectID = i,
                             FK_LessonID = i,
-                            FK_PersonClass = ClassAssign,
+                            FK_Class = ClassAssign,
                             FK_TeacherID = RandomTeacher,
                         }
                     );
