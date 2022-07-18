@@ -16,8 +16,7 @@ export class AuthService {
     this.http.post('https://localhost:7249/api/Account/Login', form.getRawValue())
       .subscribe((res: any) => {
         localStorage.setItem("token", res);
-
-        
+        localStorage.setItem("uuid", this.jwtHelper.decodeToken(res).uuid);
 
         this.router.navigate(['/']);
       });

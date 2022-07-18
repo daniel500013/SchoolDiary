@@ -112,7 +112,7 @@ namespace SchoolDiary.api.Service
 
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, User.UserUUID.ToString()),
+                new Claim("uuid", User.UserUUID.ToString()),
                 new Claim(ClaimTypes.Name, User.Email)
             };
 
