@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
 
   lessons: any;
 
+  plan: Number = 5;
+
   ngOnInit() {
     this.http.get("https://localhost:7249/api/Lesson/2").subscribe(
       (res) => {
@@ -19,6 +21,35 @@ export class HomeComponent implements OnInit {
         this.lessons = res;
       }
     );
+  }
+
+  changePlan(value: any) {
+    if (this.plan + value > 5)
+    {
+      this.plan = 4;
+    }
+    
+    if (this.plan + value < 1)
+    {
+      this.plan = 2;
+    }
+
+    this.plan = this.plan + value;
+  }
+
+  mapDays(day: any): any {
+    switch (day) {
+      case 1:
+        return "Monday";
+      case 2:
+        return "Thursday";
+      case 3:
+        return "Wednesday";
+      case 4:
+        return "Thursday";
+      case 5:
+        return "Friday";
+    }
   }
 
 }
