@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Model
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SchoolDiary.api.Model
 {
     public class Class
     {
@@ -8,5 +10,8 @@
         public string? Profile { get; set; }
     
         public string? Description { get; set; }
+
+        [ForeignKey("FK_Class")]
+        public ICollection<Subject>? Subject { get; set; }
     }
 }

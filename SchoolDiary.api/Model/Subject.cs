@@ -12,10 +12,10 @@ namespace SchoolDiary.api.Model
         [InverseProperty("Subject")]
         public virtual Teacher? Teacher { get; set; }
 
-        public int FK_PersonClass { get; set; }
+        public int FK_Class { get; set; }
 
         [InverseProperty("Subject")]
-        public virtual PersonClass? PersonClass { get; set; }
+        public virtual Class? Class { get; set; }
 
         public int FK_LessonID { get; set; }
 

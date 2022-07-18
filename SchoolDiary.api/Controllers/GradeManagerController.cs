@@ -24,6 +24,15 @@ namespace SchoolDiary.api.Controllers
             return Ok(grades);
         }
 
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserGrades(Guid uuid)
+        {
+            await GradeManagerService.GetUserGrades(uuid);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Create Grade-Lesson assign in diary
         /// </summary>

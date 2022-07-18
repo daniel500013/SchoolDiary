@@ -15,6 +15,31 @@
             return lessonGrades;
         }
 
+        public async Task GetUserGrades(Guid uuid)
+        {
+            if (uuid.ToString().Length <= 0)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
+
+            if (CheckUserExist is null)
+            {
+                throw new ArgumentNullException("User dosen't exist");
+            }
+
+            var Grades = DiaryDbContext.LessonGrade.
+                Include(x => x.Lesson)
+                .ThenInclude(x => x.Subjects)
+                .ThenInclude(x => x.PersonClass)
+                .Select(x => x.Lesson.Subjects.Select(x => x.PersonClass.FK_UserUUID))
+                .SelectMany(x => x)
+                .ToList();
+
+            var x = 1;
+        }
+
         public async Task AssignGradeToLesson(GradeManagerViewModel grade)
         {
             if (grade is null)

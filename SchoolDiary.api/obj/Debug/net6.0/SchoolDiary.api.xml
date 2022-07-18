@@ -291,6 +291,11 @@
             Return list of lessons
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.GetClassLessons(System.Int32)">
+            <summary>
+            Return list of lessons for class specify by id
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.LessonController.CreateLesson(SchoolDiary.api.ViewModel.LessonViewModel)">
              <summary>
              Create lesson in diary
