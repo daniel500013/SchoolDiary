@@ -17,14 +17,24 @@ namespace SchoolDiary.api
             var faker = new Bogus.Faker();
 
             Guid uuid;
+
+            //Normal Guid List
             List<Guid> UUIDList = new List<Guid>();
-            
+
+            //5X Guid List
+            List<Guid> UUIDList5X = new List<Guid>();
+
             //Person
             for (int i = 1; i < 101; i++)
             {
                 faker = new Bogus.Faker();
                 uuid = Guid.NewGuid();
                 UUIDList.Add(uuid);
+
+                for (int j = 0; j < 5; j++)
+                {
+                    UUIDList5X.Add(uuid);
+                }
 
                 modelBuilder.Entity<Person>().HasData
                 (
@@ -208,7 +218,8 @@ namespace SchoolDiary.api
             }
 
             //Marks
-            for (int i = 1; i < 50; i++)
+            var MarkUUIDShuffle = UUIDList5X.OrderBy(item => new Random().Next()).ToList();
+            for (int i = 1; i < 501; i++)
             {
                 faker = new Bogus.Faker();
 
@@ -228,13 +239,15 @@ namespace SchoolDiary.api
                         {
                             MarkID = i,
                             Date = faker.Date.Recent(),
-                            Present = present
+                            Present = present,
+                            FK_UserUUID = MarkUUIDShuffle[i-1]
                         }
                     );
             }
 
             //Grade
-            for (int i = 1; i < 50; i++)
+            var GradeUUIDShuffle = UUIDList5X.OrderBy(item => new Random().Next()).ToList();
+            for (int i = 1; i < 501; i++)
             {
                 Random rnd = new Random();
                 int RandomGrade = rnd.Next(1, 7);
@@ -247,12 +260,14 @@ namespace SchoolDiary.api
                             GradeID = i,
                             GradeValue = RandomGrade,
                             Weight = RandomWeight,
-                            Description = ""
+                            Description = "",
+                            FK_UserUUID = GradeUUIDShuffle[i-1]
                         }
                     );
             }
 
             //Approve
+            var ApproveUUIDShuffle = UUIDList5X.OrderBy(item => new Random().Next()).ToList();
             for (int i = 1; i < 31; i++)
             {
                 bool positive = false;
@@ -271,14 +286,15 @@ namespace SchoolDiary.api
                         {
                             ApproveID = i,
                             Positive = positive,
-                            Description = ""
+                            Description = "",
+                            FK_UserUUID = ApproveUUIDShuffle[i - 1]
                         }
                     );
             }
 
-            int ClassAssign = 1;
 
             //Subject
+            int ClassAssign = 1;
             for (int i = 1; i < 401; i++)
             {
                 Random rnd = new Random();
@@ -302,10 +318,10 @@ namespace SchoolDiary.api
             }
 
             //LessonMark
-            List<int> ints_lm = Enumerable.Range(1, 49).ToList();
+            List<int> ints_lm = Enumerable.Range(1, 500).ToList();
             var lm_rnd = new Random();
             var randomized_lm = ints_lm.OrderBy(item => lm_rnd.Next()).ToList();
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i < 401; i++)
             {
                 modelBuilder.Entity<LessonMark>().HasData
                     (
@@ -319,10 +335,10 @@ namespace SchoolDiary.api
             }
 
             //LessonGrade
-            List<int> ints_lg = Enumerable.Range(1, 49).ToList();
+            List<int> ints_lg = Enumerable.Range(1, 500).ToList();
             var lg_rnd = new Random();
             var randomized_lg = ints_lg.OrderBy(item => lg_rnd.Next()).ToList();
-            for (int i = 1; i < 50; i++)
+            for (int i = 1; i < 401; i++)
             {
                 modelBuilder.Entity<LessonGrade>().HasData
                     (

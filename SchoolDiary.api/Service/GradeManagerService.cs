@@ -29,13 +29,13 @@
                 throw new ArgumentNullException("User dosen't exist");
             }
 
-            var Grades = DiaryDbContext.LessonGrade.
-                Include(x => x.Lesson)
-                .ThenInclude(x => x.Subjects)
-                .ThenInclude(x => x.PersonClass)
-                .Select(x => x.Lesson.Subjects.Select(x => x.PersonClass.FK_UserUUID))
-                .SelectMany(x => x)
-                .ToList();
+            //var Grades = DiaryDbContext.LessonGrade.
+            //    Include(x => x.Lesson)
+            //    .ThenInclude(x => x.Subjects)
+            //    .ThenInclude(x => x.PersonClass)
+            //    .Select(x => x.Lesson.Subjects.Select(x => x.PersonClass.FK_UserUUID))
+            //    .SelectMany(x => x)
+            //    .ToList();
 
             var x = 1;
         }

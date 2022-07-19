@@ -22,27 +22,27 @@
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Lessons = await DiaryDbContext.Subject
-                .Include(x => x.Lesson)
-                .Include(x => x.PersonClass)
-                .Where(x => x.PersonClass.FK_ClassID == ClassID)
-                .Select(x => x.Lesson)
-                .OrderBy(x => x.Day)
-                .ToListAsync();
+            //var Lessons = await DiaryDbContext.Subject
+            //    .Include(x => x.Lesson)
+            //    .Include(x => x.PersonClass)
+            //    .Where(x => x.PersonClass.FK_ClassID == ClassID)
+            //    .Select(x => x.Lesson)
+            //    .OrderBy(x => x.Day)
+            //    .ToListAsync();
 
-            if (Lessons is null)
-            {
-                throw new ArgumentNullException("Lessons class dosen't exists");
-            }
+            //if (Lessons is null)
+            //{
+            //    throw new ArgumentNullException("Lessons class dosen't exists");
+            //}
 
-            List<List<Lesson>> PackPessons = new List<List<Lesson>>();
+            //List<List<Lesson>> PackPessons = new List<List<Lesson>>();
 
-            for (int i = 1; i < 6; i++)
-            {
-                PackPessons.Add(Lessons.Where(x => x.Day == i).ToList());
-            }
+            //for (int i = 1; i < 6; i++)
+            //{
+            //    PackPessons.Add(Lessons.Where(x => x.Day == i).ToList());
+            //}
 
-            return PackPessons;
+            return new();
         }
 
         public async Task CreateLesson(LessonViewModel lesson)

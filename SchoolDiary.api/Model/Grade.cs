@@ -11,7 +11,14 @@ namespace SchoolDiary.api.Model
         public int Weight { get; set; }
         public string? Description { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("FK_GradeID")]
         public ICollection<LessonGrade>? LessonGrades { get; set; }
+
+        public Guid FK_UserUUID { get; set; }
+
+        [JsonIgnore]
+        [ForeignKey(nameof(FK_UserUUID))]
+        public virtual Person? Person { get; set; }
     }
 }
