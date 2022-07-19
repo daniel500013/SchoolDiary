@@ -15,34 +15,28 @@
             return lessons;
         }
 
-        public async Task<List<List<Lesson>>> GetClassLessons(int ClassID)
+        public async Task<List<Lesson?>> GetClassLessons(int ClassID)
         {
             if (ClassID.Equals(0))
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            //var Lessons = await DiaryDbContext.Subject
-            //    .Include(x => x.Lesson)
-            //    .Include(x => x.PersonClass)
-            //    .Where(x => x.PersonClass.FK_ClassID == ClassID)
-            //    .Select(x => x.Lesson)
-            //    .OrderBy(x => x.Day)
-            //    .ToListAsync();
+            var Lessons = await DiaryDbContext.PersonClass
+                .Include(x => x.Class)
+                .ThenInclude(x => x.Subject)
+                .ThenInclude(x => x.Lesson)
+                .Select(x => x.Class.Subject.Select(x => x.Lesson))
+                .SelectMany(x => x)
+                .OrderBy(x => x.Day)
+                .ToListAsync();
 
-            //if (Lessons is null)
-            //{
-            //    throw new ArgumentNullException("Lessons class dosen't exists");
-            //}
+            if (Lessons.Count <= 0)
+            {
+                throw new ArgumentNullException("Lessons class dosen't exists");
+            }
 
-            //List<List<Lesson>> PackPessons = new List<List<Lesson>>();
-
-            //for (int i = 1; i < 6; i++)
-            //{
-            //    PackPessons.Add(Lessons.Where(x => x.Day == i).ToList());
-            //}
-
-            return new();
+            return Lessons;
         }
 
         public async Task CreateLesson(LessonViewModel lesson)
