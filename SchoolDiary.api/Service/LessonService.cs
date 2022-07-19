@@ -22,19 +22,25 @@
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Lessons = await DiaryDbContext.PersonClass
+            var Subjects = await DiaryDbContext.PersonClass
                 .Include(x => x.Class)
                 .ThenInclude(x => x.Subject)
                 .ThenInclude(x => x.Lesson)
-                .Select(x => x.Class.Subject.Select(x => x.Lesson))
+                .Select(x => x.Class.Subject.Where(x => x.FK_Class == ClassID))
                 .SelectMany(x => x)
-                .OrderBy(x => x.Day)
+                .GroupBy(x => x.FK_LessonID)
+                .Select(x => x.First())
                 .ToListAsync();
 
-            if (Lessons.Count <= 0)
+            if (Subjects.Count <= 0)
             {
                 throw new ArgumentNullException("Lessons class dosen't exists");
             }
+
+            var Lessons = Subjects
+                .Select(x => x.Lesson)
+                .OrderBy(x => x.Day)
+                .ToList();
 
             return Lessons;
         }
