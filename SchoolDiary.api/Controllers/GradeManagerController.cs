@@ -28,9 +28,9 @@ namespace SchoolDiary.api.Controllers
         [Route("{uuid:Guid}")]
         public async Task<IActionResult> GetUserGrades(Guid uuid)
         {
-            await GradeManagerService.GetUserGrades(uuid);
+            var grades = await GradeManagerService.GetUserGrades(uuid);
 
-            return Ok();
+            return Ok(grades);
         }
 
         /// <summary>
