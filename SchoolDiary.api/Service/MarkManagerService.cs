@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class MarkManagerService
     {
@@ -13,6 +15,43 @@
             var LessonMark = await DiaryDbContext.LessonMark.ToListAsync();
 
             return LessonMark;
+        }
+
+        public async Task<List<MarkManagerDto>> GetUserMarks(Guid uuid)
+        {
+            if (uuid.ToString().Length <= 0)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Marks = await DiaryDbContext.LessonMark
+                .Include(x => x.Mark)
+                .Select(x => x.Mark)
+                .Where(x => x.FK_UserUUID == uuid)
+                .ToListAsync();
+
+            if (Marks.Count <= 0)
+            {
+                throw new ArgumentNullException("No marks");
+            }
+
+            var MarkLesson = await DiaryDbContext.LessonMark
+                .Include(x => x.Lesson)
+                .Select(x => x.Mark)
+                .Where(x => x.FK_UserUUID == uuid)
+                .Select(x => x.LessonMarks.Select(x => x.Lesson))
+                .SelectMany(x => x)
+                .Select(x => x.Name)
+                .ToListAsync();
+
+            List<MarkManagerDto> MarksDto = new List<MarkManagerDto>();
+
+            for (int i = 0; i < Marks.Count; i++)
+            {
+                MarksDto.Add(new MarkManagerDto() { Present = Marks[i].Present, Data = Marks[i].Date.ToString("dd/mm/yyyy"), LessonName = MarkLesson[i] });
+            }
+
+            return MarksDto;
         }
 
         public async Task AssignMark(LessonMarkViewModel lessonMark)

@@ -26,6 +26,16 @@ namespace SchoolDiary.api.Controllers
             return Ok(marks);
         }
 
+        [Authorize(Roles = "Student,Parent,Teacher,Tutor,LocalAdmin,Admin")]
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserMarks(Guid uuid)
+        {
+            var marks = await MarkManagerService.GetUserMarks(uuid);
+
+            return Ok(marks);
+        }
+
         /// <summary>
         /// Assign Mark to lesson
         /// </summary>
