@@ -376,6 +376,11 @@
             Return list of Mark assign to lessons
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.GetUserMarks(System.Guid)">
+            <summary>
+            Return all user marks
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.MarkManagerController.AssignMarkToUser(SchoolDiary.api.ViewModel.LessonMarkViewModel)">
              <summary>
              Assign Mark to lesson

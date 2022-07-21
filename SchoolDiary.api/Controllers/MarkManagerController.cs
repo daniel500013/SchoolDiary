@@ -26,6 +26,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(marks);
         }
 
+        /// <summary>
+        /// Return all user marks
+        /// </summary>
         [Authorize(Roles = "Student,Parent,Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]
