@@ -18,15 +18,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.http.get("https://localhost:7249/api/Lesson/2").subscribe(
       (res) => {
-        console.log(res);
+        //console.log(res);
         this.lessons = res;
       }
     );
 
     this.http.get("https://localhost:7249/api/GradeManager/" + "6EC7DB2A-250A-4FB1-B65A-00116E9C91D1").subscribe(
       (res) => {
-        console.log(res);
-        
+        //console.log(res);
         this.grades = res;
       }
     );
@@ -60,5 +59,4 @@ export class HomeComponent implements OnInit {
         return "Friday";
     }
   }
-
 }
