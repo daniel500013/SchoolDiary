@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class GradeManagerService
     {
@@ -15,7 +17,7 @@
             return lessonGrades;
         }
 
-        public async Task<List<Grade?>> GetUserGrades(Guid uuid)
+        public async Task<List<GradeManagerDto?>> GetUserGrades(Guid uuid)
         {
             if (uuid.ToString().Length <= 0)
             {
@@ -32,6 +34,7 @@
             var Grades = await DiaryDbContext.LessonGrade
                 .Include(x => x.Grade)
                 .Select(x => x.Grade)
+                .Where(x => x.FK_UserUUID == uuid)
                 .ToListAsync();
 
             if (Grades.Count <= 0)
@@ -39,7 +42,23 @@
                 throw new ArgumentNullException("No grades");
             }
 
-            return Grades;
+            var GradeLessons = await DiaryDbContext.LessonGrade
+                .Include(x => x.Lesson)
+                .Select(x => x.Grade)
+                .Where(x => x.FK_UserUUID == uuid)
+                .Select(x => x.LessonGrades.Select(x => x.Lesson))
+                .SelectMany(x => x)
+                .Select(x => x.Name)
+                .ToListAsync();
+
+            List<GradeManagerDto> GradesDto = new List<GradeManagerDto>();
+
+            for (int i = 0; i < Grades.Count; i++)
+            {
+                GradesDto.Add(new GradeManagerDto() { GradeValue = Grades[i].GradeValue, GradeWeight = Grades[i].Weight, LessonName = GradeLessons[i] });
+            }
+
+            return GradesDto;
         }
 
         public async Task AssignGradeToLesson(GradeManagerViewModel grade)

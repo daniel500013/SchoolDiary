@@ -15,7 +15,7 @@
             return lessons;
         }
 
-        public async Task<List<Lesson?>> GetClassLessons(int ClassID)
+        public async Task<List<List<Lesson>>> GetClassLessons(int ClassID)
         {
             if (ClassID.Equals(0))
             {
@@ -42,7 +42,15 @@
                 .OrderBy(x => x.Day)
                 .ToList();
 
-            return Lessons;
+
+            var LessonList = new List<List<Lesson>>();
+
+            for (int i = 1; i < 6; i++)
+            {
+                LessonList.Add(Lessons.Where(x => x.Day == i).ToList());
+            } 
+
+            return LessonList;
         }
 
         public async Task CreateLesson(LessonViewModel lesson)

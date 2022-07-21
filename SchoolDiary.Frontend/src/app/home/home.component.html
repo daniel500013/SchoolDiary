@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-4">
+    <div class="text-center">
+      <h1>Lessons</h1>
+    </div>
     <table class="table" *ngFor="let lesson of lessons; let i=index" [hidden]="plan != lesson[0].day">
       <tr>
         <th>ID</th>
@@ -11,18 +14,35 @@
       </tr>
     </table>
 
-    <div>
-      <button class="btn btn-danger" (click)="changePlan(-1)">
+    <div class="text-center">
+      <button class="btn btn-danger m-3" (click)="changePlan(-1)">
         Decearse
       </button>
 
-      <button class="btn btn-success" (click)="changePlan(1)">
+      <button class="btn btn-success m-3" (click)="changePlan(1)">
         Incearse 
       </button>
     </div>
   </div>
   <div class="col-4">
+    <div class="text-center">
+      <h1>Grades</h1>
+    </div>
 
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Lesson</th>
+        <th>Grade</th>
+        <th>Grade Weight</th>
+      </tr>
+      <tr *ngFor="let grade of grades; let i=index">
+        <td>{{i+1}}</td>
+        <td>{{grade.lessonName}}</td>
+        <td>{{grade.gradeValue}}</td>
+        <td>{{grade.gradeWeight}}</td>
+      </tr>
+    </table>
   </div>
   <div class="col-4">
 
