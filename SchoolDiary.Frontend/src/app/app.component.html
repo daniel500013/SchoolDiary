@@ -9,6 +9,7 @@
 <body>
   <main class="container">
     <router-outlet></router-outlet>
+    <app-nav-menu *ngIf="!tokenExpired()"></app-nav-menu>
   </main>
 </body>
 </html>

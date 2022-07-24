@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AuthGuard } from './auth.guard';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -20,11 +21,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
       HomeComponent,
       LoginComponent,
-      RegisterComponent
+      RegisterComponent,
+      NavMenuComponent
    ],
   imports: [
     BrowserModule,

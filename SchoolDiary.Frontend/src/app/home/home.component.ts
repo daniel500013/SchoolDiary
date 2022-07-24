@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   lessons: any = [];
   grades: any = [];
   marks: any = [];
+  approves: any = [];
 
   plan: Number = 5;
   present: Boolean = false;
@@ -38,6 +39,13 @@ export class HomeComponent implements OnInit {
       (res) => {
         //console.log(res);
         this.marks = res;
+      }
+    );
+
+    this.homeService.getApproves().subscribe(
+      (res) => {
+        console.log(res);
+        this.approves = res;
       }
     );
   }

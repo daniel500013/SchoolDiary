@@ -45,33 +45,52 @@
     </table>
   </div>
   <div class="col-4">
-    <div class="text-center">
-      <h1>Marks</h1>
+    <div id="MarkPanel">
+      <div class="text-center">
+        <h1>Marks</h1>
+      </div>
+  
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Lesson</th>
+          <th>Present</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let mark of marks; let i=index" [hidden]="present != mark.present">
+          <td>{{i+1}}</td>
+          <td>{{mark.lessonName}}</td>
+          <td>{{mark.present}}</td>
+          <td>{{mark.data}}</td>
+        </tr>
+      </table>
+  
+      <div class="text-center">
+        <button class="btn btn-success m-3" (click)="filterMarks(true)">
+          Present 
+        </button>
+        
+        <button class="btn btn-danger m-3" (click)="filterMarks(false)">
+          Absent
+        </button>
+      </div>
     </div>
 
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Lesson</th>
-        <th>Present</th>
-        <th>Date</th>
-      </tr>
-      <tr *ngFor="let mark of marks; let i=index" [hidden]="present != mark.present">
-        <td>{{i+1}}</td>
-        <td>{{mark.lessonName}}</td>
-        <td>{{mark.present}}</td>
-        <td>{{mark.data}}</td>
-      </tr>
-    </table>
-
-    <div class="text-center">
-      <button class="btn btn-success m-3" (click)="filterMarks(true)">
-        Present 
-      </button>
-      
-      <button class="btn btn-danger m-3" (click)="filterMarks(false)">
-        Absent
-      </button>
+    <div id="ApprovePanel">
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Lesson</th>
+          <th>Present</th>
+          <th>Description</th>
+        </tr>
+        <tr *ngFor="let approve of approves; let i=index">
+          <td>{{i+1}}</td>
+          <td>{{approve.lessonName}}</td>
+          <td>{{approve.positive}}</td>
+          <td>{{approve.description}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
