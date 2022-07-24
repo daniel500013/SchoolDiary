@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class ApproveManagerService
     {
@@ -13,6 +15,50 @@
             var lessonApprove = await DiaryDbContext.LessonApprove.ToListAsync();
 
             return lessonApprove;
+        }
+
+        public async Task<List<ApproveManagerDto>> GetUserApproves(Guid uuid)
+        {
+            if (uuid == Guid.Empty)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
+
+            if (CheckUserExist is null)
+            {
+                throw new ArgumentNullException("User dosen't exist");
+            }
+
+            var Approves = await DiaryDbContext.LessonApprove
+                .Include(x => x.Approve)
+                .Select(x => x.Approve)
+                .Where(x => x.FK_UserUUID == uuid)
+                .ToListAsync();
+
+            if (Approves.Count <= 0)
+            {
+                throw new ArgumentNullException("No approves");
+            }
+
+            var ApproveLessons = await DiaryDbContext.LessonApprove
+                .Include(x => x.Lesson)
+                .Select(x => x.Approve)
+                .Where(x => x.FK_UserUUID == uuid)
+                .Select(x => x.LessonApproves.Select(x => x.Lesson))
+                .SelectMany(x => x)
+                .Select(x => x.Name)
+                .ToListAsync();
+
+            List<ApproveManagerDto> ApproovesDto = new List<ApproveManagerDto>();
+
+            for (int i = 0; i < Approves.Count; i++)
+            {
+                ApproovesDto.Add(new ApproveManagerDto() { Positive = Approves[i].Positive, Description = Approves[i].Description, LessonName = ApproveLessons[i] });
+            }
+
+            return ApproovesDto;
         }
 
         public async Task AssignApproveToLesson(ApproveManagerViewModel approve)
