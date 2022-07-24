@@ -32,4 +32,9 @@ export class AuthService {
   isLoggedIn() {
     return !!localStorage.getItem("token");
   }
+
+  tokenExpired() {
+    let tokenExpired = localStorage.getItem("token") || '';
+    return this.jwtHelper.isTokenExpired(tokenExpired);
+  }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../service/home/home.service';
 
 @Component({
   selector: 'app-home',
@@ -8,33 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private homeService: HomeService) { }
 
-  lessons: any;
-  grades: any;
-  marks: any;
+  lessons: any = [];
+  grades: any = [];
+  marks: any = [];
 
   plan: Number = 5;
   present: Boolean = false;
 
   ngOnInit() {
-    this.http.get("https://localhost:7249/api/Lesson/2").subscribe(
+    
+    this.homeService.getLessons().subscribe(
       (res) => {
         //console.log(res);
         this.lessons = res;
       }
     );
 
-    this.http.get("https://localhost:7249/api/GradeManager/" + "6EC7DB2A-250A-4FB1-B65A-00116E9C91D1").subscribe(
+    this.homeService.getGrades().subscribe(
       (res) => {
         //console.log(res);
         this.grades = res;
       }
     );
 
-    this.http.get("https://localhost:7249/api/MarkManager/" + "6EC7DB2A-250A-4FB1-B65A-00116E9C91D1").subscribe(
+    this.homeService.getMarks().subscribe(
       (res) => {
-        console.log(res);
+        //console.log(res);
         this.marks = res;
       }
     );
