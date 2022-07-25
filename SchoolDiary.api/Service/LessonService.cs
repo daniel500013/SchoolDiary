@@ -63,11 +63,6 @@
             var CheckLessonExistInTime = await DiaryDbContext.Lesson
                 .Where(x => x.Hour == lesson.Hour)
                 .FirstOrDefaultAsync(x => x.Day == lesson.Day);
-
-            if (CheckLessonExistInTime is not null)
-            {
-                throw new ArgumentException("Lesson already exist");
-            }
             
             await DiaryDbContext.AddAsync(new Lesson()
             {
