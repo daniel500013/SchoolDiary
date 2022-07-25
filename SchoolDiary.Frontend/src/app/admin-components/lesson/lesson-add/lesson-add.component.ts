@@ -44,7 +44,7 @@ export class LessonAddComponent implements OnInit {
   }
 
   //Add Lesson
-  addLesson() {
+  addLesson(lessonID: Number) {
     let lesson = {
       name: this.lessonForm.value.lesson,
       day: Number(this.lessonForm.value.day),
@@ -53,24 +53,26 @@ export class LessonAddComponent implements OnInit {
 
     this.http.post('https://localhost:7249/api/Lesson', lesson).subscribe();
 
-    console.log("complete");
+    let subject = {
+      lesson: Number(lessonID),
+      class: Number(this.class),
+      teacher: Number(this.lessonForm.value.teacher),
+    }
     
-
-    // let subject = {
-    //   teacher: Number(this.lessonForm.value.teacher),
-    //   class: Number(this.class),
-    //   lesson: Number(this.getLessonID())
-    // }
-
-    // this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
+    this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
+    console.log("complete");    
   }
 
-  getLessonID() {
+  getLessonID(): Number {
+    let lessonID = 0;
+    
     this.http.get('https://localhost:7249/api/Lesson').subscribe(
       (res: any) => {
-        return res[res.length - 1].lessonID;
+        this.addLesson(res[res.length - 1].lessonID);
       }
     );
+
+    return lessonID;
   }
 
   //lessons Plan
