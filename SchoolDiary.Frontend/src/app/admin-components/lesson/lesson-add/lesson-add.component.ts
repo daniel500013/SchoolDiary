@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson-add',
@@ -7,9 +10,105 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LessonAddComponent implements OnInit {
 
-  constructor() { }
+  form!: FormGroup;
+  lessonForm!: FormGroup;
+
+  lessons: any = [];
+  teachers: any = [];
+
+  plan: Number = 1;
+
+  class: Number = 1;
+
+  constructor(private formBuilder: FormBuilder,
+    private http: HttpClient) { }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      class: 0
+    });
+
+    this.lessonForm = this.formBuilder.group({
+      lesson: '',
+      day: '1',
+      hour: '1',
+      teacher: ''
+    });
+
+    this.http.get('https://localhost:7249/api/Teacher').subscribe(
+      (res) => {
+        console.log(res);
+        this.teachers = res;
+      }
+    );
   }
 
+  //Add Lesson
+  addLesson() {
+    let lesson = {
+      name: this.lessonForm.value.lesson,
+      day: Number(this.lessonForm.value.day),
+      hour: Number(this.lessonForm.value.hour)
+    }
+
+    this.http.post('https://localhost:7249/api/Lesson', lesson).subscribe();
+
+    console.log("complete");
+    
+
+    // let subject = {
+    //   teacher: Number(this.lessonForm.value.teacher),
+    //   class: Number(this.class),
+    //   lesson: Number(this.getLessonID())
+    // }
+
+    // this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
+  }
+
+  getLessonID() {
+    this.http.get('https://localhost:7249/api/Lesson').subscribe(
+      (res: any) => {
+        return res[res.length - 1].lessonID;
+      }
+    );
+  }
+
+  //lessons Plan
+  getPlan() {
+    this.http.get('https://localhost:7249/api/Lesson/' + this.class).subscribe(
+      (res) => {
+        //console.log(res);
+        this.lessons = res;
+      }
+    );
+  }
+
+  changePlan(value: any) {
+    if (this.plan + value > 5)
+    {
+      this.plan = 4;
+    }
+    
+    if (this.plan + value < 1)
+    {
+      this.plan = 2;
+    }
+
+    this.plan = this.plan + value;
+  }
+
+  mapDays(day: any): any {
+    switch (day) {
+      case 1:
+        return "Monday";
+      case 2:
+        return "Thursday";
+      case 3:
+        return "Wednesday";
+      case 4:
+        return "Thursday";
+      case 5:
+        return "Friday";
+    }
+  }
 }

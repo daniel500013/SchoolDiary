@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   marks: any = [];
   approves: any = [];
 
-  plan: Number = 5;
+  plan: Number = 1;
   present: Boolean = false;
 
   ngOnInit() {

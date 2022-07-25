@@ -17,6 +17,7 @@ import { AdminComponent } from './admin/admin.component';
 import { LessonAddComponent } from './admin-components/lesson/lesson-add/lesson-add.component';
 import { LessonChangeComponent } from './admin-components/lesson/lesson-change/lesson-change.component';
 import { LessonDeleteComponent } from './admin-components/lesson/lesson-delete/lesson-delete.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -39,13 +40,15 @@ const routes: Routes = [
       LessonAddComponent,
       LessonChangeComponent,
       LessonDeleteComponent
+      
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [
     {

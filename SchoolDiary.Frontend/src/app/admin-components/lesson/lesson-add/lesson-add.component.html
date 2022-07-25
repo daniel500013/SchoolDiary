@@ -1,3 +1,82 @@
-<p>
-  lesson-add works!
-</p>
+<div class="row">
+  <div class="col-8"> 
+    <div>
+      <h2>Add Lesson</h2>
+    </div>
+
+    <div class="mt-3">
+      <form class="form-data" [formGroup]="lessonForm" (submit)="addLesson()">
+        <div class="mt-3 mb-3">
+          <label class="h4">Name</label>
+          <input type="text" class="form-control" placeholder="Physics">
+        </div>
+
+        <div class="mt-3 mb-3">
+          <label class="h4">Day</label>
+          <select class="form-control" formControlName="day">
+            <option value="1" [selected]="true">Monday</option>
+            <option value="2">Thursday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+          </select>
+        </div>
+
+        <div class="mt-3 mb-3">
+          <label class="h4">Hour</label>
+          <select class="form-control" formControlName="hour">
+            <option value="1" [selected]="true">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+
+        <div class="mt-3 mb-3">
+          <h4>Teacher</h4>
+          <select class="form-control" >
+            <option *ngFor="let teacher of teachers" value="{{teacher.teacherID}}">{{teacher.firstName + ' ' + teacher.lastName}}</option>
+          </select>
+        </div>
+
+        <div class="mt-3 mb-3">
+          <label class="h4">Class</label>
+          <input type="number" class="form-control" min="1" value="1" [(ngModel)]="class" name="class" [ngModelOptions]="{standalone: true}"/>
+          <button type="button" class="btn btn-primary mt-3 mb-3" (click)="getPlan()">
+            Get plan
+          </button>
+        </div>
+
+        <button type="submit" class="btn btn-success">Add</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-4">
+    <div id="lessons" class="mt-3">
+      <table class="table" *ngFor="let lesson of lessons; let i=index" [hidden]="plan != lesson[0].day">
+        <tr>
+          <th>Hour</th>
+          <th>{{mapDays(lesson[0].day)}}</th>
+        </tr>
+        <tr *ngFor="let item of lesson; let i=index">
+          <td>{{i+1}}</td>
+          <td>{{item.name}}</td>
+        </tr>
+      </table>
+  
+      <div class="text-center" [hidden]="lessons.length === 0">
+        <button class="btn btn-danger m-3" (click)="changePlan(-1)">
+          Decearse
+        </button>
+  
+        <button class="btn btn-success m-3" (click)="changePlan(1)">
+          Incearse 
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
