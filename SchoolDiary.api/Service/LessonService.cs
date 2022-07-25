@@ -59,10 +59,6 @@
             {
                 throw new ArgumentNullException("Invalid data");
             }
-
-            var CheckLessonExistInTime = await DiaryDbContext.Lesson
-                .Where(x => x.Hour == lesson.Hour)
-                .FirstOrDefaultAsync(x => x.Day == lesson.Day);
             
             await DiaryDbContext.AddAsync(new Lesson()
             {
