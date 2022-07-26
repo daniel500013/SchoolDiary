@@ -8,7 +8,7 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   getLessons(userClass: Number = 3) {
-    return this.http.get('https://localhost:7249/api/Lesson/' + userClass);
+    return this.http.get('https://localhost:7249/api/Subject/' + userClass);
   }
 
   getGrades(uuid: String = '6EC7DB2A-250A-4FB1-B65A-00116E9C91D1') {

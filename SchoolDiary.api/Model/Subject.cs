@@ -4,7 +4,6 @@ namespace SchoolDiary.api.Model
 {
     public class Subject
     {
-        [JsonIgnore]
         [Key]
         public int SubjectID { get; set; }
 

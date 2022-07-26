@@ -2,10 +2,9 @@
 {
     public class SubjectViewModel
     {
-        public int Teacher { get; set; }
-
-        public int Class { get; set; }
-
-        public int Lesson { get; set; }
+        public string? Lesson { get; set; }
+        public string? Teacher { get; set; }
+        public int Day { get; set; }
+        public int Hour { get; set; }
     }
 }

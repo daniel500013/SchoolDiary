@@ -568,6 +568,53 @@
             
              </remarks>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Get">
+            <summary>
+            Return all subjects in diary
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Get(System.Int32)">
+            <summary>
+            Return specify subjects in diary by specify ids
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Post(SchoolDiary.api.Dto.SubjectDto)">
+             <summary>
+             Create subject in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Subject
+                 {
+                    "teacher": 1, - Teacher ID assigned to lesson
+                    "class": 9, - Class ID assigned to lesson
+                    "lesson": 4 - Lesson ID assigned to lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Put(System.Int32,SchoolDiary.api.Dto.SubjectDto)">
+             <summary>
+             Change subject in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Subject/{id}
+                 {
+                    "teacher": 1, - Teacher ID assigned to lesson
+                    "class": 9, - Class ID assigned to lesson
+                    "lesson": 4 - Lesson ID assigned to lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Delete(System.Int32)">
+            <summary>
+            Delete subject from diary
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.TeacherController.GetAllTeachers">
             <summary>
             Returns list of teachers

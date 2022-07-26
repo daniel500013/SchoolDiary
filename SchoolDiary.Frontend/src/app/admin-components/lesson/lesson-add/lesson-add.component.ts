@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lesson-add',
@@ -21,7 +22,8 @@ export class LessonAddComponent implements OnInit {
   class: Number = 1;
 
   constructor(private formBuilder: FormBuilder,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private router: Router) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -37,7 +39,7 @@ export class LessonAddComponent implements OnInit {
 
     this.http.get('https://localhost:7249/api/Teacher').subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.teachers = res;
       }
     );
@@ -54,13 +56,14 @@ export class LessonAddComponent implements OnInit {
     this.http.post('https://localhost:7249/api/Lesson', lesson).subscribe();
 
     let subject = {
-      lesson: Number(lessonID),
+      lesson: Number(lessonID) + 1,
       class: Number(this.class),
       teacher: Number(this.lessonForm.value.teacher),
     }
     
     this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
-    console.log("complete");    
+    
+    this.router.navigate(['/admin']);
   }
 
   getLessonID(): Number {
