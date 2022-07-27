@@ -61,16 +61,18 @@ export class LessonChangeComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      lesson: '',
-      day: 0,
-      hour: 0,
-      teacher: 0,
-      class: 0
+      lesson: 'Physics',
+      day: 5,
+      hour: 1,
+      teacher: 19,
+      class: 10
     });
   }
 
   //check lesson exist
   getLessonID() {
+    this.error = false;
+
     this.lessonService.getLessonID(this.class).subscribe((res: any) => {
       let tmp: any = [];
 
@@ -106,9 +108,10 @@ export class LessonChangeComponent implements OnInit {
   }
 
   updateChanges(subjectID: any) {
-    this.lessonService.putSubject(subjectID, this.form).subscribe();
-
-    this.router.navigate(["/admin"]);
+    this.lessonService.putSubject(subjectID, this.form).subscribe((res) => {
+      this.getPlan();
+      this.lessonID = null;
+    });
   }
 
   //lesson plan

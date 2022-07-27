@@ -39,7 +39,7 @@ export class LessonAddComponent implements OnInit {
       lesson: '',
       day: '1',
       hour: '1',
-      teacher: ''
+      teacher: 1
     });
 
     this.lessonService.getTeachers().subscribe(
@@ -51,11 +51,11 @@ export class LessonAddComponent implements OnInit {
 
   //Add Lesson
   addLesson(lessonID: Number) {
-    this.lessonService.addLesson(this.lessonForm);
+    this.lessonService.addLesson(this.lessonForm).subscribe();
     
-    this.lessonService.addSubject(lessonID, this.class, this.lessonForm);
-
-    this.router.navigate(['/admin']);
+    this.lessonService.addSubject(lessonID, this.class, this.lessonForm).subscribe((res) => {
+      this.getPlan();
+    });
   }
 
   getLessonID(): Number {

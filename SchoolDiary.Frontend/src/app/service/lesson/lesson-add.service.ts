@@ -15,7 +15,7 @@ export class LessonService {
       hour: Number(lessonForm.value.hour)
     }
 
-    this.http.post('https://localhost:7249/api/Lesson', lesson).subscribe();
+    return this.http.post('https://localhost:7249/api/Lesson', lesson);
   }
 
   addSubject(lessonID: Number, Class: any, lessonForm: any) {
@@ -25,7 +25,7 @@ export class LessonService {
       teacher: Number(lessonForm.value.teacher),
     }
     
-    this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
+    return this.http.post('https://localhost:7249/api/Subject', subject);
   }
 
   getTeachers() {
