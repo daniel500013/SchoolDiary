@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HomeService } from 'src/app/service/home/home.service';
+import { LessonService } from 'src/app/service/lesson/lesson-add.service';
 
 @Component({
   selector: 'app-lesson-add',
@@ -11,19 +13,22 @@ import { Router } from '@angular/router';
 })
 export class LessonAddComponent implements OnInit {
 
+  //forms
   form!: FormGroup;
   lessonForm!: FormGroup;
 
+  //view
   lessons: any = [];
   teachers: any = [];
-
   plan: Number = 1;
 
+  //ngmodel
   class: Number = 1;
 
   constructor(private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private homeService: HomeService,
+    private lessonService: LessonService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -37,9 +42,8 @@ export class LessonAddComponent implements OnInit {
       teacher: ''
     });
 
-    this.http.get('https://localhost:7249/api/Teacher').subscribe(
+    this.lessonService.getTeachers().subscribe(
       (res) => {
-        // console.log(res);
         this.teachers = res;
       }
     );
@@ -47,29 +51,17 @@ export class LessonAddComponent implements OnInit {
 
   //Add Lesson
   addLesson(lessonID: Number) {
-    let lesson = {
-      name: this.lessonForm.value.lesson,
-      day: Number(this.lessonForm.value.day),
-      hour: Number(this.lessonForm.value.hour)
-    }
-
-    this.http.post('https://localhost:7249/api/Lesson', lesson).subscribe();
-
-    let subject = {
-      lesson: Number(lessonID) + 1,
-      class: Number(this.class),
-      teacher: Number(this.lessonForm.value.teacher),
-    }
+    this.lessonService.addLesson(this.lessonForm);
     
-    this.http.post('https://localhost:7249/api/Subject', subject).subscribe();
-    
+    this.lessonService.addSubject(lessonID, this.class, this.lessonForm);
+
     this.router.navigate(['/admin']);
   }
 
   getLessonID(): Number {
     let lessonID = 0;
     
-    this.http.get('https://localhost:7249/api/Lesson').subscribe(
+    this.lessonService.getLessonID().subscribe(
       (res: any) => {
         this.addLesson(res[res.length - 1].lessonID);
       }
@@ -80,7 +72,7 @@ export class LessonAddComponent implements OnInit {
 
   //lessons Plan
   getPlan() {
-    this.http.get('https://localhost:7249/api/Lesson/' + this.class).subscribe(
+    this.homeService.getLessons(this.class).subscribe(
       (res) => {
         //console.log(res);
         this.lessons = res;

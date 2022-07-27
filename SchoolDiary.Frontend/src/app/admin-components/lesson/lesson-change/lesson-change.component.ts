@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/service/home/home.service';
+import { LessonChangeService } from 'src/app/service/lesson/lesson-change.service';
 
 @Component({
   selector: 'app-lesson-change',
@@ -45,19 +46,17 @@ export class LessonChangeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private lessonService: LessonChangeService
   ) {}
 
   ngOnInit() {
-    this.http.get('https://localhost:7249/api/Class').subscribe((res) => {
-      console.log(res);
+    this.lessonService.getClass().subscribe((res) => {
       this.classes = res;
     });
 
-    this.http.get('https://localhost:7249/api/Teacher').subscribe((res) => {
-      console.log(res);
+    this.lessonService.getTeachers().subscribe((res) => {
       this.teachers = res;
     });
 
@@ -70,70 +69,49 @@ export class LessonChangeComponent implements OnInit {
     });
   }
 
-  //check ngmodel
-  getSubjectID() {
-    this.http
-      .get('https://localhost:7249/api/Lesson/' + this.class)
-      .subscribe((res: any) => {
-        let tmp: any = [];
+  //check lesson exist
+  getLessonID() {
+    this.lessonService.getLessonID(this.class).subscribe((res: any) => {
+      let tmp: any = [];
 
-        res.forEach((element: any) => {
-          element.forEach((lessonList: any) => {
-            tmp.push(lessonList);
-          });
+      res.forEach((element: any) => {
+        element.forEach((lessonList: any) => {
+          tmp.push(lessonList);
         });
-
-        try {
-          this.lessonID = tmp
-            .filter((x: any) => x.name == this.lesson)
-            .filter((x: any) => x.day == this.day)
-            .filter((x: any) => x.hour == this.hour)[0].lessonID;
-        } catch (error) {
-          this.error = true;
-        }
       });
+
+      try {
+        this.lessonID = tmp
+          .filter((x: any) => x.name == this.lesson)
+          .filter((x: any) => x.day == this.day)
+          .filter((x: any) => x.hour == this.hour)[0].lessonID;
+      } 
+      catch (error) {
+        this.error = true;
+      }
+    });
   }
 
   changeLesson() {
-    let lessonJson = {
-      name: this.form.value.lesson,
-      day: this.form.value.day,
-      hour: this.form.value.hour
-    }
+    this.lessonService.putLesson(this.lessonID, this.form).subscribe();
 
-    this.http.put('https://localhost:7249/api/Lesson/' + this.lessonID, lessonJson).subscribe()
-
-
-    this.http.get('https://localhost:7249/api/Subject').subscribe((res: any) => {
+    this.lessonService.getSubject().subscribe((res: any) => {
       let subjectID = res
         .filter((x: any) => x.fK_TeacherID == this.teacher)
         .filter((x: any) => x.fK_Class == this.class)
         .filter((x: any) => x.fK_LessonID == this.lessonID)[0];
-
-        console.log(subjectID);
         
         this.updateChanges(subjectID);
       });
-      
-    console.log(this.form.getRawValue());
-    
   }
 
   updateChanges(subjectID: any) {
-   console.log(subjectID);
-   
-    let subjectJson = {
-      teacher: this.form.value.teacher,
-      class: this.form.value.class,
-      lesson: subjectID.fK_LessonID
-    }
-
-    this.http.put('https://localhost:7249/api/Subject/' + subjectID.subjectID, subjectJson).subscribe();
+    this.lessonService.putSubject(subjectID, this.form).subscribe();
 
     this.router.navigate(["/admin"]);
   }
 
-  //lesson scheme
+  //lesson plan
   getPlan() {
     this.homeService.getLessons(this.class).subscribe(
       (res) => {
@@ -156,7 +134,6 @@ export class LessonChangeComponent implements OnInit {
     this.plan = this.plan + value;
   }
 
-  //other functions
   mapDays(day: any): any {
     switch (day) {
       case 1:
