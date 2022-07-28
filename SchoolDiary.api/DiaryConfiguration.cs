@@ -42,6 +42,12 @@ namespace SchoolDiary.api
                     {
                         UserUUID = uuid,
                         Email = faker.Person.Email,
+                        FirstName = faker.Person.FirstName,
+                        LastName = faker.Person.LastName,
+                        ZipCode = faker.Person.Address.ZipCode,
+                        City = faker.Person.Address.City,
+                        Address = faker.Person.Address.State,
+                        Phone = faker.Person.Phone,
                         PasswordHash = ""
                     }
                 );
