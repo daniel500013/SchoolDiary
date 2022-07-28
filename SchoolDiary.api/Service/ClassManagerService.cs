@@ -16,6 +16,40 @@
             return classParent;
         }
 
+        public async Task<List<ClassManagerViewModel>> GetUsersByClass(int id)
+        {
+            if (id.Equals(0))
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Users = await DiaryDbContext.PersonClass
+                .Include(x => x.Person)
+                .Include(x => x.Class)
+                .Where(x => x.Class.ClassNumber == id)
+                .ToListAsync();
+
+            if (Users.Count <= 0)
+            {
+                throw new ArgumentNullException("Class dosen't exist");
+            }
+
+            List<ClassManagerViewModel> UserViewModel = new List<ClassManagerViewModel>();
+
+            for (int i = 0; i < Users.Count; i++)
+            {
+                UserViewModel.Add(new ClassManagerViewModel()
+                {
+                    UserUUID = Users.Select(x => x.Person.UserUUID).ToList()[i],
+                    FirstName = Users.Select(x => x.Person.FirstName).ToList()[i],
+                    LastName = Users.Select(x => x.Person.LastName).ToList()[i],
+                    Class = Users.Select(x => x.Class.ClassNumber).ToList()[i],
+                });
+            }
+
+            return UserViewModel;
+        }
+
         public async Task AssignPersonToClass(Guid UserUUID, int ClassID)
         {
             if (UserUUID.ToString().Length <= 0 || ClassID.Equals(0))

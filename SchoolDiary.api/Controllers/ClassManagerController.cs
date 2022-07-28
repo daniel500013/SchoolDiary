@@ -26,6 +26,15 @@ namespace SchoolDiary.api.Controllers
             return Ok(userClasses);
         }
 
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetUsersByClass(int id)
+        {
+            var users = await ClassManagerService.GetUsersByClass(id);
+
+            return Ok(users);
+        }
+
         /// <summary>
         /// Assign person to class
         /// </summary>
