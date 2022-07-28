@@ -18,6 +18,9 @@ import { LessonAddComponent } from './admin-components/lesson/lesson-add/lesson-
 import { LessonChangeComponent } from './admin-components/lesson/lesson-change/lesson-change.component';
 import { LessonDeleteComponent } from './admin-components/lesson/lesson-delete/lesson-delete.component';
 import { FormsModule } from '@angular/forms';
+import { GradeAddComponent } from './admin-components/grade/grade-add/grade-add.component';
+import { GradeChangeComponent } from './admin-components/grade/grade-change/grade-change.component';
+import { GradeDeleteComponent } from './admin-components/grade/grade-delete/grade-delete.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -27,6 +30,9 @@ const routes: Routes = [
   { path: 'lessonadd', component: LessonAddComponent, canActivate: [AuthGuard] },
   { path: 'lessonchange', component: LessonChangeComponent, canActivate: [AuthGuard] },
   { path: 'lessondelete', component: LessonDeleteComponent, canActivate: [AuthGuard] },
+  { path: 'gradeadd', component: GradeAddComponent, canActivate: [AuthGuard] },
+  { path: 'gradechange', component: GradeChangeComponent, canActivate: [AuthGuard] },
+  { path: 'gradedelete', component: GradeDeleteComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
