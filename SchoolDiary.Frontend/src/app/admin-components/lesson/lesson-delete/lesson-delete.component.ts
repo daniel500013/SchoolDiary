@@ -40,10 +40,7 @@ export class LessonDeleteComponent implements OnInit {
   //error
   error: Boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
-    private homeService: HomeService,
+  constructor(private homeService: HomeService,
     private lessonService: LessonDeleteService) { }
 
   ngOnInit() {
@@ -55,7 +52,7 @@ export class LessonDeleteComponent implements OnInit {
   getLessonID() {
     this.error = false;
     
-    this.http.get('https://localhost:7249/api/Lesson/' + this.class).subscribe((res: any) => {
+    this.lessonService.getLessonID(this.class).subscribe((res: any) => {
     let lessonID: any;
     let tmp: any = [];
 
@@ -82,7 +79,7 @@ export class LessonDeleteComponent implements OnInit {
     let subjectID: any;
     let tmp: any = [];
     
-    this.http.get('https://localhost:7249/api/Subject').subscribe((res: any) => {
+    this.lessonService.getSubjects().subscribe((res: any) => {
       res.forEach((element: any) => {
         tmp.push(element);
       });
@@ -92,6 +89,7 @@ export class LessonDeleteComponent implements OnInit {
       .filter((x: any) => x.fK_Class == this.class)
       .filter((x: any) => x.fK_LessonID == lessonID)[0].subjectID;
     
+      //this.removeSubject(subjectID, lessonID);
       this.removeLesson(lessonID);
     });
   }
@@ -103,7 +101,7 @@ export class LessonDeleteComponent implements OnInit {
   // }
 
   removeLesson(lessonID: any) {
-    this.http.delete('https://localhost:7249/api/Lesson/' + lessonID).subscribe((res) => {
+    this.lessonService.removeLesson(lessonID).subscribe((res) => {
       this.getPlan();
     });
   }
