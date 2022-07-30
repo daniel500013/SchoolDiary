@@ -1,3 +1,83 @@
-<p>
-  grade-add works!
-</p>
+<div class="row mb-3">
+  <div class="col">
+    <div class="mt-3">
+      <h2>Add grades</h2>
+    </div>
+
+    <form class="form-data">    
+      <div id="lesson">
+        <label class="h4">Lesson</label>
+        <select class="form-control" name="lesson" [(ngModel)]="lesson">
+          <option *ngFor="let lesson of lessons; let i = index" value="{{lesson}}">{{lesson}}</option>
+        </select>
+      </div>
+
+      <div id="day">
+        <label class="h4">Day</label>
+        <select class="form-control" name="day" [(ngModel)]="day">
+          <option *ngFor="let in of [0,1,2,3,4]; let i = index" value="{{i+1}}">{{mapDays(i+1)}}</option>
+        </select>
+      </div>
+
+      <div id="hour">
+        <label class="h4">Hour</label>
+        <select class="form-control" name="hour" [(ngModel)]="hour">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,]; let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <div class="mt-3 mb-3">
+        <label class="h4">Grade weight</label>
+        <select class="form-control" name="weight" [(ngModel)]="gradeWeight">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9] ;let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="h4">Class</label>
+        <select class="form-control" name="class" [(ngModel)]="class">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9] ;let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" (click)="getStudentList()">
+        Load student list
+      </button>
+
+      <button type="button" class="btn btn-primary mr-3 ml-3" [routerLink]="['/admin']">
+        Back
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="row mb-5 mb-3" *ngIf="students.length != 0">
+  <div class="col">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students;">
+          <td>{{student.firstName + " " + student.lastName}}</td>
+          <td>
+            <select class="form-control" id="{{student.userUUID}}">
+              <option *ngFor="let in of [0,1,2,3,4,5] ;let i = index" value="{{i+1}}">{{i+1}}</option>
+            </select>
+          </td>
+          <td>
+            {{gradeWeight}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-success mt-3 mb-5 float-right" (click)="addGrades()">
+      Add grades
+    </button>
+  </div>
+</div>

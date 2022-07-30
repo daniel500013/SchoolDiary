@@ -27,6 +27,7 @@
                 Description = grade.Description,
                 GradeValue = grade.GradeValue,
                 Weight = grade.Weight,
+                FK_UserUUID = grade.UserUUID
             });
             await DiaryDbContext.SaveChangesAsync();
         }

@@ -45,8 +45,10 @@ const routes: Routes = [
       AdminComponent,
       LessonAddComponent,
       LessonChangeComponent,
-      LessonDeleteComponent
-      
+      LessonDeleteComponent,
+      GradeAddComponent,
+      GradeChangeComponent,
+      GradeDeleteComponent
    ],
   imports: [
     BrowserModule,
