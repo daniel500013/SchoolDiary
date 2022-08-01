@@ -46,22 +46,19 @@ export class MarkAddComponent implements OnInit {
 
   async addMarks() {
     for (let index = 0; index < this.students.length; index++) {
-      let marks = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).checked;
+      let mark = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).checked;
 
-      let gradeJson = {
-        gradeValue: marks,
-        weight: this.gradeWeight,
-        description: '',
+      let markJson = {
+        present: mark,
         userUUID: this.students[index].userUUID
       }
-      console.log(marks);
+      console.log(mark);
       
-      // await this.http.post("https://localhost:7249/api/Grade", gradeJson).toPromise();
+      await this.http.post("https://localhost:7249/api/Mark", markJson).toPromise();
     }
 
-    // await this.getLessonID();
+    await this.getLessonID();
     
-    //this.students = [];
     console.log("Complete");
   }
 
@@ -91,16 +88,16 @@ export class MarkAddComponent implements OnInit {
 
       subjectList = subjectList.filter((item: any) => item);
 
-      this.getGradeID(subjectList[0].fK_LessonID);
+      this.getMarkID(subjectList[0].fK_LessonID);
     });
   }
 
-  getGradeID(lessonID: any) {
-    this.http.get("https://localhost:7249/api/Grade").subscribe((res: any) => {
+  getMarkID(lessonID: any) {
+    this.http.get("https://localhost:7249/api/Mark").subscribe((res: any) => {
       for (let index = 0; index < this.students.length; index++) {
-        let gradeID = res[(res.length - 1) - index].gradeID
-
-        this.addLessonGrade(lessonID, gradeID);
+        let markID = res[(res.length - 1) - index].markID
+        
+        this.addLessonMark(lessonID, markID);
 
         if (index == this.students.length - 1)
         {
@@ -110,13 +107,13 @@ export class MarkAddComponent implements OnInit {
     });
   }
 
-  addLessonGrade(lessonID: Number, gradeID: Number) {
-    let lessonGradeJson = {
+  addLessonMark(lessonID: Number, markID: Number) {
+    let lessonMarkJson = {
       fK_LessonID: lessonID,
-      fK_GradeID: gradeID
+      fK_MarkID: markID
     }
 
-    this.http.post("https://localhost:7249/api/GradeManager", lessonGradeJson).subscribe();
+    this.http.post("https://localhost:7249/api/MarkManager", lessonMarkJson).subscribe();
   }
 
   //lesson plan
