@@ -26,6 +26,7 @@
             {
                 Date = DateTime.Now,
                 Present = mark.Present,
+                FK_UserUUID = mark.UserUUID
             });
             await DiaryDbContext.SaveChangesAsync();
         }
