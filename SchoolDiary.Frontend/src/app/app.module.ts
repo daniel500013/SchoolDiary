@@ -52,7 +52,9 @@ const routes: Routes = [
       LessonDeleteComponent,
       GradeAddComponent,
       GradeChangeComponent,
-      GradeDeleteComponent
+      GradeDeleteComponent,
+      MarkAddComponent,
+      MarkChangeComponent
    ],
   imports: [
     BrowserModule,
