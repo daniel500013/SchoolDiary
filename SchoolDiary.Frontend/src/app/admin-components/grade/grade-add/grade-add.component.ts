@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HomeService } from 'src/app/service/home/home.service';
 
 
 @Component({
@@ -9,6 +10,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./grade-add.component.css']
 })
 export class GradeAddComponent implements OnInit {
+
+  //help lesson
+  helpLesson: any = [];
+  plan: Number = 1;
 
   lessons: any = [
     'Polish',
@@ -30,7 +35,8 @@ export class GradeAddComponent implements OnInit {
   gradeWeight: Number = 1;
   class: Number = 1;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private homeService: HomeService) { }
 
   ngOnInit() {
   }
@@ -115,6 +121,29 @@ export class GradeAddComponent implements OnInit {
 
     this.http.post("https://localhost:7249/api/GradeManager", lessonGradeJson).subscribe();
   }
+
+    //lesson plan
+    getPlan() {
+      this.homeService.getLessons(this.class).subscribe(
+        (res) => {
+          this.helpLesson = res;
+        }
+      );
+    }
+  
+    changePlan(value: any) {
+      if (this.plan + value > 5)
+      {
+        this.plan = 4;
+      }
+      
+      if (this.plan + value < 1)
+      {
+        this.plan = 2;
+      }
+  
+      this.plan = this.plan + value;
+    }
 
   mapDays(day: any): any {
     switch (day) {
