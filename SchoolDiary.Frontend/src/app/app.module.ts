@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { GradeAddComponent } from './admin-components/grade/grade-add/grade-add.component';
 import { GradeChangeComponent } from './admin-components/grade/grade-change/grade-change.component';
 import { GradeDeleteComponent } from './admin-components/grade/grade-delete/grade-delete.component';
+import { MarkAddComponent } from './admin-components/mark/mark-add/mark-add.component';
+import { MarkChangeComponent } from './admin-components/mark/mark-change/mark-change.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: 'gradeadd', component: GradeAddComponent, canActivate: [AuthGuard] },
   { path: 'gradechange', component: GradeChangeComponent, canActivate: [AuthGuard] },
   { path: 'gradedelete', component: GradeDeleteComponent, canActivate: [AuthGuard] },
+  { path: 'markadd', component: MarkAddComponent, canActivate: [AuthGuard] },
+  { path: 'markchange', component: MarkChangeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

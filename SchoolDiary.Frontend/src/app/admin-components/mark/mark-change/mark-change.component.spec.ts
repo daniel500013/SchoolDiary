@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { MarkaddComponent } from './markadd.component';
+import { MarkChangeComponent } from './mark-change.component';
 
-describe('MarkaddComponent', () => {
-  let component: MarkaddComponent;
-  let fixture: ComponentFixture<MarkaddComponent>;
+describe('MarkChangeComponent', () => {
+  let component: MarkChangeComponent;
+  let fixture: ComponentFixture<MarkChangeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MarkaddComponent ]
+      declarations: [ MarkChangeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MarkaddComponent);
+    fixture = TestBed.createComponent(MarkChangeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
