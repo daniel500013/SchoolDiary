@@ -27,6 +27,7 @@
             {
                 Description = approve.Description,
                 Positive = approve.Positive,
+                FK_UserUUID = approve.UserUUID
             });
             await DiaryDbContext.SaveChangesAsync();
         }
