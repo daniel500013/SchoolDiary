@@ -244,7 +244,7 @@ namespace SchoolDiary.api
                         new Mark()
                         {
                             MarkID = i,
-                            Date = faker.Date.Recent(),
+                            Date = DateTime.Now.Date,
                             Present = present,
                             FK_UserUUID = MarkUUIDShuffle[i-1]
                         }

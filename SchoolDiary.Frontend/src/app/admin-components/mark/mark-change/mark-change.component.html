@@ -1,3 +1,110 @@
-<p>
-  mark-change works!
-</p>
+<div class="row mb-3">
+  <div class="col-8">
+    <div class="mt-3">
+      <h2>Change marks</h2>
+    </div>
+
+    <form class="form-data">    
+      <div id="lesson">
+        <label class="h4">Lesson</label>
+        <select class="form-control" name="lesson" [(ngModel)]="lesson">
+          <option *ngFor="let lesson of lessons; let i = index" value="{{lesson}}">{{lesson}}</option>
+        </select>
+      </div>
+
+      <div id="day">
+        <label class="h4">Day</label>
+        <select class="form-control" name="day" [(ngModel)]="day">
+          <option *ngFor="let in of [0,1,2,3,4]; let i = index" value="{{i+1}}">{{mapDays(i+1)}}</option>
+        </select>
+      </div>
+
+      <div id="hour">
+        <label class="h4">Hour</label>
+        <select class="form-control" name="hour" [(ngModel)]="hour">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,]; let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <div id="class">
+        <label class="h4">Class</label>
+        <select class="form-control" name="class" [(ngModel)]="class">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9] ;let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="h4">Date</label>
+        <select class="form-control" name="date" [(ngModel)]="date">
+          <option *ngFor="let date of dates;let i = index" value="{{date}}">{{date | date:'yyyy-MM-dd'}}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" (click)="findMarkToChange()">
+        Load marks to change
+      </button>
+
+      <button class="btn btn-primary ml-3 mr-3" (click)="getPlan()">
+        Get plan
+      </button>
+
+      <button type="button" class="btn btn-primary" [routerLink]="['/admin']">
+        Back
+      </button>
+    </form>
+  </div>
+  <div class="col-4">
+    <div class="mt-3 text-center">
+      <h2>Lesson plan</h2>
+    </div>
+
+    <table class="table" *ngFor="let tableLesson of helpLesson; let i=index" [hidden]="plan != tableLesson[0].day">
+      <tr>
+        <th>Hour</th>
+        <th>{{mapDays(tableLesson[0].day)}}</th>
+        <th>Teacher</th>
+      </tr>
+      <tr *ngFor="let item of tableLesson; let i=index">
+        <td>{{item.hour}}</td>
+        <td>{{item.lesson}}</td>
+        <td>{{item.teacher}}</td>
+      </tr>
+    </table>
+
+    <div class="text-center" [hidden]="helpLesson.length === 0">
+      <button class="btn btn-danger m-3" (click)="changePlan(-1)">
+        Decearse
+      </button>
+
+      <button class="btn btn-success m-3" (click)="changePlan(1)">
+        Incearse 
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-5 mb-3" *ngIf="filterMarks.length != 0">
+  <div class="col">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th class="text-center">Present</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students;let i = index">
+          <td>{{student.firstName + " " + student.lastName}}</td>
+          <td class="text-center">
+            <input type="checkbox" id="{{student.userUUID}}" checked *ngIf="filterMarks[i].present">
+            <input type="checkbox" id="{{student.userUUID}}" *ngIf="!filterMarks[i].present">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-success mt-3 mb-5 float-right" (click)="updateMarks()">
+      Add marks
+    </button>
+  </div>
+</div>

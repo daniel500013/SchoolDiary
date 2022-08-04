@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class MarkService
     {
@@ -15,7 +17,53 @@
             return marks;
         }
 
-        public async Task AddMark(MarkViewModel mark)
+        public async Task<List<Mark>> GetClassMarks(int id)
+        {
+            if (id.Equals(0))
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var CheckClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassNumber == id);
+
+            if (CheckClassExist is null)
+            {
+                throw new ArgumentNullException("Class dosen't exist");
+            }
+
+            var users = await DiaryDbContext.PersonClass
+                .Where(x => x.FK_ClassID == id)
+                .Select(x => x.FK_UserUUID)
+                .ToListAsync();
+
+            if (users.Count <= 0)
+            {
+                throw new ArgumentNullException("Class dosen't exist");
+            }
+
+            List<Mark> marks = new List<Mark>();
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                var tmp_mark = await DiaryDbContext.Mark
+                    .Where(x => x.FK_UserUUID == users[i])
+                    .ToListAsync();
+
+                if (tmp_mark is null)
+                {
+                    throw new ArgumentNullException("Person dosen't exist");
+                }
+
+                for (int j = 0; j < tmp_mark.Count; j++)
+                {
+                    marks.Add(tmp_mark[j]);
+                }
+            }
+
+            return marks;
+        }
+
+        public async Task AddMark(MarkDto mark)
         {
             if (mark is null)
             {
@@ -24,14 +72,14 @@
 
             await DiaryDbContext.AddAsync(new Mark()
             {
-                Date = DateTime.Now,
+                Date = DateTime.Now.Date,
                 Present = mark.Present,
                 FK_UserUUID = mark.UserUUID
             });
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeMark(int id, MarkViewModel mark)
+        public async Task ChangeMark(int id, MarkDto mark)
         {
             if (mark is null || id.Equals(0))
             {

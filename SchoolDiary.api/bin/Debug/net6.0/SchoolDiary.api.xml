@@ -338,7 +338,12 @@
             Returns list of marks
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.ViewModel.MarkViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetClassMarks(System.Int32)">
+            <summary>
+            Returns list of marks
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.Dto.MarkDto)">
              <summary>
              Create mark in diary
              </summary>
@@ -352,7 +357,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(System.Int32,SchoolDiary.api.ViewModel.MarkViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(System.Int32,SchoolDiary.api.Dto.MarkDto)">
              <summary>
              Change mark in diary by id
              </summary>

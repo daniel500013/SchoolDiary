@@ -40,7 +40,6 @@ export class MarkAddComponent implements OnInit {
   getStudentList() {
     this.http.get("https://localhost:7249/api/ClassManager/" + this.class).subscribe((res) => {
       this.students = res;
-      console.log(res);
     });
   }
 

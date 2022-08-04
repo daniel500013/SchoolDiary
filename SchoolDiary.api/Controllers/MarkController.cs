@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -28,6 +29,19 @@ namespace SchoolDiary.api.Controllers
         }
 
         /// <summary>
+        /// Returns list of marks
+        /// </summary>
+        [Authorize(Roles = "Parent,Tutor,LocalAdmin,Admin")]
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetClassMarks(int id)
+        {
+            var marks = await MarkService.GetClassMarks(id);
+
+            return Ok(marks);
+        }
+
+        /// <summary>
         /// Create mark in diary
         /// </summary>
         /// <remarks>
@@ -41,7 +55,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateMark(MarkViewModel mark)
+        public async Task<IActionResult> CreateMark(MarkDto mark)
         {
             await MarkService.AddMark(mark);
 
@@ -63,7 +77,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeMark(int id, MarkViewModel mark)
+        public async Task<IActionResult> ChangeMark(int id, MarkDto mark)
         {
             await MarkService.ChangeMark(id, mark);
 
