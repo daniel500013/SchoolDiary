@@ -175,7 +175,7 @@
             Return Person-Class List
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(System.Guid,System.Int32)">
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(SchoolDiary.api.Dto.ClassManagerDto)">
              <summary>
              Assign person to class
              </summary>
@@ -190,7 +190,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Guid,System.Int32,System.Int32)">
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Int32,SchoolDiary.api.Dto.ClassManagerDto)">
              <summary>
              Change person class
              </summary>

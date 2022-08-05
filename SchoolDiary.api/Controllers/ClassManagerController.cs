@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -49,9 +50,9 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPost]
-        public async Task<IActionResult> AssignUserToClass(Guid UserUUID, int ClassID)
+        public async Task<IActionResult> AssignUserToClass(ClassManagerDto classManagerDto)
         {
-            await ClassManagerService.AssignPersonToClass(UserUUID, ClassID);
+            await ClassManagerService.AssignPersonToClass(classManagerDto);
 
             return Ok();
         }
@@ -72,9 +73,9 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeUserClass(Guid UserUUID, int id, int ClassID)
+        public async Task<IActionResult> ChangeUserClass(int id, ClassManagerDto classManagerDto)
         {
-            await ClassManagerService.ChangePersonClass(UserUUID, id, ClassID);
+            await ClassManagerService.ChangePersonClass(id, classManagerDto);
 
             return Ok();
         }

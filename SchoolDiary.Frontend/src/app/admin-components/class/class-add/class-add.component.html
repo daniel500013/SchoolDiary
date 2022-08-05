@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col mt-3">
+    <div id="student">
+      <label class="h4">Student</label>
+      <select class="form-control" name="student" [(ngModel)]="student">
+        <option *ngFor="let item of students" value="{{item.userUUID}}">{{item.firstName + " " + item.lastName}}</option>
+      </select>
+    </div>
+
+    <div id="Class" class="mt-3 mb-3">
+      <label class="h4">Class</label>
+      <select class="form-control" name="Class" [(ngModel)]="Class">
+        <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9];let i = index" value="{{i+1}}">{{i+1}}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-success" (click)="assignToClass()">
+      Assign student to class
+    </button>
+  </div>
+</div>

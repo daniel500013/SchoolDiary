@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class ClassManagerService
     {
@@ -50,21 +52,21 @@
             return UserViewModel;
         }
 
-        public async Task AssignPersonToClass(Guid UserUUID, int ClassID)
+        public async Task AssignPersonToClass(ClassManagerDto classManagerDto)
         {
-            if (UserUUID.ToString().Length <= 0 || ClassID.Equals(0))
+            if (classManagerDto.UserUUID == Guid.Empty || classManagerDto.ClassID.Equals(0))
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == UserUUID);
+            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == classManagerDto.UserUUID);
             
             if (CheckUserExist is null)
             {
                 throw new ArgumentNullException("User dosen't exist");
             }
 
-            var CheckClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == ClassID);
+            var CheckClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == classManagerDto.ClassID);
 
             if (CheckClassExist is null)
             {
@@ -73,20 +75,20 @@
 
             await DiaryDbContext.PersonClass.AddAsync(new PersonClass()
             {
-                FK_UserUUID = UserUUID,
-                FK_ClassID = ClassID,
+                FK_UserUUID = classManagerDto.UserUUID,
+                FK_ClassID = classManagerDto.ClassID,
             });
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangePersonClass(Guid UserUUID, int id, int NewClassID)
+        public async Task ChangePersonClass(int id, ClassManagerDto classManagerDto)
         {
-            if (id.Equals(0) || NewClassID.Equals(0))
+            if (id.Equals(0) || classManagerDto.ClassID.Equals(0))
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == UserUUID);
+            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == classManagerDto.UserUUID);
 
             if (CheckUserExist is null)
             {
@@ -100,7 +102,7 @@
                 throw new ArgumentNullException("Given class dosen't exist");
             }
 
-            var CheckNewClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == NewClassID);
+            var CheckNewClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == classManagerDto.ClassID);
 
             if (CheckNewClassExist is null)
             {
@@ -108,7 +110,7 @@
             }
 
             var PersonToChange = await DiaryDbContext.PersonClass
-                .Where(x => x.FK_UserUUID == UserUUID)
+                .Where(x => x.FK_UserUUID == classManagerDto.UserUUID)
                 .FirstOrDefaultAsync(x => x.FK_ClassID == id);
 
             if (PersonToChange is null)
@@ -116,7 +118,7 @@
                 throw new ArgumentNullException("Given user with typed role dosen't exist");
             }
 
-            PersonToChange.FK_ClassID = NewClassID;
+            PersonToChange.FK_ClassID = classManagerDto.ClassID;
 
             DiaryDbContext.Update(PersonToChange);
             await DiaryDbContext.SaveChangesAsync();
