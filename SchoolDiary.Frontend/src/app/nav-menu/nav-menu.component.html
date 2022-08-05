@@ -12,6 +12,9 @@
 
       <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
+              <a [routerLink]="['/teacher']" class="nav-link" *ngIf="isTeacher()">Teacher</a>
+          </li>  
+          <li class="nav-item">
               <a [routerLink]="['/admin']" class="nav-link" *ngIf="isAdmin()">Admin Panel</a>
           </li>
           <li class="nav-item">

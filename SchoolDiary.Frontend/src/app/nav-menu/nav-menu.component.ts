@@ -27,4 +27,15 @@ export class NavMenuComponent implements OnInit {
 
     return false;
   }
+
+  isTeacher() {
+    let role = localStorage.getItem("role") || '';
+
+    if (role === "Admin" || role === "Teacher")
+    {
+      return true
+    }
+
+    return false;
+  }
 }

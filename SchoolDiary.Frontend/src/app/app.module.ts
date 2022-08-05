@@ -25,12 +25,14 @@ import { ApproveAddComponent } from './admin-components/approve/approve-add/appr
 import { ApproveDeleteComponent } from './admin-components/approve/approve-delete/approve-delete.component';
 import { ClassAddComponent } from './admin-components/class/class-add/class-add.component';
 import { ClassChangeComponent } from './admin-components/class/class-change/class-change.component';
+import { TeacherComponent } from './teacher/teacher.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'teacher', component: TeacherComponent, canActivate: [AuthGuard] },
   { path: 'lessonadd', component: LessonAddComponent, canActivate: [AuthGuard] },
   { path: 'lessonchange', component: LessonChangeComponent, canActivate: [AuthGuard] },
   { path: 'lessondelete', component: LessonDeleteComponent, canActivate: [AuthGuard] },
@@ -44,7 +46,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [					
+  declarations: [						
     AppComponent,
       HomeComponent,
       LoginComponent,
@@ -60,7 +62,8 @@ const routes: Routes = [
       ApproveAddComponent,
       ApproveDeleteComponent,
       ClassAddComponent,
-      ClassChangeComponent
+      ClassChangeComponent,
+      TeacherComponent
    ],
   imports: [
     BrowserModule,
