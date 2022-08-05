@@ -108,7 +108,7 @@ export class LessonDeleteComponent implements OnInit {
 
     //lesson plan
     getPlan() {
-      this.homeService.getLessons(this.class).subscribe(
+      this.homeService.getLessons().subscribe(
         (res) => {
           this.helpLesson = res;
         }

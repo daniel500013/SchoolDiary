@@ -7,19 +7,23 @@ import { Injectable } from '@angular/core';
 export class HomeService {
   constructor(private http: HttpClient) {}
 
+  getClass() {
+    return this.http.get('https://localhost:7249/api/ClassManager');
+  }
+
   getLessons(userClass: Number = 1) {
     return this.http.get('https://localhost:7249/api/Subject/' + userClass);
   }
 
-  getGrades(uuid: String = '65f9a764-1286-463d-bb3c-aaced9edbd61') {
-    return this.http.get('https://localhost:7249/api/GradeManager/' + uuid);
+  getGrades() {
+    return this.http.get('https://localhost:7249/api/GradeManager/' + localStorage.getItem('uuid'));
   }
 
-  getMarks(uuid: String = '65f9a764-1286-463d-bb3c-aaced9edbd61') {
-    return this.http.get('https://localhost:7249/api/MarkManager/' + uuid);
+  getMarks() {
+    return this.http.get('https://localhost:7249/api/MarkManager/' + localStorage.getItem('uuid'));
   }
 
-  getApproves(uuid: String = '65f9a764-1286-463d-bb3c-aaced9edbd61') {
-    return this.http.get('https://localhost:7249/api/ApproveManager/' + uuid);
+  getApproves() {
+    return this.http.get('https://localhost:7249/api/ApproveManager/' + localStorage.getItem('uuid'));
   }
 }

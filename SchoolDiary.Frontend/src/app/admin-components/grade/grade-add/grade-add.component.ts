@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GradeAddService } from 'src/app/service/grade/grade-add.service';
 import { HomeService } from 'src/app/service/home/home.service';
 
 
@@ -35,16 +36,15 @@ export class GradeAddComponent implements OnInit {
   gradeWeight: Number = 1;
   class: Number = 1;
 
-  constructor(private http: HttpClient,
-    private homeService: HomeService) { }
+  constructor(private homeService: HomeService,
+    private gradeService: GradeAddService) { }
 
   ngOnInit() {
   }
 
   getStudentList() {
-    this.http.get("https://localhost:7249/api/ClassManager/" + this.class).subscribe((res) => {
+    this.gradeService.getStudentList(this.class).subscribe((res) => {
       this.students = res;
-      console.log(res);
     });
   }
 
@@ -52,36 +52,24 @@ export class GradeAddComponent implements OnInit {
     for (let index = 0; index < this.students.length; index++) {
       let grade = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).value;
 
-      let gradeJson = {
-        gradeValue: grade,
-        weight: this.gradeWeight,
-        description: '',
-        userUUID: this.students[index].userUUID
-      }
-
-      await this.http.post("https://localhost:7249/api/Grade", gradeJson).toPromise();
+      this.gradeService.addGrades(grade, this.gradeWeight, this.students[index].userUUID);
     }
 
     await this.getLessonID();
-    
-    //this.students = [];
-    console.log("Complete");
   }
 
   async getLessonID() {
-    this.http.get("https://localhost:7249/api/Lesson").subscribe((res: any) => {
+    this.gradeService.getLessonID().subscribe((res: any) => {
       let lessonID = res.filter((x: any) => x.name == this.lesson)
       .filter((x: any) => x.day == this.day)
       .filter((x: any) => x.hour == this.hour)
-      console.log(lessonID);
       
       this.getSubject(lessonID);
     });
   }
 
   getSubject(lessonID: any) {  
-    this.http.get("https://localhost:7249/api/Subject").subscribe((res: any) => {
-      
+    this.gradeService.getSubjectID().subscribe((res: any) => {
       let subjectList: any = [];
 
       for (let index = 0; index < lessonID.length; index++) {
@@ -99,7 +87,7 @@ export class GradeAddComponent implements OnInit {
   }
 
   getGradeID(lessonID: any) {
-    this.http.get("https://localhost:7249/api/Grade").subscribe((res: any) => {
+    this.gradeService.getGradeID().subscribe((res: any) => {
       for (let index = 0; index < this.students.length; index++) {
         let gradeID = res[(res.length - 1) - index].gradeID
 
@@ -114,17 +102,12 @@ export class GradeAddComponent implements OnInit {
   }
 
   addLessonGrade(lessonID: Number, gradeID: Number) {
-    let lessonGradeJson = {
-      fK_LessonID: lessonID,
-      fK_GradeID: gradeID
-    }
-
-    this.http.post("https://localhost:7249/api/GradeManager", lessonGradeJson).subscribe();
+    this.gradeService.addLessonGrade(lessonID, gradeID);
   }
 
     //lesson plan
-    getPlan() {
-      this.homeService.getLessons(this.class).subscribe(
+    async getPlan() {
+      this.homeService.getLessons().subscribe(
         (res) => {
           this.helpLesson = res;
         }

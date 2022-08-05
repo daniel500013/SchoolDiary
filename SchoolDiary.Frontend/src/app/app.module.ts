@@ -19,8 +19,6 @@ import { LessonChangeComponent } from './admin-components/lesson/lesson-change/l
 import { LessonDeleteComponent } from './admin-components/lesson/lesson-delete/lesson-delete.component';
 import { FormsModule } from '@angular/forms';
 import { GradeAddComponent } from './admin-components/grade/grade-add/grade-add.component';
-import { GradeChangeComponent } from './admin-components/grade/grade-change/grade-change.component';
-import { GradeDeleteComponent } from './admin-components/grade/grade-delete/grade-delete.component';
 import { MarkAddComponent } from './admin-components/mark/mark-add/mark-add.component';
 import { MarkChangeComponent } from './admin-components/mark/mark-change/mark-change.component';
 import { ApproveAddComponent } from './admin-components/approve/approve-add/approve-add.component';
@@ -35,8 +33,6 @@ const routes: Routes = [
   { path: 'lessonchange', component: LessonChangeComponent, canActivate: [AuthGuard] },
   { path: 'lessondelete', component: LessonDeleteComponent, canActivate: [AuthGuard] },
   { path: 'gradeadd', component: GradeAddComponent, canActivate: [AuthGuard] },
-  { path: 'gradechange', component: GradeChangeComponent, canActivate: [AuthGuard] },
-  { path: 'gradedelete', component: GradeDeleteComponent, canActivate: [AuthGuard] },
   { path: 'markadd', component: MarkAddComponent, canActivate: [AuthGuard] },
   { path: 'markchange', component: MarkChangeComponent, canActivate: [AuthGuard] },
   { path: 'approveadd', component: ApproveAddComponent, canActivate: [AuthGuard] },
@@ -55,8 +51,6 @@ const routes: Routes = [
       LessonChangeComponent,
       LessonDeleteComponent,
       GradeAddComponent,
-      GradeChangeComponent,
-      GradeDeleteComponent,
       MarkAddComponent,
       MarkChangeComponent,
       ApproveAddComponent,

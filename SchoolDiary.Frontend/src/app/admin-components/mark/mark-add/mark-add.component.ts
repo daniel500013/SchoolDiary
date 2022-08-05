@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/service/home/home.service';
+import { MarkAddService } from 'src/app/service/mark/mark-add.service';
 
 @Component({
   selector: 'app-mark-add',
@@ -33,12 +34,13 @@ export class MarkAddComponent implements OnInit {
   class: Number = 1;
 
   constructor(private http: HttpClient,
-    private homeService: HomeService) {}
+    private homeService: HomeService,
+    private markService: MarkAddService) {}
 
   ngOnInit() {}
 
   getStudentList() {
-    this.http.get("https://localhost:7249/api/ClassManager/" + this.class).subscribe((res) => {
+    this.markService.getStudentList(this.class).subscribe((res) => {
       this.students = res;
     });
   }
@@ -47,34 +49,24 @@ export class MarkAddComponent implements OnInit {
     for (let index = 0; index < this.students.length; index++) {
       let mark = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).checked;
 
-      let markJson = {
-        present: mark,
-        userUUID: this.students[index].userUUID
-      }
-      console.log(mark);
-      
-      await this.http.post("https://localhost:7249/api/Mark", markJson).toPromise();
+      this.markService.addMark(mark, this.students[index].userUUID);
     }
 
     await this.getLessonID();
-    
-    console.log("Complete");
   }
 
   async getLessonID() {
-    this.http.get("https://localhost:7249/api/Lesson").subscribe((res: any) => {
+    this.markService.getLessonID().subscribe((res: any) => {
       let lessonID = res.filter((x: any) => x.name == this.lesson)
       .filter((x: any) => x.day == this.day)
       .filter((x: any) => x.hour == this.hour)
-      console.log(lessonID);
       
       this.getSubject(lessonID);
     });
   }
 
   getSubject(lessonID: any) {  
-    this.http.get("https://localhost:7249/api/Subject").subscribe((res: any) => {
-      
+    this.markService.getSubjectID().subscribe((res: any) => {
       let subjectList: any = [];
 
       for (let index = 0; index < lessonID.length; index++) {
@@ -92,7 +84,7 @@ export class MarkAddComponent implements OnInit {
   }
 
   getMarkID(lessonID: any) {
-    this.http.get("https://localhost:7249/api/Mark").subscribe((res: any) => {
+    this.markService.getMarkID().subscribe((res: any) => {
       for (let index = 0; index < this.students.length; index++) {
         let markID = res[(res.length - 1) - index].markID
         
@@ -107,17 +99,12 @@ export class MarkAddComponent implements OnInit {
   }
 
   addLessonMark(lessonID: Number, markID: Number) {
-    let lessonMarkJson = {
-      fK_LessonID: lessonID,
-      fK_MarkID: markID
-    }
-
-    this.http.post("https://localhost:7249/api/MarkManager", lessonMarkJson).subscribe();
+    this.markService.addLessonMark(lessonID, markID);
   }
 
   //lesson plan
   getPlan() {
-    this.homeService.getLessons(this.class).subscribe((res) => {
+     this.homeService.getLessons().subscribe((res) => {
       this.helpLesson = res;
     });
   }

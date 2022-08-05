@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApproveAddService } from 'src/app/service/approve/approve-add.service';
 import { HomeService } from 'src/app/service/home/home.service';
 
 @Component({
@@ -37,36 +38,26 @@ export class ApproveAddComponent implements OnInit {
     approveDescription: any;
   
     constructor(private http: HttpClient,
-      private homeService: HomeService) {}
+      private homeService: HomeService,
+      private approveService: ApproveAddService) {}
   
     ngOnInit() {}
   
     getStudentList() {
-      this.http.get("https://localhost:7249/api/ClassManager/" + this.class).subscribe((res) => {
+      this.approveService.getStudentList(this.class).subscribe((res) => {
         this.students = res;
         console.log(res);
       });
     }
 
     async addApproves() {
-      let approveJson = {
-        positive: JSON.parse(this.typeOfApprove),
-        description: this.approveDescription || '',
-        userUUID: this.studentToApprove
-      }
-
-      console.log(approveJson);
-      
-      
-      await this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();
+      this.approveService.addApprove(JSON.parse(this.typeOfApprove), this.approveDescription, this.studentToApprove);
   
       await this.getLessonID();
-      
-      console.log("Complete");
     }
   
     async getLessonID() {
-      this.http.get("https://localhost:7249/api/Lesson").subscribe((res: any) => {
+      this.approveService.getLessonID().subscribe((res: any) => {
         let lessonID = res.filter((x: any) => x.name == this.lesson)
         .filter((x: any) => x.day == this.day)
         .filter((x: any) => x.hour == this.hour)
@@ -77,7 +68,7 @@ export class ApproveAddComponent implements OnInit {
     }
   
     getSubject(lessonID: any) {  
-      this.http.get("https://localhost:7249/api/Subject").subscribe((res: any) => {
+      this.approveService.getSubjectID().subscribe((res: any) => {
         
         let subjectList: any = [];
   
@@ -91,32 +82,27 @@ export class ApproveAddComponent implements OnInit {
   
         subjectList = subjectList.filter((item: any) => item);
   
-        this.getMarkID(subjectList[0].fK_LessonID);
+        this.getApproveID(subjectList[0].fK_LessonID);
       });
     }
   
-    getMarkID(lessonID: any) {
-      this.http.get("https://localhost:7249/api/Approve").subscribe((res: any) => {
+    getApproveID(lessonID: any) {
+      this.approveService.getApproveID().subscribe((res: any) => {
         let ApproveID = res[(res.length - 1)].approveID
           
-        this.addLessonMark(lessonID, ApproveID);
+        this.addLessonApprove(lessonID, ApproveID);
         
         this.students = [];
       });
     }
   
-    addLessonMark(lessonID: Number, ApproveID: Number) {
-      let lessonMarkJson = {
-        fK_LessonID: lessonID,
-        fK_ApproveID: ApproveID
-      }
-  
-      this.http.post("https://localhost:7249/api/ApproveManager", lessonMarkJson).subscribe();
+    addLessonApprove(lessonID: Number, ApproveID: Number) {
+      this.approveService.addLessonApprove(lessonID, ApproveID);
     }
   
     //lesson plan
     getPlan() {
-      this.homeService.getLessons(this.class).subscribe((res) => {
+      this.homeService.getLessons().subscribe((res) => {
         this.helpLesson = res;
       });
     }

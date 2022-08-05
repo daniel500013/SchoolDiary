@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApproveDeleteService } from 'src/app/service/approve/approve-delete.service';
 import { HomeService } from 'src/app/service/home/home.service';
 
 @Component({
@@ -34,27 +35,25 @@ export class ApproveDeleteComponent implements OnInit {
   user: any;
   approveIDToDelete: any;
 
-  constructor(private http: HttpClient, private homeService: HomeService) {}
+  constructor(private http: HttpClient, private homeService: HomeService, private approveService: ApproveDeleteService) {}
 
   ngOnInit() {}
 
   getStudentList() {
-    this.http.get('https://localhost:7249/api/ClassManager/' + this.class)
-      .subscribe((res) => {
+    
+    this.approveService.getStudentList(this.class).subscribe((res) => {
         this.students = res;
-        console.log(res);
-      });
+    });
   }
 
   getApproves() {
-    this.http.get('https://localhost:7249/api/Approve').subscribe((res: any) => {
+    this.approveService.getApproves().subscribe((res: any) => {
       this.approveToDelete = res.filter((x: any) => x.fK_UserUUID == this.user);
-      console.log(this.approveToDelete);
     });
   }
 
   deleteApprove() {
-    this.http.delete('https://localhost:7249/api/Approve/' + this.approveIDToDelete).subscribe();
+    this.approveService.deleteApprove(this.approveIDToDelete);
 
     this.approveToDelete = [];
     this.students = [];
@@ -62,7 +61,7 @@ export class ApproveDeleteComponent implements OnInit {
 
   //lesson plan
   getPlan() {
-    this.homeService.getLessons(this.class).subscribe((res) => {
+    this.homeService.getLessons().subscribe((res) => {
       this.helpLesson = res;
     });
   }

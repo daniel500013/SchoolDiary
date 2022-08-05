@@ -142,7 +142,7 @@ export class MarkChangeComponent implements OnInit {
       await this.http.put("https://localhost:7249/api/Mark/" + this.marksToUpdate[index].markID, markJson).toPromise();
     }
     
-    console.log("Complete");
+    this.filterMarks = [];
   }
 
   //lesson plan

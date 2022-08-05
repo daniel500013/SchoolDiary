@@ -21,30 +21,25 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     
-    this.homeService.getLessons().subscribe(
-      (res) => {
-        //console.log(res);
-        this.lessons = res;
-      }
-    );
+    this.homeService.getClass().subscribe((res: any) => {
+      let element = res.filter((x: any) => x.fK_UserUUID == localStorage.getItem('uuid'))[0].fK_ClassID;
+      this.getLessons(element);
+    });   
 
     this.homeService.getGrades().subscribe(
       (res) => {
-        //console.log(res);
         this.grades = res;
       }
     );
 
     this.homeService.getMarks().subscribe(
       (res) => {
-        //console.log(res);
         this.marks = res;
       }
     );
 
     this.homeService.getApproves().subscribe(
       (res) => {
-        console.log(res);
         this.approves = res;
       }
     );
@@ -62,6 +57,14 @@ export class HomeComponent implements OnInit {
     }
 
     this.plan = this.plan + value;
+  }
+
+  getLessons(classNumber: Number) {
+    this.homeService.getLessons(classNumber).subscribe(
+      (res) => {
+        this.lessons = res;
+      }
+    );
   }
 
   mapDays(day: any): any {
