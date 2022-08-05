@@ -16,4 +16,15 @@ export class NavMenuComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('uuid');
   }
+
+  isAdmin() {
+    let role = localStorage.getItem("role") || '';
+
+    if (role === "Admin")
+    {
+      return true
+    }
+
+    return false;
+  }
 }

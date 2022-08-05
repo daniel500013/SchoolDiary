@@ -12,7 +12,7 @@
 
       <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
-              <a [routerLink]="['/admin']" class="nav-link">Admin Panel</a>
+              <a [routerLink]="['/admin']" class="nav-link" *ngIf="isAdmin()">Admin Panel</a>
           </li>
           <li class="nav-item">
               <a [routerLink]="['/login']" class="nav-link" (click)="logout()">Logout</a>
