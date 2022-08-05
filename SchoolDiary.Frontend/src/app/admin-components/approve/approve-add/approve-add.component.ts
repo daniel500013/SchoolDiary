@@ -33,7 +33,7 @@ export class ApproveAddComponent implements OnInit {
     gradeWeight: Number = 1;
     class: Number = 1;
     studentToApprove: any;
-    typeOfApprove: Boolean = true;
+    typeOfApprove: any;
     approveDescription: any;
   
     constructor(private http: HttpClient,
@@ -50,14 +50,12 @@ export class ApproveAddComponent implements OnInit {
 
     async addApproves() {
       let approveJson = {
-        positive: this.typeOfApprove,
+        positive: JSON.parse(this.typeOfApprove),
         description: this.approveDescription || '',
         userUUID: this.studentToApprove
       }
 
-      console.log(this.typeOfApprove);
-      console.log(this.approveDescription);
-      console.log(this.studentToApprove);
+      console.log(approveJson);
       
       
       await this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();

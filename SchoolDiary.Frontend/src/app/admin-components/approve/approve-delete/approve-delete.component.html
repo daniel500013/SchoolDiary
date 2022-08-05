@@ -1,0 +1,55 @@
+<div class="row mb-3">
+  <div class="col">
+    <div class="mt-3">
+      <h2>Delete Approve</h2>
+    </div>
+
+    <form class="form-data">    
+      <div class="mb-3">
+        <label class="h4">Class</label>
+        <select class="form-control" name="class" [(ngModel)]="class">
+          <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9] ;let i = index" value="{{i+1}}">{{i+1}}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary" (click)="getStudentList()">
+        Get students
+      </button>
+
+      <button type="button" class="btn btn-primary ml-3" [routerLink]="['/admin']">
+        Back
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="row" *ngIf="students.length != 0">
+  <div class="col">
+    <div class="mb-3">
+      <label class="h4">Student</label>
+      <select class="form-control" name="user" [(ngModel)]="user">
+        <option *ngFor="let student of students" value="{{student.userUUID}}">{{student.firstName + " " + student.lastName}}</option>
+      </select>
+    </div>
+    
+    <button class="btn btn-primary" (click)="getApproves()">
+      Get approves
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="approveToDelete.length != 0">
+  <div class="col">
+    
+    <div class="mt-3">
+      <label class="h4">Approves</label>
+      <select class="form-control" name="approveIDToDelete" [(ngModel)]="approveIDToDelete">
+        <option *ngFor="let approve of approveToDelete" value="{{approve.approveID}}">{{"Positive: " + approve.positive + " Description: " + approve.description}}</option>
+      </select>
+    </div>  
+
+    <button class="btn btn-danger" (click)="deleteApprove()">
+      Delete approve
+    </button>
+  </div>
+</div>

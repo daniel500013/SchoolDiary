@@ -24,6 +24,7 @@ import { GradeDeleteComponent } from './admin-components/grade/grade-delete/grad
 import { MarkAddComponent } from './admin-components/mark/mark-add/mark-add.component';
 import { MarkChangeComponent } from './admin-components/mark/mark-change/mark-change.component';
 import { ApproveAddComponent } from './admin-components/approve/approve-add/approve-add.component';
+import { ApproveDeleteComponent } from './admin-components/approve/approve-delete/approve-delete.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'markadd', component: MarkAddComponent, canActivate: [AuthGuard] },
   { path: 'markchange', component: MarkChangeComponent, canActivate: [AuthGuard] },
   { path: 'approveadd', component: ApproveAddComponent, canActivate: [AuthGuard] },
+  { path: 'approvedelete', component: ApproveDeleteComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -57,7 +59,8 @@ const routes: Routes = [
       GradeDeleteComponent,
       MarkAddComponent,
       MarkChangeComponent,
-      ApproveAddComponent
+      ApproveAddComponent,
+      ApproveDeleteComponent
    ],
   imports: [
     BrowserModule,
