@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 using SchoolDiary.api.Service;
-using SchoolDiary.api.ViewModel;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -44,7 +44,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register([FromBody] LoginViewModel model)
+        public async Task<IActionResult> Register([FromBody]LoginDto model)
         {
             await AccountService.Register(model);
 
@@ -67,7 +67,7 @@ namespace SchoolDiary.api.Controllers
         [HttpPost]
         [Produces("application/json")]
         [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel model)
+        public async Task<IActionResult> Login([FromBody]LoginDto model)
         {
             var token = await AccountService.Login(model);
 

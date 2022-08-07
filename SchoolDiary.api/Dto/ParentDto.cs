@@ -1,6 +1,6 @@
-﻿namespace SchoolDiary.api.ViewModel
+﻿namespace SchoolDiary.api.Dto
 {
-    public class ParentViewModel
+    public class ParentDto
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

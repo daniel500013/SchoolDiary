@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class ApproveService
     {
@@ -16,7 +18,7 @@
             return approves;
         }
 
-        public async Task CreateApprove(ApproveViewModel approve)
+        public async Task CreateApprove(ApproveDto approve)
         {
             if (approve is null)
             {
@@ -32,7 +34,7 @@
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeApprove(int id, ApproveViewModel approve)
+        public async Task ChangeApprove(int id, ApproveDto approve)
         {
             if (id.Equals(0) || approve is null)
             {

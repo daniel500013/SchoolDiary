@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -42,7 +43,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateApprove([FromBody]ApproveViewModel approve)
+        public async Task<IActionResult> CreateApprove([FromBody]ApproveDto approve)
         {
             await ApproveService.CreateApprove(approve);
 
@@ -65,7 +66,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeApprove(int id, [FromBody]ApproveViewModel approve)
+        public async Task<IActionResult> ChangeApprove(int id, [FromBody]ApproveDto approve)
         {
             await ApproveService.ChangeApprove(id, approve);
 

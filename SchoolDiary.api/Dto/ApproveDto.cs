@@ -1,6 +1,6 @@
-﻿namespace SchoolDiary.api.ViewModel
+﻿namespace SchoolDiary.api.Dto
 {
-    public class ApproveViewModel
+    public class ApproveDto
     {
         public bool Positive { get; set; }
         public string? Description { get; set; }

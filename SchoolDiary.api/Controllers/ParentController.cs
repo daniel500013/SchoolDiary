@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -42,7 +43,7 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPost]
-        public async Task<IActionResult> AddParent([FromBody]ParentViewModel parent)
+        public async Task<IActionResult> AddParent([FromBody]ParentDto parent)
         {
             await ParentService.CreateParent(parent);
 
@@ -66,7 +67,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeParent(int id, [FromBody]ParentViewModel parent)
+        public async Task<IActionResult> ChangeParent(int id, [FromBody]ParentDto parent)
         {
             await ParentService.ChangeParent(id, parent);
 

@@ -1,6 +1,6 @@
-﻿namespace SchoolDiary.api.ViewModel
+﻿namespace SchoolDiary.api.Dto
 {
-    public class GradeViewModel
+    public class GradeDto
     {
         public int GradeValue { get; set; }
         public int Weight { get; set; }

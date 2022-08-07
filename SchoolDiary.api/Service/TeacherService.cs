@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class TeacherService
     {
@@ -16,7 +18,7 @@
             return teachers;
         }
 
-        public async Task AddTeacher(TeacherViewModel teacher)
+        public async Task AddTeacher(TeacherDto teacher)
         {
             if (teacher is null)
             {
@@ -34,7 +36,7 @@
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeTeacher(int id, TeacherViewModel teacher)
+        public async Task ChangeTeacher(int id, TeacherDto teacher)
         {
             if (teacher is null || id.Equals(0))
             {

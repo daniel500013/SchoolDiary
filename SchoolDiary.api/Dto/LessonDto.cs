@@ -1,6 +1,6 @@
-﻿namespace SchoolDiary.api.ViewModel
+﻿namespace SchoolDiary.api.Dto
 {
-    public class LessonViewModel
+    public class LessonDto
     {
         public string? Name { get; set; }
         public int Day { get; set; }

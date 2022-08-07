@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -56,7 +57,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateLesson([FromBody]LessonViewModel lesson)
+        public async Task<IActionResult> CreateLesson([FromBody]LessonDto lesson)
         {
             await LessonService.CreateLesson(lesson);
 
@@ -80,7 +81,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeLesson(int id, [FromBody]LessonViewModel lesson)
+        public async Task<IActionResult> ChangeLesson(int id, [FromBody]LessonDto lesson)
         {
             await LessonService.ChangeLesson(id, lesson);
 

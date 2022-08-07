@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SchoolDiary.api.ViewModel;
+using SchoolDiary.api.Dto;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,10 +9,10 @@ namespace SchoolDiary.api.Service
     public class AccountService
     {
         private readonly DiaryDbContext DiaryDbContext;
-        private readonly IPasswordHasher<LoginViewModel> PasswordHasher;
+        private readonly IPasswordHasher<LoginDto> PasswordHasher;
         private readonly JwtData Auth;
 
-        public AccountService(DiaryDbContext diaryDbContext, IPasswordHasher<LoginViewModel> passwordHasher, JwtData auth)
+        public AccountService(DiaryDbContext diaryDbContext, IPasswordHasher<LoginDto> passwordHasher, JwtData auth)
         {
             DiaryDbContext = diaryDbContext;
             PasswordHasher = passwordHasher;
@@ -43,7 +43,7 @@ namespace SchoolDiary.api.Service
             return PersonViewModel;
         }
 
-        public async Task Register(LoginViewModel User)
+        public async Task Register(LoginDto User)
         {
             if (User is null)
             {
@@ -86,7 +86,7 @@ namespace SchoolDiary.api.Service
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task<string> Login(LoginViewModel UserModel)
+        public async Task<string> Login(LoginDto UserModel)
         {
             if (UserModel is null)
             {

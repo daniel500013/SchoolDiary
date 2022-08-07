@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class GradeService
     {
@@ -15,7 +17,7 @@
             return grades;
         }
 
-        public async Task CreateGrade(GradeViewModel grade)
+        public async Task CreateGrade(GradeDto grade)
         {
             if (grade is null)
             {

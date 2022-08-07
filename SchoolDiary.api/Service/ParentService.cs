@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class ParentService
     {
@@ -9,15 +11,15 @@
             DiaryDbContext = diaryDbContext;
         }
 
-        public async Task<List<ParentViewModel>> GetAllParents()
+        public async Task<List<ParentDto>> GetAllParents()
         {
             var parents = await DiaryDbContext.Parent.ToListAsync();
 
-            var parentsToViewModel = new List<ParentViewModel>();
+            var parentsToViewModel = new List<ParentDto>();
 
             for (int i = 0; i < parents.Count; i++)
             {
-                parentsToViewModel.Add(new ParentViewModel()
+                parentsToViewModel.Add(new ParentDto()
                 {
                     FirstName = parents[i].FirstName,
                     LastName = parents[i].LastName,
@@ -29,7 +31,7 @@
             return parentsToViewModel;
         }
 
-        public async Task CreateParent(ParentViewModel ParentViewModel)
+        public async Task CreateParent(ParentDto ParentViewModel)
         {
             if (ParentViewModel is null)
             {
@@ -55,7 +57,7 @@
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeParent(int id, ParentViewModel ParentViewModel)
+        public async Task ChangeParent(int id, ParentDto ParentViewModel)
         {
             if (ParentViewModel is null || id.Equals(0))
             {

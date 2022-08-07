@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using SchoolDiary.api.Dto;
 
 [assembly: InternalsVisibleTo("SchoolDiary.Tests")]
 
@@ -27,7 +28,7 @@ builder.Services.AddScoped<MarkManagerService>();
 builder.Services.AddScoped<GradeManagerService>();
 builder.Services.AddScoped<ApproveManagerService>();
 builder.Services.AddScoped<SubjectService>();
-builder.Services.AddScoped<IPasswordHasher<LoginViewModel>, PasswordHasher<LoginViewModel>>();
+builder.Services.AddScoped<IPasswordHasher<LoginDto>, PasswordHasher<LoginDto>>();
 
 // Configure JwtData Globaly
 var auth = new JwtData();

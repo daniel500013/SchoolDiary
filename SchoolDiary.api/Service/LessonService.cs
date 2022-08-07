@@ -1,4 +1,6 @@
-﻿namespace SchoolDiary.api.Service
+﻿using SchoolDiary.api.Dto;
+
+namespace SchoolDiary.api.Service
 {
     public class LessonService
     {
@@ -53,7 +55,7 @@
             return LessonList;
         }
 
-        public async Task CreateLesson(LessonViewModel lesson)
+        public async Task CreateLesson(LessonDto lesson)
         {
             if (lesson is null)
             {
@@ -70,7 +72,7 @@
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeLesson(int id, LessonViewModel lesson)
+        public async Task ChangeLesson(int id, LessonDto lesson)
         {
             if (id.Equals(0) || lesson is null)
             {

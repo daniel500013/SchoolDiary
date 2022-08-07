@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -43,7 +44,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateGrade([FromBody]GradeViewModel grade)
+        public async Task<IActionResult> CreateGrade([FromBody]GradeDto grade)
         {
             await GradeService.CreateGrade(grade);
 

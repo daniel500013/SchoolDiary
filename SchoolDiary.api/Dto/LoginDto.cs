@@ -1,6 +1,6 @@
-﻿namespace SchoolDiary.api.ViewModel
+﻿namespace SchoolDiary.api.Dto
 {
-    public class LoginViewModel
+    public class LoginDto
     {
         public string? Email { get; set; }
         public string? Password { get; set; }
