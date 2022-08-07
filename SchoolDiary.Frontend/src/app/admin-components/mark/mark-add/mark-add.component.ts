@@ -45,66 +45,19 @@ export class MarkAddComponent implements OnInit {
     });
   }
 
-  async addMarks() {
+  addMarks() {
     for (let index = 0; index < this.students.length; index++) {
       let mark = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).checked;
 
-      this.markService.addMark(mark, this.students[index].userUUID);
+      this.markService.addMark(mark, this.students[index].userUUID, this.lesson, this.day, this.hour, this.class);
     }
 
-    await this.getLessonID();
-  }
-
-  async getLessonID() {
-    this.markService.getLessonID().subscribe((res: any) => {
-      let lessonID = res.filter((x: any) => x.name == this.lesson)
-      .filter((x: any) => x.day == this.day)
-      .filter((x: any) => x.hour == this.hour)
-      
-      this.getSubject(lessonID);
-    });
-  }
-
-  getSubject(lessonID: any) {  
-    this.markService.getSubjectID().subscribe((res: any) => {
-      let subjectList: any = [];
-
-      for (let index = 0; index < lessonID.length; index++) {
-        const element = lessonID[index];
-        let subjectID = res.filter((x: any) => x.fK_LessonID == element.lessonID)
-        .filter((x: any) => x.fK_Class == this.class)[0];
-
-        subjectList.push(subjectID);
-      }
-
-      subjectList = subjectList.filter((item: any) => item);
-
-      this.getMarkID(subjectList[0].fK_LessonID);
-    });
-  }
-
-  getMarkID(lessonID: any) {
-    this.markService.getMarkID().subscribe((res: any) => {
-      for (let index = 0; index < this.students.length; index++) {
-        let markID = res[(res.length - 1) - index].markID
-        
-        this.addLessonMark(lessonID, markID);
-
-        if (index == this.students.length - 1)
-        {
-          this.students = [];
-        }
-      }
-    });
-  }
-
-  addLessonMark(lessonID: Number, markID: Number) {
-    this.markService.addLessonMark(lessonID, markID);
+    this.students = [];
   }
 
   //lesson plan
   getPlan() {
-     this.homeService.getLessons().subscribe((res) => {
+     this.homeService.getLessons(this.class).subscribe((res) => {
       this.helpLesson = res;
     });
   }

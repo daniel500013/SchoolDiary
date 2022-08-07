@@ -75,7 +75,6 @@ namespace SchoolDiary.api.Service
                 .Where(x => x.Hour == gradeDto.Hour)
                 .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == gradeDto.Class).FK_Class == gradeDto.Class)
                 .FirstOrDefaultAsync();
-                
 
             if (Lesson is null)
             {

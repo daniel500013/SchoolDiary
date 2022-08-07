@@ -20,7 +20,7 @@ export class HomeService {
   }
 
   getMarks() {
-    return this.http.get('https://localhost:7249/api/MarkManager/' + localStorage.getItem('uuid'));
+    return this.http.get('https://localhost:7249/api/Mark/' + localStorage.getItem('uuid'));
   }
 
   getApproves() {

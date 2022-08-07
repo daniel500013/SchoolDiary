@@ -340,7 +340,7 @@
         </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.GetClassMarks(System.Int32)">
             <summary>
-            Returns list of marks
+            Returns list of marks by class
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.Dto.MarkDto)">

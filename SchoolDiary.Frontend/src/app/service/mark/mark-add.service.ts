@@ -7,37 +7,20 @@ import { Injectable } from '@angular/core';
 export class MarkAddService {
   constructor(private http: HttpClient) {}
 
-  async addMark(mark: Boolean, userUUID: any) {
+  addMark(mark: Boolean, userUUID: any, lesson: any, day: any, hour: any, Class: any) {
     let markJson = {
       present: mark,
-      userUUID: userUUID
+      userUUID: userUUID,
+      lesson: lesson,
+      day: day,
+      hour: hour,
+      class: Class 
     }
 
-    await this.http.post("https://localhost:7249/api/Mark", markJson).toPromise();
-  }
-
-  addLessonMark(lessonID: Number, markID: Number) {
-    let lessonMarkJson = {
-      fK_LessonID: lessonID,
-      fK_MarkID: markID
-    }
-
-    this.http.post("https://localhost:7249/api/MarkManager", lessonMarkJson).subscribe();
+    this.http.post("https://localhost:7249/api/Mark", markJson).subscribe();
   }
 
   getStudentList(Class: Number) {
     return this.http.get("https://localhost:7249/api/ClassManager/" + Class);
-  }
-
-  getLessonID() {
-    return this.http.get("https://localhost:7249/api/Lesson");
-  }
-
-  getSubjectID() {
-    return this.http.get("https://localhost:7249/api/Subject");
-  }
-
-  getMarkID() {
-    return this.http.get("https://localhost:7249/api/Mark");
   }
 }

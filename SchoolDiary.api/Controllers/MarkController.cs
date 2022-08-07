@@ -29,7 +29,7 @@ namespace SchoolDiary.api.Controllers
         }
 
         /// <summary>
-        /// Returns list of marks
+        /// Returns list of marks by class
         /// </summary>
         [Authorize(Roles = "Parent,Tutor,LocalAdmin,Admin")]
         [HttpGet]
@@ -37,6 +37,15 @@ namespace SchoolDiary.api.Controllers
         public async Task<IActionResult> GetClassMarks(int id)
         {
             var marks = await MarkService.GetClassMarks(id);
+
+            return Ok(marks);
+        }
+
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserMarks(Guid uuid)
+        {
+            var marks = await MarkService.GetUserMarks(uuid);
 
             return Ok(marks);
         }
