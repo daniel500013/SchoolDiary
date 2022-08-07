@@ -43,7 +43,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateGrade(GradeViewModel grade)
+        public async Task<IActionResult> CreateGrade([FromBody]GradeViewModel grade)
         {
             await GradeService.CreateGrade(grade);
 

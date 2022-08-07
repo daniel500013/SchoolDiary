@@ -53,7 +53,7 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPost]
-        public async Task<IActionResult> Post(SubjectDto subject)
+        public async Task<IActionResult> Post([FromBody]SubjectDto subject)
         {
             await SubjectService.CreateSubject(subject);
 
@@ -75,7 +75,7 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] SubjectDto subject)
+        public async Task<IActionResult> Put(int id, [FromBody]SubjectDto subject)
         {
             await SubjectService.PutSubject(id, subject);
 

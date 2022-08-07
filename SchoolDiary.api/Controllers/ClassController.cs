@@ -43,7 +43,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateClass([FromBody] ClassViewModel Class)
+        public async Task<IActionResult> CreateClass([FromBody]ClassViewModel Class)
         {
             await ClassService.CreateClass(Class);
 
@@ -67,7 +67,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> PutClass(int id, [FromBody] ClassViewModel Class)
+        public async Task<IActionResult> PutClass(int id, [FromBody]ClassViewModel Class)
         {
             await ClassService.ChangeClass(id, Class);
 

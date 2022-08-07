@@ -42,7 +42,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateApprove(ApproveViewModel approve)
+        public async Task<IActionResult> CreateApprove([FromBody]ApproveViewModel approve)
         {
             await ApproveService.CreateApprove(approve);
 
@@ -65,7 +65,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeApprove(int id, ApproveViewModel approve)
+        public async Task<IActionResult> ChangeApprove(int id, [FromBody]ApproveViewModel approve)
         {
             await ApproveService.ChangeApprove(id, approve);
 

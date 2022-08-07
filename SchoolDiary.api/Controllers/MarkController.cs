@@ -55,7 +55,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateMark(MarkDto mark)
+        public async Task<IActionResult> CreateMark([FromBody]MarkDto mark)
         {
             await MarkService.AddMark(mark);
 
@@ -77,7 +77,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeMark(int id, MarkDto mark)
+        public async Task<IActionResult> ChangeMark(int id, [FromBody]MarkDto mark)
         {
             await MarkService.ChangeMark(id, mark);
 

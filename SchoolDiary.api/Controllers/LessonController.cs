@@ -56,7 +56,7 @@ namespace SchoolDiary.api.Controllers
         /// </remarks>
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPost]
-        public async Task<IActionResult> CreateLesson(LessonViewModel lesson)
+        public async Task<IActionResult> CreateLesson([FromBody]LessonViewModel lesson)
         {
             await LessonService.CreateLesson(lesson);
 
@@ -80,7 +80,7 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeLesson(int id, LessonViewModel lesson)
+        public async Task<IActionResult> ChangeLesson(int id, [FromBody]LessonViewModel lesson)
         {
             await LessonService.ChangeLesson(id, lesson);
 
