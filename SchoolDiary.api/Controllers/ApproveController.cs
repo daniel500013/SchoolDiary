@@ -28,6 +28,15 @@ namespace SchoolDiary.api.Controllers
             return Ok(approves);
         }
 
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserApproves(Guid uuid)
+        {
+            var approves = await ApproveService.GetUserApproves(uuid);
+
+            return Ok(approves);
+        }
+
         /// <summary>
         /// Create Approve in diary
         /// </summary>

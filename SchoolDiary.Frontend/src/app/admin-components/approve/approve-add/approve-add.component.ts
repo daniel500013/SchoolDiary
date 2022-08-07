@@ -50,59 +50,27 @@ export class ApproveAddComponent implements OnInit {
       });
     }
 
-    async addApproves() {
-      this.approveService.addApprove(JSON.parse(this.typeOfApprove), this.approveDescription, this.studentToApprove);
+    addApproves() {
+      // this.approveService.addApprove(JSON.parse(this.typeOfApprove), this.approveDescription, this.studentToApprove);
   
-      await this.getLessonID();
-    }
-  
-    async getLessonID() {
-      this.approveService.getLessonID().subscribe((res: any) => {
-        let lessonID = res.filter((x: any) => x.name == this.lesson)
-        .filter((x: any) => x.day == this.day)
-        .filter((x: any) => x.hour == this.hour)
-        console.log(lessonID);
-        
-        this.getSubject(lessonID);
-      });
-    }
-  
-    getSubject(lessonID: any) {  
-      this.approveService.getSubjectID().subscribe((res: any) => {
-        
-        let subjectList: any = [];
-  
-        for (let index = 0; index < lessonID.length; index++) {
-          const element = lessonID[index];
-          let subjectID = res.filter((x: any) => x.fK_LessonID == element.lessonID)
-          .filter((x: any) => x.fK_Class == this.class)[0];
-  
-          subjectList.push(subjectID);
-        }
-  
-        subjectList = subjectList.filter((item: any) => item);
-  
-        this.getApproveID(subjectList[0].fK_LessonID);
-      });
-    }
-  
-    getApproveID(lessonID: any) {
-      this.approveService.getApproveID().subscribe((res: any) => {
-        let ApproveID = res[(res.length - 1)].approveID
-          
-        this.addLessonApprove(lessonID, ApproveID);
-        
-        this.students = [];
-      });
-    }
-  
-    addLessonApprove(lessonID: Number, ApproveID: Number) {
-      this.approveService.addLessonApprove(lessonID, ApproveID);
+      let approveJson = {
+        positive: JSON.parse(this.typeOfApprove),
+        description: this.approveDescription || '',
+        userUUID: this.studentToApprove,
+        lesson: this.lesson,
+        day: this.day,
+        hour: this.hour,
+        class: this.class
+      }
+      
+      this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();
+
+      this.students = [];
     }
   
     //lesson plan
     getPlan() {
-      this.homeService.getLessons().subscribe((res) => {
+      this.homeService.getLessons(this.class).subscribe((res) => {
         this.helpLesson = res;
       });
     }

@@ -24,6 +24,6 @@ export class HomeService {
   }
 
   getApproves() {
-    return this.http.get('https://localhost:7249/api/ApproveManager/' + localStorage.getItem('uuid'));
+    return this.http.get('https://localhost:7249/api/Approve/' + localStorage.getItem('uuid'));
   }
 }

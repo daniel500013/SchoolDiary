@@ -18,19 +18,87 @@ namespace SchoolDiary.api.Service
             return approves;
         }
 
-        public async Task CreateApprove(ApproveDto approve)
+        public async Task<List<ApproveManagerDto>> GetUserApproves(Guid uuid)
         {
-            if (approve is null)
+            if (uuid == Guid.Empty)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            await DiaryDbContext.AddAsync(new Approve()
+            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
+
+            if (CheckUserExist is null)
             {
-                Description = approve.Description,
-                Positive = approve.Positive,
-                FK_UserUUID = approve.UserUUID
-            });
+                throw new ArgumentNullException("User dosen't exist");
+            }
+
+            var Approves = await DiaryDbContext.LessonApprove
+                .Include(x => x.Approve)
+                .Select(x => x.Approve)
+                .Where(x => x.FK_UserUUID == uuid)
+                .ToListAsync();
+
+            if (Approves.Count <= 0)
+            {
+                throw new ArgumentNullException("No approves");
+            }
+
+            var ApproveLessons = await DiaryDbContext.LessonApprove
+                .Include(x => x.Lesson)
+                .Select(x => x.Approve)
+                .Where(x => x.FK_UserUUID == uuid)
+                .Select(x => x.LessonApproves.Select(x => x.Lesson))
+                .SelectMany(x => x)
+                .Select(x => x.Name)
+                .ToListAsync();
+
+            List<ApproveManagerDto> ApproovesDto = new List<ApproveManagerDto>();
+
+            for (int i = 0; i < Approves.Count; i++)
+            {
+                ApproovesDto.Add(new ApproveManagerDto() { Positive = Approves[i].Positive, Description = Approves[i].Description, LessonName = ApproveLessons[i] });
+            }
+
+            return ApproovesDto;
+        }
+
+        public async Task CreateApprove(ApproveDto approveDto)
+        {
+            if (approveDto is null)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Lesson = await DiaryDbContext.Lesson
+                .Include(x => x.Subjects)
+                .Where(x => x.Name == approveDto.Lesson)
+                .Where(x => x.Day == approveDto.Day)
+                .Where(x => x.Hour == approveDto.Hour)
+                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == approveDto.Class).FK_Class == approveDto.Class)
+                .FirstOrDefaultAsync();
+
+            if (Lesson is null)
+            {
+                throw new ArgumentNullException("Lesson dosen't exist");
+            }
+
+            var Approve = new Approve()
+            {
+                Description = approveDto.Description,
+                Positive = approveDto.Positive,
+                FK_UserUUID = approveDto.UserUUID
+            };
+
+            await DiaryDbContext.AddAsync(Approve);
+            await DiaryDbContext.SaveChangesAsync();
+
+            var LessonApprove = new LessonApprove()
+            {
+                FK_ApproveID = Approve.ApproveID,
+                FK_LessonID = Lesson.LessonID
+            };
+
+            await DiaryDbContext.AddAsync(LessonApprove);
             await DiaryDbContext.SaveChangesAsync();
         }
 
