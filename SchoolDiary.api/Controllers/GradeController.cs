@@ -28,6 +28,16 @@ namespace SchoolDiary.api.Controllers
             return Ok(grades);
         }
 
+        [Authorize(Roles = "LocalAdmin,Admin")]
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserGrades(Guid uuid)
+        {
+            var grades = await GradeService.GetUserGrades(uuid);
+
+            return Ok(grades);
+        }
+
         /// <summary>
         /// Create grade in diary
         /// </summary>

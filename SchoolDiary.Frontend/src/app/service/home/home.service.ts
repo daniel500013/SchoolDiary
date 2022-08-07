@@ -16,7 +16,7 @@ export class HomeService {
   }
 
   getGrades() {
-    return this.http.get('https://localhost:7249/api/GradeManager/' + localStorage.getItem('uuid'));
+    return this.http.get('https://localhost:7249/api/Grade/' + localStorage.getItem('uuid'));
   }
 
   getMarks() {

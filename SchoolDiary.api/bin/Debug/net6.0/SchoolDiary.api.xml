@@ -9,7 +9,7 @@
             Return all users
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.AccountController.Register(SchoolDiary.api.ViewModel.LoginViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Register(SchoolDiary.api.Dto.LoginDto)">
              <summary>
              Register user in diary
              </summary>
@@ -24,7 +24,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.AccountController.Login(SchoolDiary.api.ViewModel.LoginViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Login(SchoolDiary.api.Dto.LoginDto)">
              <summary>
              Login users and authenticate by return JWT token
              </summary>
@@ -44,7 +44,7 @@
             Return list of approves
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveController.CreateApprove(SchoolDiary.api.ViewModel.ApproveViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.CreateApprove(SchoolDiary.api.Dto.ApproveDto)">
              <summary>
              Create Approve in diary
              </summary>
@@ -59,7 +59,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveController.ChangeApprove(System.Int32,SchoolDiary.api.ViewModel.ApproveViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.ChangeApprove(System.Int32,SchoolDiary.api.Dto.ApproveDto)">
              <summary>
              Change Approve in diary by specify id
              </summary>
@@ -124,7 +124,7 @@
             Returns list of classes
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ClassController.CreateClass(SchoolDiary.api.ViewModel.ClassViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ClassController.CreateClass(SchoolDiary.api.Dto.ClassDto)">
              <summary>
              Create class in diary
              </summary>
@@ -140,7 +140,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ClassController.PutClass(System.Int32,SchoolDiary.api.ViewModel.ClassViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ClassController.PutClass(System.Int32,SchoolDiary.api.Dto.ClassDto)">
              <summary>
              Change class in diary by specify id
              </summary>
@@ -225,7 +225,7 @@
             Return list of grades
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.ViewModel.GradeViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.Dto.GradeDto)">
              <summary>
              Create grade in diary
              </summary>
@@ -296,7 +296,7 @@
             Return list of lessons for class specify by id
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.LessonController.CreateLesson(SchoolDiary.api.ViewModel.LessonViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.LessonController.CreateLesson(SchoolDiary.api.Dto.LessonDto)">
              <summary>
              Create lesson in diary
              </summary>
@@ -312,7 +312,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.LessonController.ChangeLesson(System.Int32,SchoolDiary.api.ViewModel.LessonViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.LessonController.ChangeLesson(System.Int32,SchoolDiary.api.Dto.LessonDto)">
              <summary>
              Change lesson in diary by specify id
              </summary>
@@ -426,7 +426,7 @@
             Return list of parents
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentController.AddParent(SchoolDiary.api.ViewModel.ParentViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ParentController.AddParent(SchoolDiary.api.Dto.ParentDto)">
              <summary>
              Add parent to diary
              </summary>
@@ -443,7 +443,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentController.ChangeParent(System.Int32,SchoolDiary.api.ViewModel.ParentViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.ParentController.ChangeParent(System.Int32,SchoolDiary.api.Dto.ParentDto)">
              <summary>
              Modify parent specify by id
              </summary>
@@ -625,7 +625,7 @@
             Returns list of teachers
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.TeacherController.AddTeacher(SchoolDiary.api.ViewModel.TeacherViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.AddTeacher(SchoolDiary.api.Dto.TeacherDto)">
              <summary>
              Add teacher to diary
              </summary>
@@ -643,7 +643,7 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.TeacherController.ChangeTeacher(System.Int32,SchoolDiary.api.ViewModel.TeacherViewModel)">
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.ChangeTeacher(System.Int32,SchoolDiary.api.Dto.TeacherDto)">
              <summary>
              Change teacher information by specify id
              </summary>
