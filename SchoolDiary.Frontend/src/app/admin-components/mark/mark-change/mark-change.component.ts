@@ -45,8 +45,6 @@ export class MarkChangeComponent implements OnInit {
   ngOnInit() {
     this.http.get('https://localhost:7249/api/Mark/' + this.class)
       .subscribe((res: any) => {
-        console.log(res);
-
         this.marks = res;
 
         for (let index = 0; index < res.length; index++) {
@@ -60,89 +58,33 @@ export class MarkChangeComponent implements OnInit {
       });
   }
 
-  async findMarkToChange() {
-    let subjectID;
-
-    await this.http
-      .get('https://localhost:7249/api/Subject')
-      .subscribe((res: any) => {
-        let element = res.filter((x: any) => x.fK_Class == this.class);
-        this.getLesson(element);
-      });
-  }
-
-  async getLesson(subjectID: any) {
-    let lessonID;
-    let tmp: any = [];
-
-    let lesson: any;
-
-    await this.http
-      .get('https://localhost:7249/api/Lesson')
-      .subscribe((res: any) => {
-        lessonID = res
-          .filter((x: any) => x.name == this.lesson)
-          .filter((x: any) => x.day == this.day)
-          .filter((x: any) => x.hour == this.hour);
-
-        for (let index = 0; index < lessonID.length; index++) {
-          const element = lessonID[index].lessonID;
-
-          tmp.push(subjectID.filter((x: any) => x.fK_LessonID == element));
-        }
-
-        for (let index = 0; index < tmp.length; index++) {
-          if (tmp[index].length >= 1) {
-            lesson = tmp[index];
-          }
-        }
-
-        this.getLessonMarks(lesson[0].fK_LessonID);
-
-        // console.log(lessonID);
-      });
-  }
-
-  async getLessonMarks(lessonID: any) {
-    await this.http.get('https://localhost:7249/api/MarkManager')
-      .subscribe((res: any) => {       
-        let lessonMark = res.filter((x: any) => x.fK_LessonID == lessonID)
-        this.loadMarks(lessonMark);
-    });
-  }
-
-  async loadMarks(lessonMark: any) {
-    for (let index = 0; index < lessonMark.length; index++) {
-      const element = lessonMark[index].fK_MarkID;
-      let marks = this.marks.filter((x: any) => x.markID == element)[0];
-      this.marksToUpdate.push(marks);
+  findMarkToChange() {
+    let MarkJson = {
+      lesson: this.lesson,
+      day: this.day,
+      hour: this.hour,
+      class: this.class,
+      date: this.date
     }
-    
-    await this.http.get("https://localhost:7249/api/Account").subscribe((res: any) => {
-      for (let index = 0; index < this.marksToUpdate.length; index++) {
-        var student = res.filter((x: any) => x.userUUID == this.marksToUpdate[index].fK_UserUUID)[0];
-        this.students.push(student);
-      }
+
+    this.http.put('https://localhost:7249/api/Mark', MarkJson).subscribe((res) => {
+      this.students = res;
     });
-    
-    this.filterMarks = this.marks.filter((x: any) => x.date == this.date);
   }
 
-  //update marks
-  async updateMarks() {
+  updateMarks() {
     for (let index = 0; index < this.students.length; index++) {
-      let mark = (<HTMLInputElement>document.getElementById(this.students[index].userUUID)).checked;
+      let mark = (<HTMLInputElement>document.getElementById(this.students[index].markID)).checked;
+      let markID = (<HTMLInputElement>document.getElementById(this.students[index].markID)).value;
 
-      let markJson = {
-        present: mark,
-        userUUID: this.students[index].userUUID
+      let MarkJson = {
+        present: mark
       }
-      console.log(mark);
-      
-      await this.http.put("https://localhost:7249/api/Mark/" + this.marksToUpdate[index].markID, markJson).toPromise();
+
+      this.http.put('https://localhost:7249/api/Mark/' + markID, MarkJson).subscribe();
     }
-    
-    this.filterMarks = [];
+
+    this.students = [];
   }
 
   //lesson plan

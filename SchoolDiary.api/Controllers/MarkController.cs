@@ -71,6 +71,14 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public async Task<IActionResult> ChangeMark([FromBody]MarkChangeDto changeMarkDto)
+        {
+            var Users = await MarkService.GetChangeMarksUsers(changeMarkDto);
+
+            return Ok(Users);
+        }
+
         /// <summary>
         /// Change mark in diary by id
         /// </summary>
@@ -86,9 +94,9 @@ namespace SchoolDiary.api.Controllers
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> ChangeMark(int id, [FromBody]MarkDto mark)
+        public async Task<IActionResult> ChangeMark(int id, [FromBody]MarkDto markDto)
         {
-            await MarkService.ChangeMark(id, mark);
+            await MarkService.ChangeMark(id, markDto);
 
             return Ok();
         }

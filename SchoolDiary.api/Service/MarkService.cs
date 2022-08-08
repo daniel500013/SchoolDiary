@@ -140,6 +140,55 @@ namespace SchoolDiary.api.Service
             await DiaryDbContext.SaveChangesAsync();
         }
 
+        public async Task<List<MarkChangeViewModel>> GetChangeMarksUsers(MarkChangeDto markDto)
+        {
+            if (markDto is null)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Lesson = await DiaryDbContext.Lesson
+                .Include(x => x.Subjects)
+                .Where(x => x.Name == markDto.Lesson)
+                .Where(x => x.Day == markDto.Day)
+                .Where(x => x.Hour == markDto.Hour)
+                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == markDto.Class).FK_Class == markDto.Class)
+                .FirstOrDefaultAsync();
+
+            if (Lesson is null)
+            {
+                throw new ArgumentNullException("Lesson dosen't exist");
+            }
+
+            var Users = await DiaryDbContext.LessonMark
+                .Include(x => x.Mark)
+                .ThenInclude(x => x.Person)
+                .Where(x => x.FK_LessonID == Lesson.LessonID)
+                .Select(x => x.Mark)
+                .Where(x => x.Date == markDto.Date)
+                .ToListAsync();
+
+            if (Users.Count <= 0)
+            {
+                throw new ArgumentNullException("Empty mark list");
+            }
+
+            List<MarkChangeViewModel> UsersViewModel = new List<MarkChangeViewModel>();
+
+            for (int i = 0; i < Users.Count; i++)
+            {
+                UsersViewModel.Add(new MarkChangeViewModel()
+                {
+                    Present = Users[i].Present,
+                    MarkID = Users[i].MarkID,
+                    FirstName = Users[i].Person.FirstName,
+                    LastName = Users[i].Person.LastName
+                });
+            }
+
+            return UsersViewModel;
+        }
+
         public async Task ChangeMark(int id, MarkDto mark)
         {
             if (mark is null || id.Equals(0))
