@@ -14,7 +14,6 @@ import { LessonService } from 'src/app/service/lesson/lesson-add.service';
 export class LessonAddComponent implements OnInit {
 
   //forms
-  form!: FormGroup;
   lessonForm!: FormGroup;
 
   //view
@@ -22,26 +21,28 @@ export class LessonAddComponent implements OnInit {
   teachers: any = [];
   plan: Number = 1;
 
-  //ngmodel
-  class: Number = 1;
+  lessonsView: any = [
+    'Polish',
+    'Geography',
+    'Chemistry',
+    'Math',
+    'PE',
+    'History',
+    'English',
+    'Physics',
+  ];
 
-  constructor(private formBuilder: FormBuilder,
-    private router: Router,
-    private homeService: HomeService,
+  //ngmodel
+  lesson: any = "Polish";
+  day: Number = 1;
+  class: Number = 1;
+  hour: Number = 1;
+  teacher: Number = 1;
+
+  constructor(private homeService: HomeService,
     private lessonService: LessonService) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      class: 0
-    });
-
-    this.lessonForm = this.formBuilder.group({
-      lesson: '',
-      day: '1',
-      hour: '1',
-      teacher: 1
-    });
-
     this.lessonService.getTeachers().subscribe(
       (res) => {
         this.teachers = res;
@@ -50,10 +51,10 @@ export class LessonAddComponent implements OnInit {
   }
 
   //Add Lesson
-  addLesson(lessonID: Number) {
-    this.lessonService.addLesson(this.lessonForm).subscribe();
+  addLesson(lessonID: Number) {    
+    this.lessonService.addLesson(this.lesson, this.day, this.hour).subscribe();
     
-    this.lessonService.addSubject(lessonID, this.class, this.lessonForm).subscribe((res) => {
+    this.lessonService.addSubject(lessonID, this.class, this.teacher).subscribe((res) => {
       this.getPlan();
     });
   }
@@ -72,7 +73,7 @@ export class LessonAddComponent implements OnInit {
 
   //lessons Plan
   async getPlan() {
-    this.homeService.getLessons().subscribe(
+    this.homeService.getLessons(this.class).subscribe(
       (res) => {
         //console.log(res);
         this.lessons = res;

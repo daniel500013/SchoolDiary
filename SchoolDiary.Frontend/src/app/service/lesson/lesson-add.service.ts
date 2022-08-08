@@ -8,21 +8,21 @@ import { Router } from '@angular/router';
 export class LessonService {
   constructor(private http: HttpClient) {}
 
-  addLesson(lessonForm: any) {
+  addLesson(lessonName: any, day: any, hour: any) {
     let lesson = {
-      name: lessonForm.value.lesson,
-      day: Number(lessonForm.value.day),
-      hour: Number(lessonForm.value.hour)
+      name: lessonName,
+      day: Number(day),
+      hour: Number(hour)
     }
 
     return this.http.post('https://localhost:7249/api/Lesson', lesson);
   }
 
-  addSubject(lessonID: Number, Class: any, lessonForm: any) {
+  addSubject(lessonID: Number, Class: any, teacher: any) {
     let subject = {
       lesson: Number(lessonID) + 1,
       class: Number(Class),
-      teacher: Number(lessonForm.value.teacher),
+      teacher: Number(teacher),
     }
     
     return this.http.post('https://localhost:7249/api/Subject', subject);

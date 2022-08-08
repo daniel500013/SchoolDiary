@@ -8,10 +8,9 @@ import { LessonDeleteService } from 'src/app/service/lesson/lesson-delete.servic
 @Component({
   selector: 'app-lesson-delete',
   templateUrl: './lesson-delete.component.html',
-  styleUrls: ['./lesson-delete.component.css']
+  styleUrls: ['./lesson-delete.component.css'],
 })
 export class LessonDeleteComponent implements OnInit {
-
   form!: FormGroup;
 
   //help lesson
@@ -40,8 +39,7 @@ export class LessonDeleteComponent implements OnInit {
   //error
   error: Boolean = false;
 
-  constructor(private homeService: HomeService,
-    private lessonService: LessonDeleteService) { }
+  constructor(private homeService: HomeService, private lessonService: LessonDeleteService) {}
 
   ngOnInit() {
     this.lessonService.getTeachers().subscribe((res) => {
@@ -51,10 +49,10 @@ export class LessonDeleteComponent implements OnInit {
 
   getLessonID() {
     this.error = false;
-    
+
     this.lessonService.getLessonID(this.class).subscribe((res: any) => {
-    let lessonID: any;
-    let tmp: any = [];
+      let lessonID: any;
+      let tmp: any = [];
 
       res.forEach((element: any) => {
         element.forEach((lessonList: any) => {
@@ -78,27 +76,20 @@ export class LessonDeleteComponent implements OnInit {
   getSubjectID(lessonID: any) {
     let subjectID: any;
     let tmp: any = [];
-    
+
     this.lessonService.getSubjects().subscribe((res: any) => {
       res.forEach((element: any) => {
         tmp.push(element);
       });
 
       subjectID = tmp
-      .filter((x: any) => x.fK_TeacherID == this.teacher)
-      .filter((x: any) => x.fK_Class == this.class)
-      .filter((x: any) => x.fK_LessonID == lessonID)[0].subjectID;
-    
-      //this.removeSubject(subjectID, lessonID);
+        .filter((x: any) => x.fK_TeacherID == this.teacher)
+        .filter((x: any) => x.fK_Class == this.class)
+        .filter((x: any) => x.fK_LessonID == lessonID)[0].subjectID;
+
       this.removeLesson(lessonID);
     });
   }
-
-  // removeSubject(subjectID: any, lessonID: any) {
-  //   this.http.delete('https://localhost:7249/api/Subject/' + subjectID).subscribe();
-
-  //   this.removeLesson(lessonID);
-  // }
 
   removeLesson(lessonID: any) {
     this.lessonService.removeLesson(lessonID).subscribe((res) => {
@@ -106,28 +97,24 @@ export class LessonDeleteComponent implements OnInit {
     });
   }
 
-    //lesson plan
-    getPlan() {
-      this.homeService.getLessons().subscribe(
-        (res) => {
-          this.helpLesson = res;
-        }
-      );
+  //lesson plan
+  getPlan() {
+    this.homeService.getLessons().subscribe((res) => {
+      this.helpLesson = res;
+    });
+  }
+
+  changePlan(value: any) {
+    if (this.plan + value > 5) {
+      this.plan = 4;
     }
-  
-    changePlan(value: any) {
-      if (this.plan + value > 5)
-      {
-        this.plan = 4;
-      }
-      
-      if (this.plan + value < 1)
-      {
-        this.plan = 2;
-      }
-  
-      this.plan = this.plan + value;
+
+    if (this.plan + value < 1) {
+      this.plan = 2;
     }
+
+    this.plan = this.plan + value;
+  }
 
   mapDays(day: any): any {
     switch (day) {

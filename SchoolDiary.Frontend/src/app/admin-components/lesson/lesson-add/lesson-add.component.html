@@ -5,16 +5,18 @@
     </div>
 
     <div class="mt-3">
-      <form class="form-data" [formGroup]="lessonForm" (submit)="getLessonID()">
+      <form class="form-data" (submit)="getLessonID()">
         <div class="mt-3 mb-3">
           <label class="h4">Name</label>
-          <input type="text" class="form-control" placeholder="Physics" formControlName="lesson">
+          <select class="form-control" [(ngModel)]="lesson" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let itemLesson of lessonsView; let i = index" value="{{itemLesson}}">{{itemLesson}}</option>
+          </select>
         </div>
 
         <div class="mt-3 mb-3">
           <label class="h4">Day</label>
-          <select class="form-control" formControlName="day">
-            <option value="1" [selected]="true">Monday</option>
+          <select class="form-control" [(ngModel)]="day" [ngModelOptions]="{standalone: true}">
+            <option value="1">Monday</option>
             <option value="2">Thursday</option>
             <option value="3">Wednesday</option>
             <option value="4">Thursday</option>
@@ -24,7 +26,7 @@
 
         <div class="mt-3 mb-3">
           <label class="h4">Hour</label>
-          <select class="form-control" formControlName="hour">
+          <select class="form-control" [(ngModel)]="hour" [ngModelOptions]="{standalone: true}">
             <option value="1" [selected]="true">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -38,14 +40,16 @@
 
         <div class="mt-3 mb-3">
           <h4>Teacher</h4>
-          <select class="form-control" formControlName="teacher">
-            <option *ngFor="let teacher of teachers" value="{{teacher.teacherID}}" [selected]="true">{{teacher.firstName + ' ' + teacher.lastName}}</option>
+          <select class="form-control" [(ngModel)]="teacher" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let teacher of teachers" value="{{teacher.teacherID}}">{{teacher.firstName + ' ' + teacher.lastName}}</option>
           </select>
         </div>
 
         <div class="mt-3 mb-3">
           <label class="h4">Class</label>
-          <input type="number" class="form-control" min="1" value="1" [(ngModel)]="class" name="class" [ngModelOptions]="{standalone: true}"/>
+          <select class="form-control" name="class" [(ngModel)]="class" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let in of [0,1,2,3,4,5,6,7,8,9]; let i = index" value="{{i+1}}">{{i+1}}</option>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-success">
