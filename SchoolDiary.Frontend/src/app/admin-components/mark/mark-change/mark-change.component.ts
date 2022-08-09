@@ -52,9 +52,9 @@ export class MarkChangeComponent implements OnInit {
           this.dates.push(element);
         }
 
-        this.dates = this.dates.filter(
-          (item: any, i: any, ar: any) => ar.indexOf(item) === i
-        );
+        // this.dates = this.dates.filter(
+        //   (item: any, i: any, ar: any) => ar.indexOf(item) === i
+        // );
       });
   }
 

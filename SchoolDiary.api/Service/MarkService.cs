@@ -60,6 +60,8 @@ namespace SchoolDiary.api.Service
                 }
             }
 
+            marks = marks.GroupBy(x => x.Date).Select(x => x.First()).OrderByDescending(x => x.Date).ToList();
+
             return marks;
         }
 
