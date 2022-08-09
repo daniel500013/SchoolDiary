@@ -7,38 +7,21 @@ import { Injectable } from '@angular/core';
 export class ApproveAddService {
   constructor(private http: HttpClient) {}
 
-  async addApprove(typeOfApprove: any, approveDescription: any, studentToApprove: any) {
+  addApprove(typeOfApprove: any, approveDescription: any, studentUUID: any, lesson: any, day: any, hour: any, Class: any) {
     let approveJson = {
       positive: JSON.parse(typeOfApprove),
-      description: approveDescription || '',
-      userUUID: studentToApprove
+      description: approveDescription,
+      userUUID: studentUUID,
+      lesson: lesson,
+      day: day,
+      hour: hour,
+      class: Class
     }
     
-    await this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();
-  }
-
-  addLessonApprove(lessonID: any, ApproveID: any) {
-    let lessonMarkJson = {
-      fK_LessonID: lessonID,
-      fK_ApproveID: ApproveID
-    }
-
-    this.http.post("https://localhost:7249/api/ApproveManager", lessonMarkJson).subscribe();
+    this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();
   }
 
   getStudentList(Class: Number) {
     return this.http.get("https://localhost:7249/api/ClassManager/" + Class);
-  }
-
-  getLessonID() {
-    return this.http.get("https://localhost:7249/api/Lesson");
-  }
-
-  getSubjectID() {
-    return this.http.get("https://localhost:7249/api/Subject");
-  }
-
-  getApproveID() {
-    return this.http.get("https://localhost:7249/api/Approve");
   }
 }

@@ -37,8 +37,7 @@ export class ApproveAddComponent implements OnInit {
     typeOfApprove: any;
     approveDescription: any;
   
-    constructor(private http: HttpClient,
-      private homeService: HomeService,
+    constructor(private homeService: HomeService,
       private approveService: ApproveAddService) {}
   
     ngOnInit() {}
@@ -51,19 +50,7 @@ export class ApproveAddComponent implements OnInit {
     }
 
     addApproves() {
-      // this.approveService.addApprove(JSON.parse(this.typeOfApprove), this.approveDescription, this.studentToApprove);
-  
-      let approveJson = {
-        positive: JSON.parse(this.typeOfApprove),
-        description: this.approveDescription || '',
-        userUUID: this.studentToApprove,
-        lesson: this.lesson,
-        day: this.day,
-        hour: this.hour,
-        class: this.class
-      }
-      
-      this.http.post("https://localhost:7249/api/Approve", approveJson).subscribe();
+      this.approveService.addApprove(this.typeOfApprove, this.approveDescription, this.studentToApprove, this.lesson, this.day, this.hour, this.class);
 
       this.students = [];
     }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/service/home/home.service';
+import { MarkChangeService } from 'src/app/service/mark/mark-change.service';
 
 @Component({
   selector: 'app-mark-change',
@@ -40,21 +41,16 @@ export class MarkChangeComponent implements OnInit {
   marks: any;
   marksToUpdate: any = [];
 
-  constructor(private http: HttpClient, private homeService: HomeService) {}
+  constructor(private http: HttpClient, private homeService: HomeService, private markService: MarkChangeService) {}
 
   ngOnInit() {
-    this.http.get('https://localhost:7249/api/Mark/' + this.class)
-      .subscribe((res: any) => {
+    this.http.get('https://localhost:7249/api/Mark/' + this.class).subscribe((res: any) => {
         this.marks = res;
 
         for (let index = 0; index < res.length; index++) {
           const element = res[index].date;
           this.dates.push(element);
         }
-
-        // this.dates = this.dates.filter(
-        //   (item: any, i: any, ar: any) => ar.indexOf(item) === i
-        // );
       });
   }
 
@@ -77,11 +73,7 @@ export class MarkChangeComponent implements OnInit {
       let mark = (<HTMLInputElement>document.getElementById(this.students[index].markID)).checked;
       let markID = (<HTMLInputElement>document.getElementById(this.students[index].markID)).value;
 
-      let MarkJson = {
-        present: mark
-      }
-
-      this.http.put('https://localhost:7249/api/Mark/' + markID, MarkJson).subscribe();
+      this.markService.updateMarks(mark, markID);
     }
 
     this.students = [];
