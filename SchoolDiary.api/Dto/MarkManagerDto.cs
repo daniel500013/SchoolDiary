@@ -6,6 +6,6 @@ namespace SchoolDiary.api.Dto
     {
         public string? LessonName { get; set; }
         public bool Present { get; set; }
-        public string? Data { get; set; }
+        public DateTime? Data { get; set; }
     }
 }

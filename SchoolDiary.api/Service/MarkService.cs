@@ -96,7 +96,7 @@ namespace SchoolDiary.api.Service
 
             for (int i = 0; i < Marks.Count; i++)
             {
-                MarksDto.Add(new MarkManagerDto() { Present = Marks[i].Present, Data = Marks[i].Date.ToString("dd/mm/yyyy"), LessonName = MarkLesson[i] });
+                MarksDto.Add(new MarkManagerDto() { Present = Marks[i].Present, Data = Marks[i].Date, LessonName = MarkLesson[i] });
             }
 
             return MarksDto;
