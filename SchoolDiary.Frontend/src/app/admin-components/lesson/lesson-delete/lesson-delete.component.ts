@@ -99,7 +99,7 @@ export class LessonDeleteComponent implements OnInit {
 
   //lesson plan
   getPlan() {
-    this.homeService.getLessons().subscribe((res) => {
+    this.homeService.getLessons(this.class).subscribe((res) => {
       this.helpLesson = res;
     });
   }

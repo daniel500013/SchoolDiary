@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClassAddService } from 'src/app/service/class/class-add.service';
 
 @Component({
   selector: 'app-class-add',
@@ -15,21 +16,17 @@ export class ClassAddComponent implements OnInit {
   Class: any;
 
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private classService: ClassAddService) { }
 
   ngOnInit() {
-    this.http.get("https://localhost:7249/api/Account").subscribe(res => {
+    this.classService.getAllStudents().subscribe((res) => {
       this.students = res;
     });
   }
 
   assignToClass() {
-    let classManagerJson = {
-      userUUID: this.student,
-      classID: this.Class
-    }
-    
-    this.http.post("https://localhost:7249/api/ClassManager", classManagerJson).subscribe();
+    this.classService.assignToClass(this.student, this.Class).subscribe();
 
     this.router.navigate(['/admin']);
   }

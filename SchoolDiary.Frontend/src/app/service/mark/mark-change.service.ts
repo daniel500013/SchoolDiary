@@ -12,6 +12,22 @@ export class MarkChangeService {
       present: mark
     }
 
-    this.http.put('https://localhost:7249/api/Mark/' + markID, MarkJson).subscribe();
+    return this.http.put('https://localhost:7249/api/Mark/' + markID, MarkJson);
+  }
+
+  getStudentListToUpdate(lesson: any, day: any, hour: any, Class: any, date: any) {
+    let MarkJson = {
+      lesson: lesson,
+      day: day,
+      hour: hour,
+      class: Class,
+      date: date
+    }
+
+    return this.http.put('https://localhost:7249/api/Mark', MarkJson);
+  }
+
+  getClassMarks(Class: any) {
+    return this.http.get('https://localhost:7249/api/Mark/' + Class);
   }
 }

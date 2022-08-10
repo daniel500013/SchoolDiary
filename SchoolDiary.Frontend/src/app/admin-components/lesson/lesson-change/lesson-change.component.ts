@@ -46,7 +46,6 @@ export class LessonChangeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private homeService: HomeService,
     private lessonService: LessonChangeService
   ) {}

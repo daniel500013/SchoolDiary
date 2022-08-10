@@ -46,9 +46,7 @@ export class GradeAddComponent implements OnInit {
 
   addGrades() {
     for (let index = 0; index < this.students.length; index++) {
-      let grade = (<HTMLInputElement>(
-        document.getElementById(this.students[index].userUUID)
-      )).value;
+      let grade = (<HTMLInputElement>(document.getElementById(this.students[index].userUUID))).value;
 
       this.gradeService.addGrades(
         grade,

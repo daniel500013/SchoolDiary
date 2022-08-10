@@ -41,10 +41,14 @@ export class MarkChangeComponent implements OnInit {
   marks: any;
   marksToUpdate: any = [];
 
+  //errors
+  loadStudentError: Boolean = false;
+  updateMarksError: Boolean = false;
+
   constructor(private http: HttpClient, private homeService: HomeService, private markService: MarkChangeService) {}
 
   ngOnInit() {
-    this.http.get('https://localhost:7249/api/Mark/' + this.class).subscribe((res: any) => {
+    this.markService.getClassMarks(this.class).subscribe((res: any) => {
         this.marks = res;
 
         for (let index = 0; index < res.length; index++) {
@@ -55,16 +59,12 @@ export class MarkChangeComponent implements OnInit {
   }
 
   findMarkToChange() {
-    let MarkJson = {
-      lesson: this.lesson,
-      day: this.day,
-      hour: this.hour,
-      class: this.class,
-      date: this.date
-    }
-
-    this.http.put('https://localhost:7249/api/Mark', MarkJson).subscribe((res) => {
+    this.markService.getStudentListToUpdate(this.lesson, this.day, this.hour, this.class, this.date).subscribe((res) => {
       this.students = res;
+      this.loadStudentError = false;
+    },
+    (err) => {
+      this.loadStudentError = true;
     });
   }
 
@@ -73,7 +73,12 @@ export class MarkChangeComponent implements OnInit {
       let mark = (<HTMLInputElement>document.getElementById(this.students[index].markID)).checked;
       let markID = (<HTMLInputElement>document.getElementById(this.students[index].markID)).value;
 
-      this.markService.updateMarks(mark, markID);
+      this.markService.updateMarks(mark, markID).subscribe((res) => {
+        this.updateMarksError = false;
+      },
+      (err) => {
+        this.updateMarksError = true;
+      });
     }
 
     this.students = [];

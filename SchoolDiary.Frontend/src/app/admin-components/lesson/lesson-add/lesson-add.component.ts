@@ -75,7 +75,6 @@ export class LessonAddComponent implements OnInit {
   async getPlan() {
     this.homeService.getLessons(this.class).subscribe(
       (res) => {
-        //console.log(res);
         this.lessons = res;
       }
     );

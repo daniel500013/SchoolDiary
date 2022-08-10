@@ -6,12 +6,6 @@
         <button [routerLink]="['/lessonchange']" class="btn btn-warning m-3 d-block mx-auto w-100">Change</button>
         <button [routerLink]="['/lessondelete']" class="btn btn-danger m-3 d-block mx-auto w-100">Delete</button>
     </div>
-
-    <div id="Class" class="text-center">
-      <h2>Class</h2>
-      <button [routerLink]="['/classadd']" class="btn btn-success m-3 d-block mx-auto w-100">Assign user to class</button>
-      <button [routerLink]="['/classchange']" class="btn btn-warning m-3 d-block mx-auto w-100">Change Assign user to class</button>
-  </div>
   </div>
   <div class="col-4">
     <div id="Grade" class="text-center">
@@ -35,5 +29,24 @@
       <!-- <button class="btn btn-warning m-3 d-block mx-auto w-100">Change</button> -->
       <button [routerLink]="['/approvedelete']" class="btn btn-danger m-3 d-block mx-auto w-100">Delete</button>
     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-4">
+    <div id="Class" class="text-center">
+      <h2>Class</h2>
+      <button [routerLink]="['/classadd']" class="btn btn-success m-3 d-block mx-auto w-100">Assign user to class</button>
+      <button [routerLink]="['/classchange']" class="btn btn-warning m-3 d-block mx-auto w-100">Change Assign user to class</button>
+    </div>
+  </div>
+  <div class="col-4">
+    <div id="Class" class="text-center">
+      <h2>Role</h2>
+      <button [routerLink]="['/classadd']" class="btn btn-success m-3 d-block mx-auto w-100">Assign role</button>
+      <button [routerLink]="['/classchange']" class="btn btn-danger m-3 d-block mx-auto w-100">Remove role</button>
+    </div>
+  </div>
+  <div class="col-4">
+
   </div>
 </div>

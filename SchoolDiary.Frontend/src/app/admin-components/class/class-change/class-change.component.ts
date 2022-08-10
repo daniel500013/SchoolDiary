@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClassChangeService } from 'src/app/service/class/class-change.service';
 
 @Component({
   selector: 'app-class-change',
@@ -15,22 +16,17 @@ export class ClassChangeComponent implements OnInit {
   Class: any;
   ClassNew: any;
 
-  constructor(private http: HttpClient,
-    private router: Router) { }
+  constructor(private router: Router,
+    private classService: ClassChangeService) { }
 
   ngOnInit() {
-    this.http.get("https://localhost:7249/api/Account").subscribe(res => {
+    this.classService.getAllStudents().subscribe((res) => {
       this.students = res;
     });
   }
 
   assignToClass() {
-    let classManagerJson = {
-      userUUID: this.student,
-      classID: this.ClassNew
-    }
-    
-    this.http.put("https://localhost:7249/api/ClassManager/" + this.Class, classManagerJson).subscribe();
+    this.classService.assignToClass(this.student, this.ClassNew, this.Class);
 
     this.router.navigate(['/admin']);
   }

@@ -33,8 +33,7 @@ export class MarkAddComponent implements OnInit {
   gradeWeight: Number = 1;
   class: Number = 1;
 
-  constructor(private http: HttpClient,
-    private homeService: HomeService,
+  constructor(private homeService: HomeService,
     private markService: MarkAddService) {}
 
   ngOnInit() {}
