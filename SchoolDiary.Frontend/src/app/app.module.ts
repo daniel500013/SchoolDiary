@@ -26,6 +26,8 @@ import { ApproveDeleteComponent } from './admin-components/approve/approve-delet
 import { ClassAddComponent } from './admin-components/class/class-add/class-add.component';
 import { ClassChangeComponent } from './admin-components/class/class-change/class-change.component';
 import { TeacherComponent } from './teacher/teacher.component';
+import { RoleAddComponent } from './admin-components/role/role-add/role-add.component';
+import { RoleDeleteComponent } from './admin-components/role/role-delete/role-delete.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -43,6 +45,8 @@ const routes: Routes = [
   { path: 'approvedelete', component: ApproveDeleteComponent, canActivate: [AuthGuard] },
   { path: 'classadd', component: ClassAddComponent, canActivate: [AuthGuard] },
   { path: 'classchange', component: ClassChangeComponent, canActivate: [AuthGuard] },
+  { path: 'roleadd', component: RoleAddComponent, canActivate: [AuthGuard] },
+  { path: 'roledelete', component: RoleDeleteComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -63,7 +67,9 @@ const routes: Routes = [
       ApproveDeleteComponent,
       ClassAddComponent,
       ClassChangeComponent,
-      TeacherComponent
+      TeacherComponent,
+      RoleAddComponent,
+      RoleDeleteComponent
    ],
   imports: [
     BrowserModule,

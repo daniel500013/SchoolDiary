@@ -527,7 +527,7 @@
             Return list of roles
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.AssingRoleToUser(System.Guid,System.Int32)">
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.AssingRoleToUser(SchoolDiary.api.Dto.RoleDto)">
              <summary>
              Assign role to user
              </summary>
@@ -558,20 +558,10 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.DeleteRoleUser(System.Int32,System.Guid)">
-             <summary>
-             Delete user role
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 DELETE /Role/{id}
-                 {
-                    "id": 1 - Role whos you want to delete
-                    "UserUUID": "sample-uuid" - User uuid where you want to delete role
-                 }
-            
-             </remarks>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.DeleteRoleUser(System.Int32)">
+            <summary>
+            Delete user role by id
+            </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.SubjectController.Get">
             <summary>

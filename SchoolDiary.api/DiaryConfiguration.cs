@@ -63,26 +63,21 @@ namespace SchoolDiary.api
                 new Role()
                 {
                     RoleID = 2,
-                    Name = "Parent"
-                },
-                new Role()
-                {
-                    RoleID = 3,
                     Name = "Teacher"
                 },
                 new Role()
                 {
-                    RoleID = 4,
+                    RoleID = 3,
                     Name = "Tutor"
                 },
                 new Role()
                 {
-                    RoleID = 5,
+                    RoleID = 4,
                     Name = "LocalAdmin"
                 },
                 new Role()
                 {
-                    RoleID = 6,
+                    RoleID = 5,
                     Name = "Admin"
                 });
 
@@ -373,6 +368,35 @@ namespace SchoolDiary.api
                         }
                     );
             }
+
+            //Add admin account
+            var adminUUID = Guid.NewGuid();
+
+            var admin = new Person()
+            {
+                UserUUID = adminUUID,
+                Email = "admin@admin.com",
+                PasswordHash = "AQAAAAEAACcQAAAAEPVUodxzUig0advQ7fuqwEIQ05IoI6mng3ucQCRV+ps/m1wkOZZntA9k++uhVjb/KQ==",
+                FirstName = faker.Person.FirstName,
+                LastName = faker.Person.LastName,
+                Address = faker.Address.StreetAddress(),
+                City = faker.Address.City(),
+                ZipCode = faker.Address.ZipCode(),
+                Phone = faker.Phone.PhoneNumber()
+            };
+
+            modelBuilder.Entity<Person>().HasData(admin);
+
+            //Assign admin to admin account
+            modelBuilder.Entity<PersonRole>().HasData
+                (
+                    new PersonRole()
+                    {
+                        PersonRoleID = 1000,
+                        FK_UserUUID = adminUUID,
+                        FK_RoleID = 5
+                    }
+                );
         }
     }
 }

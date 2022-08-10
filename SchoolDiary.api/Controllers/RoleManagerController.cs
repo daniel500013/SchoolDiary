@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolDiary.api.Dto;
 
 namespace SchoolDiary.api.Controllers
 {
@@ -26,6 +27,15 @@ namespace SchoolDiary.api.Controllers
             return Ok(roles);
         }
 
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserRoles(Guid uuid)
+        {
+            var roles = await RoleService.GetUserRoles(uuid);
+
+            return Ok(roles);
+        }
+
         /// <summary>
         /// Assign role to user
         /// </summary>
@@ -40,9 +50,9 @@ namespace SchoolDiary.api.Controllers
         ///
         /// </remarks>
         [HttpPost]
-        public async Task<IActionResult> AssingRoleToUser(Guid UserUUID, int RoleID)
+        public async Task<IActionResult> AssingRoleToUser(RoleDto roleDto)
         {
-            await RoleService.AssignUserRole(UserUUID, RoleID);
+            await RoleService.AssignUserRole(roleDto);
 
             return Ok();
         }
@@ -71,23 +81,13 @@ namespace SchoolDiary.api.Controllers
         }
 
         /// <summary>
-        /// Delete user role
+        /// Delete user role by id
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     DELETE /Role/{id}
-        ///     {
-        ///        "id": 1 - Role whos you want to delete
-        ///        "UserUUID": "sample-uuid" - User uuid where you want to delete role
-        ///     }
-        ///
-        /// </remarks>
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<IActionResult> DeleteRoleUser(int id, Guid UserUUID)
+        public async Task<IActionResult> DeleteRoleUser(int id)
         {
-            await RoleService.RemoveUserRole(UserUUID, id);
+            await RoleService.RemoveUserRole(id);
 
             return Ok();
         }

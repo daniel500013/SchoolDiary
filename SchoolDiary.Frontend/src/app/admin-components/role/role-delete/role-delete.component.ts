@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoleDeleteService } from 'src/app/service/role/role-delete.service';
 
 @Component({
   selector: 'app-role-delete',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleDeleteComponent implements OnInit {
 
-  constructor() { }
+  students: any = [];
+  roles: any = [];
+
+  //ngmodel
+  student: any;
+  role: any;
+
+  constructor(private roleService: RoleDeleteService) { }
 
   ngOnInit() {
+    this.roleService.getStudentList().subscribe((res) => {
+      this.students = res;
+    });
   }
 
+  getRoles() {
+    this.roleService.getRoles(this.student).subscribe((res) => {
+      this.roles = res;
+    });
+  }
+
+  deleteRole() {
+    this.roleService.deleteRole(this.role).subscribe();
+    this.roles = [];
+  }
 }
