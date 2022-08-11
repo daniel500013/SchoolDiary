@@ -18,18 +18,22 @@ export class AuthService {
         
         localStorage.setItem("token", res);
         localStorage.setItem("uuid", tokenData.uuid);
-        console.log();
+        localStorage.setItem("Class", tokenData.Class);
+
         let role = tokenData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-        if (role.indexOf("Teacher") == 1)
+        console.log(role);
+
+        if (role.includes("Teacher"))
         {
           localStorage.setItem("role", "Teacher");
         }
-        
-        if (role.indexOf("Admin") == 1)
+
+        if (role.includes("Admin"))
         {
           localStorage.setItem("role", "Admin");
         }
+        
 
         this.router.navigate(['/']);
       });

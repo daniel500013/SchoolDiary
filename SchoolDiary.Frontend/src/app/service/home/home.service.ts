@@ -11,6 +11,10 @@ export class HomeService {
     return this.http.get('https://localhost:7249/api/ClassManager');
   }
 
+  getHomeLessons() {
+    return this.http.get('https://localhost:7249/api/Subject/' + localStorage.getItem('Class'));
+  }
+
   getLessons(userClass: Number = 1) {
     return this.http.get('https://localhost:7249/api/Subject/' + userClass);
   }

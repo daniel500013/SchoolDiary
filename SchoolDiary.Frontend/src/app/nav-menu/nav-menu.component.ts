@@ -15,6 +15,8 @@ export class NavMenuComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('uuid');
+    localStorage.removeItem('Class');
+    localStorage.removeItem('role');
   }
 
   isAdmin() {

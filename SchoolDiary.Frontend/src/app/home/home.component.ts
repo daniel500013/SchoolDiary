@@ -21,10 +21,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     
-    this.homeService.getClass().subscribe((res: any) => {
-      let element = res.filter((x: any) => x.fK_UserUUID == localStorage.getItem('uuid'))[0].fK_ClassID;
-      this.getLessons(element);
-    });   
+    this.homeService.getHomeLessons().subscribe((res) => {
+        this.lessons = res;
+    });
 
     this.homeService.getGrades().subscribe(
       (res) => {
@@ -57,14 +56,6 @@ export class HomeComponent implements OnInit {
     }
 
     this.plan = this.plan + value;
-  }
-
-  getLessons(classNumber: Number) {
-    this.homeService.getLessons(classNumber).subscribe(
-      (res) => {
-        this.lessons = res;
-      }
-    );
   }
 
   mapDays(day: any): any {
