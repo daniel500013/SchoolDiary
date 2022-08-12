@@ -31,6 +31,40 @@ namespace SchoolDiary.api.Service
             return parentsToViewModel;
         }
 
+        public async Task<List<ParentViewModel>> GetUserParents(Guid uuid)
+        {
+            if (uuid == Guid.Empty)
+            {
+                throw new ArgumentNullException("Invalid data");
+            }
+
+            var Parents = await DiaryDbContext.PersonParent
+                .Include(x => x.Parent)
+                .Where(x => x.FK_UserUUID == uuid)
+                .ToListAsync();
+
+            if (Parents.Count <= 0)
+            {
+                throw new ArgumentNullException("No parents");
+            }
+
+            List<ParentViewModel> ParentsModel = new List<ParentViewModel>();
+
+            for (int i = 0; i < Parents.Count; i++)
+            {
+                ParentsModel.Add(new ParentViewModel()
+                {
+                    ParentID = Parents[i].Parent.ParentID,
+                    FirstName = Parents[i].Parent.FirstName,
+                    LastName = Parents[i].Parent.LastName,
+                    Email = Parents[i].Parent.Email,
+                    Phone = Parents[i].Parent.Phone
+                });
+            }
+
+            return ParentsModel;
+        }
+
         public async Task CreateParent(ParentDto ParentViewModel)
         {
             if (ParentViewModel is null)
@@ -54,6 +88,14 @@ namespace SchoolDiary.api.Service
             };
 
             await DiaryDbContext.AddAsync(parent);
+            await DiaryDbContext.SaveChangesAsync();
+
+            await DiaryDbContext.PersonParent.AddAsync(new PersonParent()
+            {
+                FK_UserUUID = ParentViewModel.UserUUID,
+                FK_ParentID = parent.ParentID
+            });
+
             await DiaryDbContext.SaveChangesAsync();
         }
 

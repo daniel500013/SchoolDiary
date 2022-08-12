@@ -110,19 +110,20 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentOutOfRangeException("Invalid email or password");
             }
 
-            var UserClass = DiaryDbContext.PersonClass
-                .FirstOrDefault(x => x.FK_UserUUID == User.UserUUID).FK_ClassID;
+            var UserClass = await DiaryDbContext.PersonClass
+                .Include(x => x.Class)
+                .SingleOrDefaultAsync(x => x.FK_UserUUID == User.UserUUID);
 
-            if (UserClass.Equals(0))
+            if (UserClass is null)
             {
-                UserClass = 1;
+                throw new ArgumentOutOfRangeException("No class assigment");
             }
 
             var claims = new List<Claim>()
             {
                 new Claim("uuid", User.UserUUID.ToString()),
                 new Claim(ClaimTypes.Name, User.Email),
-                new Claim("Class", UserClass.ToString())
+                new Claim("Class", UserClass.Class.ClassNumber.ToString())
             };
 
             foreach (var role in User.Roles)

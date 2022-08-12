@@ -30,4 +30,8 @@ export class HomeService {
   getApproves() {
     return this.http.get('https://localhost:7249/api/Approve/' + localStorage.getItem('uuid'));
   }
+
+  getParents() {
+    return this.http.get('https://localhost:7249/api/Parent/' + localStorage.getItem('uuid'));
+  }
 }

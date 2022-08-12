@@ -3,7 +3,7 @@
     <div class="text-center">
       <h1>Lessons</h1>
     </div>
-    <table class="table" *ngFor="let lesson of lessons; let i=index" [hidden]="plan != lesson[0].day">
+    <table class="table border rounded" *ngFor="let lesson of lessons; let i=index" [hidden]="plan != lesson[0].day">
       <tr>
         <th>Hour</th>
         <th>{{mapDays(lesson[0].day)}}</th>
@@ -31,7 +31,7 @@
       <h1>Grades</h1>
     </div>
 
-    <table class="table">
+    <table class="table border rounded" *ngIf="grades.length != 0; else gradeElse">
       <tr>
         <th>ID</th>
         <th>Lesson</th>
@@ -45,6 +45,22 @@
         <td>{{grade.gradeWeight}}</td>
       </tr>
     </table>
+    <ng-template #gradeElse>
+      <table class="table border rounded">
+        <tr>
+          <th>ID</th>
+          <th>Lesson</th>
+          <th>Grade</th>
+          <th>Grade Weight</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>No grades</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </ng-template>
   </div>
   <div class="col-4">
     <div id="MarkPanel">
@@ -52,7 +68,7 @@
         <h1>Marks</h1>
       </div>
   
-      <table class="table">
+      <table class="table border rounded" *ngIf="marks.length != 0; else markElse">
         <tr>
           <th>ID</th>
           <th>Lesson</th>
@@ -66,6 +82,24 @@
           <td>{{mark.data | date:'yyyy-MM-dd' }}</td>
         </tr>
       </table>
+
+      <ng-template #markElse>
+        <table class="table border rounded">
+          <tr>
+            <th>ID</th>
+            <th>Lesson</th>
+            <th>Present</th>
+            <th>Date</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>No marks</td>
+            <td>true</td>
+            <td>00-00-0000</td>
+          </tr>
+        </table>
+      </ng-template>
+      
   
       <div class="text-center">
         <button class="btn btn-success m-3" (click)="filterMarks(true)">
@@ -79,7 +113,7 @@
     </div>
 
     <div id="ApprovePanel">
-      <table class="table">
+      <table class="table border rounded" *ngIf="approves.length != 0; else approveElse">
         <tr>
           <th>ID</th>
           <th>Lesson</th>
@@ -93,6 +127,57 @@
           <td>{{approve.description}}</td>
         </tr>
       </table>
+
+      <ng-template #approveElse>
+        <table class="table border rounded">
+          <tr>
+            <th>ID</th>
+            <th>Lesson</th>
+            <th>Present</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>No approves</td>
+            <td>true</td>
+            <td>Empty</td>
+          </tr>
+        </table>
+      </ng-template>
     </div>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col mb-5">
+    <div class="text-center">
+      <h1>Parent</h1>
+    </div>
+    <table class="table border rounded text-center" *ngIf="parents.length != 0; else parentElse">
+      <tr>
+        <th>Parent</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+      <tr *ngFor="let parent of parents">
+        <td>{{parent.firstName + " " + parent.lastName}}</td>
+        <td>{{parent.email}}</td>
+        <td>{{parent.phone}}</td>
+      </tr>
+    </table>
+    <ng-template #parentElse>
+      <table class="table border rounded text-center">
+        <tr>
+          <th>Parent</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+        <tr>
+          <td>No parents 😥</td>
+          <td>Empty</td>
+          <td>Empty</td>
+        </tr>
+      </table>
+    </ng-template>
   </div>
 </div>

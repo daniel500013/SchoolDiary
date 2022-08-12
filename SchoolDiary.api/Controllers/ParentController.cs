@@ -27,6 +27,15 @@ namespace SchoolDiary.api.Controllers
             return Ok(parents);
         }
 
+        [HttpGet]
+        [Route("{uuid:Guid}")]
+        public async Task<IActionResult> GetUserParents(Guid uuid)
+        {
+            var parents = await ParentService.GetUserParents(uuid);
+
+            return Ok(parents);
+        }
+
         /// <summary>
         /// Add parent to diary
         /// </summary>

@@ -15,12 +15,17 @@ export class HomeComponent implements OnInit {
   grades: any = [];
   marks: any = [];
   approves: any = [];
+  parents: any = [];
 
   plan: Number = 1;
   present: Boolean = false;
 
+  //error
+  gradeError: Boolean = true;
+  markError: Boolean = true;
+  approveError: Boolean = true;
+
   ngOnInit() {
-    
     this.homeService.getHomeLessons().subscribe((res) => {
         this.lessons = res;
     });
@@ -42,6 +47,13 @@ export class HomeComponent implements OnInit {
         this.approves = res;
       }
     );
+
+    this.homeService.getParents().subscribe((res) => {
+      this.parents = res;
+    });
+
+    console.log(this.parents.length);
+    
   }
 
   changePlan(value: any) {
