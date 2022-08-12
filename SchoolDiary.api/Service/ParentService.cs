@@ -11,24 +11,25 @@ namespace SchoolDiary.api.Service
             DiaryDbContext = diaryDbContext;
         }
 
-        public async Task<List<ParentDto>> GetAllParents()
+        public async Task<List<ParentViewModel>> GetAllParents()
         {
             var parents = await DiaryDbContext.Parent.ToListAsync();
 
-            var parentsToViewModel = new List<ParentDto>();
+            var parentsModel = new List<ParentViewModel>();
 
             for (int i = 0; i < parents.Count; i++)
             {
-                parentsToViewModel.Add(new ParentDto()
+                parentsModel.Add(new ParentViewModel()
                 {
+                    ParentID = parents[i].ParentID,
                     FirstName = parents[i].FirstName,
                     LastName = parents[i].LastName,
                     Email = parents[i].Email,
-                    Phone = parents[i].Phone,
+                    Phone = parents[i].Phone
                 });
             }
 
-            return parentsToViewModel;
+            return parentsModel;
         }
 
         public async Task<List<ParentViewModel>> GetUserParents(Guid uuid)
