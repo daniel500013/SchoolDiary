@@ -130,14 +130,22 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentOutOfRangeException("Invalid id");
             }
 
-            var ParentToDelete = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
+            var ParentPerson = await DiaryDbContext.PersonParent.FirstOrDefaultAsync(x => x.FK_ParentID == id);
 
-            if (ParentToDelete is null)
+            if (ParentPerson is null)
             {
                 throw new ArgumentNullException("Parent dosen't exist");
             }
 
-            DiaryDbContext.Remove(ParentToDelete);
+            var Parent = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
+
+            if (Parent is null)
+            {
+                throw new ArgumentNullException("Parent dosen't exist");
+            }
+
+            DiaryDbContext.Remove(ParentPerson);
+            DiaryDbContext.Remove(Parent);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

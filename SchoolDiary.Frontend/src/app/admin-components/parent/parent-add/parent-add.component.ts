@@ -28,7 +28,6 @@ export class ParentAddComponent implements OnInit {
 
     this.parentService.getParentList().subscribe((res) => {
       this.parents = res;
-      console.log(res);
     });
   }
 

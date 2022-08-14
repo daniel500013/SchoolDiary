@@ -1,3 +1,14 @@
-<p>
-  parent-delete works!
-</p>
+<div class="row">
+  <div class="col">
+    <div id="parents" class="mt-3">
+      <label class="h4">Parents</label>
+      <select class="form-control" [(ngModel)]="parent">
+        <option *ngFor="let item of parents" value="{{item.parentID}}">{{item.firstName + " " + item.lastName}}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-danger mt-3" (click)="removeParent()">
+      Remove parent
+    </button>
+  </div>
+</div>
