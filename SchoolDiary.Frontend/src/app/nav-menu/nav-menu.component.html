@@ -15,10 +15,10 @@
               <a [routerLink]="['/teacher']" class="nav-link" *ngIf="isTeacher()">Teacher</a>
           </li>  
           <li class="nav-item">
-              <a [routerLink]="['/tutor']" class="nav-link" *ngIf="isTeacher()">Tutor</a>
+              <a [routerLink]="['/tutor']" class="nav-link" *ngIf="isTutor()">Tutor</a>
           </li>  
           <li class="nav-item">
-              <a [routerLink]="['/localadmin']" class="nav-link" *ngIf="isTeacher()">LocalAdmin</a>
+              <a [routerLink]="['/localadmin']" class="nav-link" *ngIf="isLocalAdmin()">LocalAdmin</a>
           </li>  
           <li class="nav-item">
               <a [routerLink]="['/admin']" class="nav-link" *ngIf="isAdmin()">Admin Panel</a>

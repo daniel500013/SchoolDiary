@@ -29,6 +29,16 @@ export class AuthService {
           localStorage.setItem("role", "Teacher");
         }
 
+        if (role.includes("Tutor"))
+        {
+          localStorage.setItem("role", "Tutor");
+        }
+
+        if (role.includes("LocalAdmin"))
+        {
+          localStorage.setItem("role", "LocalAdmin");
+        }
+
         if (role.includes("Admin"))
         {
           localStorage.setItem("role", "Admin");
