@@ -30,12 +30,16 @@ import { RoleAddComponent } from './admin-components/role/role-add/role-add.comp
 import { RoleDeleteComponent } from './admin-components/role/role-delete/role-delete.component';
 import { ParentAddComponent } from './admin-components/parent/parent-add/parent-add.component';
 import { ParentDeleteComponent } from './admin-components/parent/parent-delete/parent-delete.component';
+import { LocaladminComponent } from './localadmin/localadmin.component';
+import { TutorComponent } from './tutor/tutor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'localadmin', component: LocaladminComponent, canActivate: [AuthGuard] },
+  { path: 'tutor', component: TutorComponent, canActivate: [AuthGuard] },
   { path: 'teacher', component: TeacherComponent, canActivate: [AuthGuard] },
   { path: 'lessonadd', component: LessonAddComponent, canActivate: [AuthGuard] },
   { path: 'lessonchange', component: LessonChangeComponent, canActivate: [AuthGuard] },
@@ -54,7 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [						
+  declarations: [								
     AppComponent,
       HomeComponent,
       LoginComponent,
@@ -75,7 +79,9 @@ const routes: Routes = [
       RoleAddComponent,
       RoleDeleteComponent,
       ParentAddComponent,
-      ParentDeleteComponent
+      ParentDeleteComponent,
+      LocaladminComponent,
+      TutorComponent
    ],
   imports: [
     BrowserModule,
