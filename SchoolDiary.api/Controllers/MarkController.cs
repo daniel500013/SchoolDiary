@@ -31,7 +31,7 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Returns list of marks by class
         /// </summary>
-        [Authorize(Roles = "Parent,Tutor,LocalAdmin,Admin")]
+        [Authorize(Roles = "Parent,Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetClassMarks(int id)
@@ -41,6 +41,7 @@ namespace SchoolDiary.api.Controllers
             return Ok(marks);
         }
 
+        [Authorize(Roles = "Student,Parent,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]
         public async Task<IActionResult> GetUserMarks(Guid uuid)
@@ -62,7 +63,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
-        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateMark([FromBody]MarkDto mark)
         {
@@ -71,6 +72,7 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPut]
         public async Task<IActionResult> ChangeMark([FromBody]MarkChangeDto changeMarkDto)
         {
@@ -91,7 +93,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
-        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeMark(int id, [FromBody]MarkDto markDto)

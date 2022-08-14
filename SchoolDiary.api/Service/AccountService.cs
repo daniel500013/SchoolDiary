@@ -83,6 +83,12 @@ namespace SchoolDiary.api.Service
                 FK_RoleID = 1
             });
 
+            await DiaryDbContext.PersonClass.AddAsync(new PersonClass()
+            {
+                FK_UserUUID = UserUUID,
+                FK_ClassID = 1
+            });
+
             await DiaryDbContext.SaveChangesAsync();
         }
 

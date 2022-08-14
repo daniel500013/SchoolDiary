@@ -21,7 +21,7 @@ namespace SchoolDiary.api.Controllers
         /// Return all users
         /// </summary>
         [HttpGet]
-        [Authorize(Roles = "LocalAdmin,Admin")]
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await AccountService.GetAllUsers();

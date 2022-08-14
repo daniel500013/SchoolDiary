@@ -19,7 +19,7 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Return list of approves
         /// </summary>
-        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllApproves()
         {
@@ -28,6 +28,7 @@ namespace SchoolDiary.api.Controllers
             return Ok(approves);
         }
 
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]
         public async Task<IActionResult> GetUserApproves(Guid uuid)

@@ -6,7 +6,7 @@ namespace SchoolDiary.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "LocalAdmin,Admin")]
+    [Authorize]
     public class ClassManagerController : ControllerBase
     {
         private readonly ClassManagerService ClassManagerService;
@@ -19,6 +19,7 @@ namespace SchoolDiary.api.Controllers
         /// <summary>
         /// Return Person-Class List
         /// </summary>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllUserClassRelation()
         {
@@ -27,6 +28,7 @@ namespace SchoolDiary.api.Controllers
             return Ok(userClasses);
         }
 
+        [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetUsersByClass(int id)
@@ -49,6 +51,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPost]
         public async Task<IActionResult> AssignUserToClass(ClassManagerDto classManagerDto)
         {
@@ -71,6 +74,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
         [HttpPut]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeUserClass(int id, ClassManagerDto classManagerDto)
@@ -92,6 +96,7 @@ namespace SchoolDiary.api.Controllers
         ///     }
         ///
         /// </remarks>
+        [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IActionResult> ChangeUserClass(int id)
