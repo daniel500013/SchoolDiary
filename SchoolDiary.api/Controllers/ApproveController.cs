@@ -28,6 +28,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(approves);
         }
 
+        /// <summary>
+        /// Return list of user approves specify by uuid
+        /// </summary>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]

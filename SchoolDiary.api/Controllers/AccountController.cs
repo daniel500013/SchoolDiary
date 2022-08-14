@@ -18,7 +18,7 @@ namespace SchoolDiary.api.Controllers
         }
 
         /// <summary>
-        /// Return all users
+        /// Return list of users
         /// </summary>
         [HttpGet]
         [Authorize(Roles = "Tutor,LocalAdmin,Admin")]
@@ -59,13 +59,12 @@ namespace SchoolDiary.api.Controllers
         ///
         ///     POST /Login
         ///     {
-        ///        "email": "admin@admin.com", - user email to register/login
+        ///        "email": "admin@admin.com", - user email
         ///        "password": "admin" - user password
         ///     }
         ///
         /// </remarks>
         [HttpPost]
-        [Produces("application/json")]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody]LoginDto model)
         {

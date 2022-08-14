@@ -28,6 +28,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(userClasses);
         }
 
+        /// <summary>
+        /// Return list of users in specify class
+        /// </summary>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{id:int}")]

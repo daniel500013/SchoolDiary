@@ -27,6 +27,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(parents);
         }
 
+        /// <summary>
+        /// Return list of users parents specify by uuid
+        /// </summary>
         [HttpGet]
         [Route("{uuid:Guid}")]
         public async Task<IActionResult> GetUserParents(Guid uuid)

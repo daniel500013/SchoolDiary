@@ -27,6 +27,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(roles);
         }
 
+        /// <summary>
+        /// Return list of user roles specify by uuid
+        /// </summary>
         [HttpGet]
         [Route("{uuid:Guid}")]
         public async Task<IActionResult> GetUserRoles(Guid uuid)

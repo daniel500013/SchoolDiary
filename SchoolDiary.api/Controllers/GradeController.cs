@@ -28,6 +28,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(grades);
         }
 
+        /// <summary>
+        /// Return list of user grades specify by uuid
+        /// </summary>
         [Authorize(Roles = "LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]

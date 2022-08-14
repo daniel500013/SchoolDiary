@@ -41,6 +41,9 @@ namespace SchoolDiary.api.Controllers
             return Ok(marks);
         }
 
+        /// <summary>
+        /// Returns list of user marks specify by uuid
+        /// </summary>
         [Authorize(Roles = "Student,Parent,Tutor,LocalAdmin,Admin")]
         [HttpGet]
         [Route("{uuid:Guid}")]
@@ -72,6 +75,22 @@ namespace SchoolDiary.api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Returns list of user to update
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /Mark
+        ///     {
+        ///        "Lesson": "Physics" - Lesson whos you want to change mark
+        ///        "Day": 1 - Day of lesson whos you want to change
+        ///        "Hour": 3 - Hour of lesson whos you want to change
+        ///        "Class": 1 - Class where you want to change marks
+        ///        "Date": 2018-01-01H00:00:00 - Date where you want change marks
+        ///     }
+        ///
+        /// </remarks>
         [Authorize(Roles = "Teacher,Tutor,LocalAdmin,Admin")]
         [HttpPut]
         public async Task<IActionResult> ChangeMark([FromBody]MarkChangeDto changeMarkDto)

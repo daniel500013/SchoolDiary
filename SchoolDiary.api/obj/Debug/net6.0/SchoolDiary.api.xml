@@ -6,7 +6,7 @@
     <members>
         <member name="M:SchoolDiary.api.Controllers.AccountController.GetAllUsers">
             <summary>
-            Return all users
+            Return list of users
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.AccountController.Register(SchoolDiary.api.Dto.LoginDto)">
@@ -33,7 +33,7 @@
             
                  POST /Login
                  {
-                    "email": "admin@admin.com", - user email to register/login
+                    "email": "admin@admin.com", - user email
                     "password": "admin" - user password
                  }
             
@@ -42,6 +42,11 @@
         <member name="M:SchoolDiary.api.Controllers.ApproveController.GetAllApproves">
             <summary>
             Return list of approves
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.GetUserApproves(System.Guid)">
+            <summary>
+            Return list of user approves specify by uuid
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.ApproveController.CreateApprove(SchoolDiary.api.Dto.ApproveDto)">
@@ -77,46 +82,6 @@
         <member name="M:SchoolDiary.api.Controllers.ApproveController.DeleteApprove(System.Int32)">
             <summary>
             Remove Approve from diary by specify id
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveManagerController.GetAllLessonApprove">
-            <summary>
-            Return Lesson-Approve List
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveManagerController.AssignApproveToLesson(SchoolDiary.api.ViewModel.ApproveManagerViewModel)">
-             <summary>
-             Assign Lesson-Approve in diary
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /ApproveManager
-                 {
-                    "fK_LessonID": 1, - Lesson ID to assign approve
-                    "fK_ApproveID": 2 - Approve ID whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveManagerController.ChangeAssignApproveToLesson(System.Int32,SchoolDiary.api.ViewModel.ApproveManagerViewModel)">
-             <summary>
-             Change Lesson-Approve in diary
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 PUT /ApproveManager/{id}
-                 {
-                    "fK_LessonID": 1, - Lesson ID to assign approve
-                    "fK_ApproveID": 2 - Approve ID whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ApproveManagerController.DeleteAssignApproveToLesson(System.Int32)">
-            <summary>
-            Delete Lesson-Approve from diary
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.ClassController.GetAllClass">
@@ -175,6 +140,11 @@
             Return Person-Class List
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.GetUsersByClass(System.Int32)">
+            <summary>
+            Return list of users in specify class
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(SchoolDiary.api.Dto.ClassManagerDto)">
              <summary>
              Assign person to class
@@ -225,6 +195,11 @@
             Return list of grades
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.GetUserGrades(System.Guid)">
+            <summary>
+            Return list of user grades specify by uuid
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.Dto.GradeDto)">
              <summary>
              Create grade in diary
@@ -244,46 +219,6 @@
         <member name="M:SchoolDiary.api.Controllers.GradeController.DeleteGrade(System.Int32)">
             <summary>
             Remove grade from diary
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.GetAllLessonGrades">
-            <summary>
-            Return assign between grade and lesson
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.AssignGradeToLesson(SchoolDiary.api.ViewModel.GradeManagerViewModel)">
-             <summary>
-             Create Grade-Lesson assign in diary
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /GradeManager
-                 {
-                    "fK_LessonID": 1, - Lesson ID to assign approve
-                    "fK_GradeID": 2 - Grade ID whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.ChangeAssignGradeToLesson(System.Int32,SchoolDiary.api.ViewModel.GradeManagerViewModel)">
-             <summary>
-             Change Grade-Lesson assign in diary by id
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 PUT /GradeManager/{id}
-                 {
-                    "fK_LessonID": 1, - Lesson ID to assign approve
-                    "fK_GradeID": 2 - Grade ID whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.GradeManagerController.DeleteAssignGradeToLesson(System.Int32)">
-            <summary>
-            Remove Grade-Lesson assign from diary
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.LessonController.GetAllLessons">
@@ -343,6 +278,11 @@
             Returns list of marks by class
             </summary>
         </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetUserMarks(System.Guid)">
+            <summary>
+            Returns list of user marks specify by uuid
+            </summary>
+        </member>
         <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.Dto.MarkDto)">
              <summary>
              Create mark in diary
@@ -353,6 +293,24 @@
                  POST /Mark
                  {
                     "present": true - set person present
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(SchoolDiary.api.Dto.MarkChangeDto)">
+             <summary>
+             Returns list of user to update
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Mark
+                 {
+                    "Lesson": "Physics" - Lesson whos you want to change mark
+                    "Day": 1 - Day of lesson whos you want to change
+                    "Hour": 3 - Hour of lesson whos you want to change
+                    "Class": 1 - Class where you want to change marks
+                    "Date": 2018-01-01H00:00:00 - Date where you want change marks
                  }
             
              </remarks>
@@ -376,54 +334,14 @@
             Remove mark from diary by specify id
             </summary>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.GetAllAssignMarkToUser">
-            <summary>
-            Return list of Mark assign to lessons
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.GetUserMarks(System.Guid)">
-            <summary>
-            Return all user marks
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.AssignMarkToUser(SchoolDiary.api.ViewModel.LessonMarkViewModel)">
-             <summary>
-             Assign Mark to lesson
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /MarkManager
-                 {
-                    "fK_LessonID": 1, - ID of lesson whos you want to assign
-                    "fK_MarkID": 2 - ID of mark whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.ChangeAssignMarkToUser(System.Int32,SchoolDiary.api.ViewModel.LessonMarkViewModel)">
-             <summary>
-             Change mark assign to lesson
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 PUT /MarkManager/{id}
-                 {
-                    "fK_LessonID": 1, - ID of lesson whos you want to assign
-                    "fK_MarkID": 2 - ID of mark whos you want to assign
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.MarkManagerController.DeleteAssignMarkToUser(System.Int32)">
-            <summary>
-            Delete mark assign
-            </summary>
-        </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
             <summary>
             Return list of parents
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.GetUserParents(System.Guid)">
+            <summary>
+            Return list of users parents specify by uuid
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.ParentController.AddParent(SchoolDiary.api.Dto.ParentDto)">
@@ -474,57 +392,14 @@
             
              </remarks>
         </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.GetAllPersonParent">
-            <summary>
-            Return list of Person Parent correlation
-            </summary>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.CreatePersonParent(System.Guid,System.Int32)">
-             <summary>
-             Create new person-parent correlation
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /ParentManager
-                 {
-                    "UserUUID": "sample-uuid" - User uuid where you want to assign parent
-                    "ParentID": 3 - Parent id whos you want to assign to user
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.ChangePersonParent(System.Int32,System.Int32)">
-             <summary>
-             Change person-parent correlation
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 PUT /ParentManager/{id}
-                 {
-                    "id": 5 - id of relation person-parent whos you want to change
-                    "ParentID": 3 - Parent id whos you want to change
-                 }
-            
-             </remarks>
-        </member>
-        <member name="M:SchoolDiary.api.Controllers.ParentManagerController.DeletePersonParent(System.Int32)">
-             <summary>
-             Delete person-parent correlation
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 DELETE /ParentManager/{id}
-                 {
-                    "id": 5 - id of relation person-parent whos you want to delete
-                 }
-             </remarks>
-        </member>
         <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetAllRoles">
             <summary>
             Return list of roles
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetUserRoles(System.Guid)">
+            <summary>
+            Return list of user roles specify by uuid
             </summary>
         </member>
         <member name="M:SchoolDiary.api.Controllers.RoleManagerController.AssingRoleToUser(SchoolDiary.api.Dto.RoleDto)">
