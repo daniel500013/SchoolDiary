@@ -72,9 +72,7 @@ namespace SchoolDiary.Tests.Tests
             };
 
             var jsonToAdd = JsonConvert.SerializeObject(ModelToAdd);
-
             var httpContextToAdd = new StringContent(jsonToAdd, Encoding.UTF8, "application/json");
-
             await Client.PostAsync("/api/Teacher", httpContextToAdd);
 
             var model = new TeacherDto()
@@ -87,9 +85,7 @@ namespace SchoolDiary.Tests.Tests
             };
 
             var json = JsonConvert.SerializeObject(model);
-
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
-
             var response = await Client.PutAsync("/api/Teacher/1", httpContext);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
@@ -110,8 +106,9 @@ namespace SchoolDiary.Tests.Tests
             var json = JsonConvert.SerializeObject(model);
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
             await Client.PostAsync("/api/Teacher", httpContext);
+            await Client.PostAsync("/api/Teacher", httpContext);
 
-            var response = await Client.DeleteAsync("/api/Teacher/1");
+            var response = await Client.DeleteAsync("/api/Teacher/2");
 
             await response.Content.ReadAsStringAsync();
 

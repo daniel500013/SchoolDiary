@@ -101,7 +101,7 @@
 
             var response = await Client.PostAsync("/api/Class", httpContext);
 
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }
