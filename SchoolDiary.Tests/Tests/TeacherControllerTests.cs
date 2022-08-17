@@ -41,7 +41,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task CreateTeacher_WithoutParams_ReturnOkRequest()
         {
-            var model = new TeacherViewModel()
+            var model = new TeacherDto()
             {
                 FirstName = "Jon",
                 LastName = "Testman",
@@ -62,7 +62,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task ChangeTeacher_WithoutParams_ReturnOkRequest()
         {
-            var ModelToAdd = new TeacherViewModel()
+            var ModelToAdd = new TeacherDto()
             {
                 FirstName = "Jon",
                 LastName = "Testman",
@@ -77,7 +77,7 @@ namespace SchoolDiary.Tests.Tests
 
             await Client.PostAsync("/api/Teacher", httpContextToAdd);
 
-            var model = new TeacherViewModel()
+            var model = new TeacherDto()
             {
                 FirstName = "Henry",
                 LastName = "NoTestman",
@@ -98,7 +98,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task DeleteTeacher_WithoutParams_ReturnOkRequest()
         {
-            var model = new TeacherViewModel()
+            var model = new TeacherDto()
             {
                 FirstName = "Jon",
                 LastName = "Testman",
@@ -110,13 +110,33 @@ namespace SchoolDiary.Tests.Tests
             var json = JsonConvert.SerializeObject(model);
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
             await Client.PostAsync("/api/Teacher", httpContext);
-            await Client.PostAsync("/api/Teacher", httpContext);
 
-            var response = await Client.DeleteAsync("/api/Teacher/2");
+            var response = await Client.DeleteAsync("/api/Teacher/1");
 
             await response.Content.ReadAsStringAsync();
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task CreateTeacher_WithoutParams_ReturnFailRequest()
+        {
+            var model = new TeacherDto()
+            {
+                FirstName = "Jon",
+                LastName = "Testman",
+                Gender = true,
+                Email = "jon.testman.gmail.com",
+                Phone = "123456789"
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await Client.PostAsync("/api/Teacher", httpContext);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }

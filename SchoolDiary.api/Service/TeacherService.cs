@@ -25,6 +25,13 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
+            var EmailValidation = new EmailAddressAttribute().IsValid(teacher.Email);
+
+            if (!EmailValidation)
+            {
+                throw new ArgumentOutOfRangeException("Invalid email");
+            }
+
             await DiaryDbContext.AddAsync(new Teacher()
             {
                 Email = teacher.Email,

@@ -19,7 +19,7 @@ namespace SchoolDiary.api.Service
 
         public async Task CreateClass(ClassDto Class)
         {
-            if (Class is null)
+            if (Class is null || Class.ClassNumber != 0)
             {
                 throw new ArgumentNullException("Invalid data");
             }

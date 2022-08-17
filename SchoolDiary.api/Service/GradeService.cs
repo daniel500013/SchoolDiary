@@ -63,7 +63,7 @@ namespace SchoolDiary.api.Service
 
         public async Task CreateGrade(GradeDto gradeDto)
         {
-            if (gradeDto is null)
+            if (gradeDto is null || gradeDto.GradeValue != 0 || gradeDto.Weight != 0)
             {
                 throw new ArgumentNullException("Invalid data");
             }

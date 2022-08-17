@@ -16,6 +16,8 @@ namespace SchoolDiary.Tests.Tests
                             .SingleOrDefault(x => x.ServiceType == typeof(DbContextOptions<DiaryDbContext>));
                         services.Remove(dbContext);
 
+                        services.AddSingleton<IPolicyEvaluator, FakePolicy>();
+
                         services.AddDbContext<DiaryDbContext>(options => options.UseInMemoryDatabase("DiaryDb"));
                     });
                 })
@@ -23,9 +25,17 @@ namespace SchoolDiary.Tests.Tests
         }
 
         [Fact]
+        public async Task GetAllUsers_WithoutParams_ReturnOkRequest()
+        {
+            var response = await Client.GetAsync("/api/Account");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
         public async Task Register_WithoutParams_ReturnOkRequest()
         {
-            var model = new LoginViewModel()
+            var model = new LoginDto()
             {
                 Email = "test@test.com",
                 Password = "test"
@@ -43,7 +53,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task Login_WithoutParams_NotEmptyResult()
         {
-            var model = new LoginViewModel()
+            var model = new LoginDto()
             {
                 Email = "user@user.com",
                 Password = "user"
@@ -60,6 +70,44 @@ namespace SchoolDiary.Tests.Tests
             var token = await response.Content.ReadAsStringAsync();
 
             Assert.NotEmpty(token);
+        }
+
+        [Fact]
+        public async Task Register_WithoutParams_ReturnFailRequest()
+        {
+            var model = new LoginDto()
+            {
+                Email = "test.test.com",
+                Password = "test"
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await Client.PostAsync("/api/Account/Register", httpContext);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
+        }
+
+        [Fact]
+        public async Task Login_WithoutParams_ReturnFailRequest()
+        {
+            var model = new LoginDto()
+            {
+                Email = "user.user.com",
+                Password = "user"
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
+
+            await Client.PostAsync("/api/Account/Register", httpContext);
+
+            var response = await Client.PostAsync("/api/Account/Login", httpContext);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }

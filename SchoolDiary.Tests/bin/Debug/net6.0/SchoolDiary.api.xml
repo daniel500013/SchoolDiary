@@ -1,0 +1,535 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SchoolDiary.api</name>
+    </assembly>
+    <members>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.GetAllUsers">
+            <summary>
+            Return list of users
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Register(SchoolDiary.api.Dto.LoginDto)">
+             <summary>
+             Register user in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Register
+                 {
+                    "email": "admin@admin.com", - user email to register/login
+                    "password": "admin" - user password
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.AccountController.Login(SchoolDiary.api.Dto.LoginDto)">
+             <summary>
+             Login users and authenticate by return JWT token
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Login
+                 {
+                    "email": "admin@admin.com", - user email
+                    "password": "admin" - user password
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.GetAllApproves">
+            <summary>
+            Return list of approves
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.GetUserApproves(System.Guid)">
+            <summary>
+            Return list of user approves specify by uuid
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.CreateApprove(SchoolDiary.api.Dto.ApproveDto)">
+             <summary>
+             Create Approve in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Approve
+                 {
+                    "positive": true, - Positivity of approve
+                    "description": "Approve desc" - Approve description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.ChangeApprove(System.Int32,SchoolDiary.api.Dto.ApproveDto)">
+             <summary>
+             Change Approve in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Approve/{id}
+                 {
+                    "positive": true, - Positivity of approve
+                    "description": "Approve desc" - Approve description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ApproveController.DeleteApprove(System.Int32)">
+            <summary>
+            Remove Approve from diary by specify id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.GetAllClass">
+            <summary>
+            Returns list of classes
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.CreateClass(SchoolDiary.api.Dto.ClassDto)">
+             <summary>
+             Create class in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Class
+                 {
+                    "classNumber": 1, - Number of class whose you want to add
+                    "profile": "PZ", - Class profile
+                    "description": "Sample description of class" - Class description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.PutClass(System.Int32,SchoolDiary.api.Dto.ClassDto)">
+             <summary>
+             Change class in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Class/{id}
+                 {
+                    "classNumber": 1, - Number of class whose you want to add
+                    "profile": "PZ", - Class profile
+                    "description": "Sample description of class" - Class description
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassController.DeleteClass(System.Int32)">
+             <summary>
+             Remove class from diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /Class/{id}
+                 {
+                    "id": 1, - ID of class whose you want to delete
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.GetAllUserClassRelation">
+            <summary>
+            Return Person-Class List
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.GetUsersByClass(System.Int32)">
+            <summary>
+            Return list of users in specify class
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.AssignUserToClass(SchoolDiary.api.Dto.ClassManagerDto)">
+             <summary>
+             Assign person to class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /ClassManager
+                 {
+                    "UserUUID": "sample-uuid", - UUID of person whos you want to assign class
+                    "ClassID": 1 - ClassID of class whose you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Int32,SchoolDiary.api.Dto.ClassManagerDto)">
+             <summary>
+             Change person class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /ClassManager/{id}
+                 {
+                    "UserUUID": "sample-uuid", - UUID of person whos you want to change
+                    "id": 1 - ID whos you want to change
+                    "ClassID": 1 - New ID whos you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ClassManagerController.ChangeUserClass(System.Int32)">
+             <summary>
+             Delete person from class
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /ClassManager/{id}
+                 {
+                    "id": 1 - ID of record whose you want to delete
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.GetAllGrades">
+            <summary>
+            Return list of grades
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.GetUserGrades(System.Guid)">
+            <summary>
+            Return list of user grades specify by uuid
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.CreateGrade(SchoolDiary.api.Dto.GradeDto)">
+             <summary>
+             Create grade in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Grade
+                 {
+                    "gradeValue": 5, - Grade value 
+                    "weight": 2, - Weight of grade
+                    "description": "History of rome" - Description of grade
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.GradeController.DeleteGrade(System.Int32)">
+            <summary>
+            Remove grade from diary
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.GetAllLessons">
+            <summary>
+            Return list of lessons
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.GetClassLessons(System.Int32)">
+            <summary>
+            Return list of lessons for class specify by id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.CreateLesson(SchoolDiary.api.Dto.LessonDto)">
+             <summary>
+             Create lesson in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Lesson
+                 {
+                    "name": "Physics", - Name of lesson
+                    "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+                    "hour": 3 - Hour of lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.ChangeLesson(System.Int32,SchoolDiary.api.Dto.LessonDto)">
+             <summary>
+             Change lesson in diary by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Lesson/{id}
+                 {
+                    "name": "Physics", - Name of lesson
+                    "day": 1, - Day of lesson, 1 - Monday, 5 - Friday 
+                    "hour": 3 - Hour of lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.LessonController.DeleteLesson(System.Int32)">
+            <summary>
+            Delete lesson from diary by specify id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetAllMarks">
+            <summary>
+            Returns list of marks
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetClassMarks(System.Int32)">
+            <summary>
+            Returns list of marks by class
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.GetUserMarks(System.Guid)">
+            <summary>
+            Returns list of user marks specify by uuid
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.CreateMark(SchoolDiary.api.Dto.MarkDto)">
+             <summary>
+             Create mark in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Mark
+                 {
+                    "present": true - set person present
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(SchoolDiary.api.Dto.MarkChangeDto)">
+             <summary>
+             Returns list of user to update
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Mark
+                 {
+                    "Lesson": "Physics" - Lesson whos you want to change mark
+                    "Day": 1 - Day of lesson whos you want to change
+                    "Hour": 3 - Hour of lesson whos you want to change
+                    "Class": 1 - Class where you want to change marks
+                    "Date": 2018-01-01H00:00:00 - Date where you want change marks
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.ChangeMark(System.Int32,SchoolDiary.api.Dto.MarkDto)">
+             <summary>
+             Change mark in diary by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Mark
+                 {
+                    "present": true - set person present
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.MarkController.DeleteMark(System.Int32)">
+            <summary>
+            Remove mark from diary by specify id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.GetAllParents">
+            <summary>
+            Return list of parents
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.GetUserParents(System.Guid)">
+            <summary>
+            Return list of users parents specify by uuid
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.AddParent(SchoolDiary.api.Dto.ParentDto)">
+             <summary>
+             Add parent to diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Role
+                 {
+                    "firstName": "Tom", - Parent first name
+                    "lastName": "Jones", - Parent last name
+                    "email": "tom.jones@gmail.com", - Parent email
+                    "phone": "123456789" - Parent phone number
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.ChangeParent(System.Int32,SchoolDiary.api.Dto.ParentDto)">
+             <summary>
+             Modify parent specify by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Role/{id}
+                 {
+                    "firstName": "Tom", - Parent first name
+                    "lastName": "Jones", - Parent last name
+                    "email": "tom.jones@gmail.com", - Parent email
+                    "phone": "123456789" - Parent phone number
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.ParentController.DeleteParent(System.Int32)">
+             <summary>
+             Remove parent from diary by id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 DELETE /Role/{id}
+                 {
+                    "id": 1, - id of parent whose you want to remove
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetAllRoles">
+            <summary>
+            Return list of roles
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.GetUserRoles(System.Guid)">
+            <summary>
+            Return list of user roles specify by uuid
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.AssingRoleToUser(SchoolDiary.api.Dto.RoleDto)">
+             <summary>
+             Assign role to user
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Role
+                 {
+                    "UserUUID": "sample-uuid" - User uuid whose you want to change role
+                    "RoleID": 3 - Role who's you want to assign to user
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.ChangeRoleUser(System.Int32,System.Guid,System.Int32)">
+             <summary>
+             Replace user role by another typed role
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Role/{id}
+                 {
+                    "id": 1 - Role whos you want to change
+                    "UserUUID": "sample-uuid" - User uuid whose you want to change role
+                    "NewRoleID": 3 - Role where you want to replace instead of old role
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.RoleManagerController.DeleteRoleUser(System.Int32)">
+            <summary>
+            Delete user role by id
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Get">
+            <summary>
+            Return all subjects in diary
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Get(System.Int32)">
+            <summary>
+            Return specify subjects in diary by specify ids
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Post(SchoolDiary.api.Dto.SubjectDto)">
+             <summary>
+             Create subject in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Subject
+                 {
+                    "teacher": 1, - Teacher ID assigned to lesson
+                    "class": 9, - Class ID assigned to lesson
+                    "lesson": 4 - Lesson ID assigned to lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Put(System.Int32,SchoolDiary.api.Dto.SubjectDto)">
+             <summary>
+             Change subject in diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Subject/{id}
+                 {
+                    "teacher": 1, - Teacher ID assigned to lesson
+                    "class": 9, - Class ID assigned to lesson
+                    "lesson": 4 - Lesson ID assigned to lesson
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.SubjectController.Delete(System.Int32)">
+            <summary>
+            Delete subject from diary
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.GetAllTeachers">
+            <summary>
+            Returns list of teachers
+            </summary>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.AddTeacher(SchoolDiary.api.Dto.TeacherDto)">
+             <summary>
+             Add teacher to diary
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Teacher
+                 {
+                    "firstName": "Jon", - First name of teacher
+                    "lastName": "Testman", - Last name of teacher
+                    "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+                    "email": "jon.testman@gmail.com", - Teacher email
+                    "phone": "123456789" - Teacher phone
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.ChangeTeacher(System.Int32,SchoolDiary.api.Dto.TeacherDto)">
+             <summary>
+             Change teacher information by specify id
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 PUT /Teacher/{id}
+                 {
+                    "firstName": "Jon", - First name of teacher
+                    "lastName": "Testman", - Last name of teacher
+                    "gender": true, - Gernder of teacher. 1 - Male, 0 - Female
+                    "email": "jon.testman@gmail.com", - Teacher email
+                    "phone": "123456789" - Teacher phone
+                 }
+            
+             </remarks>
+        </member>
+        <member name="M:SchoolDiary.api.Controllers.TeacherController.DeleteTeacher(System.Int32)">
+            <summary>
+            Delete teacher from diary by specify id
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -8,3 +8,4 @@ global using Microsoft.AspNetCore.Authorization.Policy;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using SchoolDiary.api;
+global using SchoolDiary.api.Dto;

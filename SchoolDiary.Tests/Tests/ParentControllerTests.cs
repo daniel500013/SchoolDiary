@@ -41,7 +41,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task CreateParent_WithoutParams_ReturnOkRequest()
         {
-            var model = new ParentViewModel()
+            var model = new ParentDto()
             {
                 FirstName = "Jon",
                 LastName = "Testman",
@@ -61,7 +61,7 @@ namespace SchoolDiary.Tests.Tests
         [Fact]
         public async Task ChangeParent_WithoutParams_ReturnOkRequest()
         {
-            var model = new ParentViewModel()
+            var model = new ParentDto()
             {
                 FirstName = "Andrew",
                 LastName = "Gorgeman",
@@ -83,6 +83,26 @@ namespace SchoolDiary.Tests.Tests
             var response = await Client.DeleteAsync("/api/Parent/1");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task CreateParent_WithoutParams_ReturnFailRequest()
+        {
+            var model = new ParentDto()
+            {
+                FirstName = "Jon",
+                LastName = "Testman",
+                Email = "jon.testman.gmail.com",
+                Phone = "123456789"
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await Client.PostAsync("/api/Parent", httpContext);
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.InternalServerError);
         }
     }
 }

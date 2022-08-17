@@ -66,14 +66,14 @@ namespace SchoolDiary.api.Service
             return ParentsModel;
         }
 
-        public async Task CreateParent(ParentDto ParentViewModel)
+        public async Task CreateParent(ParentDto ParentDto)
         {
-            if (ParentViewModel is null)
+            if (ParentDto is null)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var EmailValidation = new EmailAddressAttribute().IsValid(ParentViewModel.Email);
+            var EmailValidation = new EmailAddressAttribute().IsValid(ParentDto.Email);
 
             if (!EmailValidation)
             {
@@ -82,10 +82,10 @@ namespace SchoolDiary.api.Service
 
             var parent = new Parent()
             {
-                Email = ParentViewModel.Email,
-                FirstName = ParentViewModel.FirstName,
-                LastName = ParentViewModel.LastName,
-                Phone = ParentViewModel.Phone
+                Email = ParentDto.Email,
+                FirstName = ParentDto.FirstName,
+                LastName = ParentDto.LastName,
+                Phone = ParentDto.Phone
             };
 
             await DiaryDbContext.AddAsync(parent);
@@ -93,7 +93,7 @@ namespace SchoolDiary.api.Service
 
             await DiaryDbContext.PersonParent.AddAsync(new PersonParent()
             {
-                FK_UserUUID = ParentViewModel.UserUUID,
+                FK_UserUUID = ParentDto.UserUUID,
                 FK_ParentID = parent.ParentID
             });
 

@@ -69,6 +69,8 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
+            var x = await DiaryDbContext.Lesson.ToListAsync();
+
             var Lesson = await DiaryDbContext.Lesson
                 .Include(x => x.Subjects)
                 .Where(x => x.Name == approveDto.Lesson)

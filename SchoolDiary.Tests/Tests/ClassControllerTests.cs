@@ -35,7 +35,7 @@
         [Fact]
         public async Task CreateClass_WithoutParams_ReturnOkRequest()
         {
-            var model = new ClassViewModel()
+            var model = new ClassDto()
             {
                 ClassNumber = 1,
                 Profile = "PZ",
@@ -54,31 +54,52 @@
         [Fact]
         public async Task ChangeClass_WithoutParams_ReturnOkRequest()
         {
-            var model = new ClassViewModel()
+            var model = new ClassDto()
             {
                 ClassNumber = 1,
                 Profile = "PZ",
                 Description = "Sample description of class"
             };
 
-            var NewModel = new ClassViewModel()
-            {
-                ClassNumber = 1,
-                Profile = "PZ",
-                Description = "Sample description of class"
-            };
-
-            var json = JsonConvert.SerializeObject(NewModel);
+            var json = JsonConvert.SerializeObject(model);
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await Client.PutAsync("/api/Class/1", httpContext);
+            await Client.PostAsync("/api/Class", httpContext);
 
-            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+            var NewModel = new ClassDto()
+            {
+                ClassNumber = 1,
+                Profile = "PZ",
+                Description = "Sample description of class"
+            };
+
+            var NewJson = JsonConvert.SerializeObject(NewModel);
+            var NewHttpContext = new StringContent(NewJson, Encoding.UTF8, "application/json");
+            var NewResponse = await Client.PutAsync("/api/Class/1", NewHttpContext);
+
+            NewResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
         [Fact]
         public async Task RemoveClass_WithoutParams_ReturnOkRequest()
         {
             var response = await Client.DeleteAsync("/api/Class/1");
+
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task CreateClass_WithoutParams_ReturnFailRequest()
+        {
+            var model = new ClassDto()
+            {
+                
+            };
+
+            var json = JsonConvert.SerializeObject(model);
+
+            var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await Client.PostAsync("/api/Class", httpContext);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }

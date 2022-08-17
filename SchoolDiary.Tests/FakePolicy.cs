@@ -24,7 +24,7 @@ namespace SchoolDiary.Tests
                 }));
 
 
-            var ticket = new AuthenticationTicket(claimPrincipal, "Test");
+            var ticket = new AuthenticationTicket(claimPrincipal, "Ticket");
             var result = AuthenticateResult.Success(ticket);
 
             return Task.FromResult(result);
