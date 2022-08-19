@@ -24,41 +24,40 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
+            var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
 
-            if (CheckUserExist is null)
+            if (checkUserExist is null)
             {
                 throw new ArgumentNullException("User dosen't exist");
             }
 
-            var Grades = await DiaryDbContext.LessonGrade
+            var grades = await DiaryDbContext.LessonGrade
                 .Include(x => x.Grade)
                 .Select(x => x.Grade)
                 .Where(x => x.FK_UserUUID == uuid)
                 .ToListAsync();
 
-            if (Grades.Count <= 0)
+            if (grades.Count <= 0)
             {
                 throw new ArgumentNullException("No grades");
             }
 
-            var GradeLessons = await DiaryDbContext.LessonGrade
+            var gradeLessons = await DiaryDbContext.LessonGrade
                 .Include(x => x.Lesson)
                 .Select(x => x.Grade)
                 .Where(x => x.FK_UserUUID == uuid)
-                .Select(x => x.LessonGrades.Select(x => x.Lesson))
+                .Select(x => x.LessonGrades!.Select(x => x.Lesson))
                 .SelectMany(x => x)
                 .Select(x => x.Name)
                 .ToListAsync();
 
-            List<GradeManagerDto> GradesDto = new List<GradeManagerDto>();
-
-            for (int i = 0; i < Grades.Count; i++)
-            {
-                GradesDto.Add(new GradeManagerDto() { GradeValue = Grades[i].GradeValue, GradeWeight = Grades[i].Weight, LessonName = GradeLessons[i] });
-            }
-
-            return GradesDto;
+            return grades.Select((t, i) => new GradeManagerDto()
+                {
+                    GradeValue = t.GradeValue,
+                    GradeWeight = t.Weight,
+                    LessonName = gradeLessons[i]
+                })
+                .ToList()!;
         }
 
         public async Task CreateGrade(GradeDto gradeDto)
@@ -68,20 +67,20 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Lesson = await DiaryDbContext.Lesson
+            var lesson = await DiaryDbContext.Lesson
                 .Include(x => x.Subjects)
                 .Where(x => x.Name == gradeDto.Lesson)
                 .Where(x => x.Day == gradeDto.Day)
                 .Where(x => x.Hour == gradeDto.Hour)
-                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == gradeDto.Class).FK_Class == gradeDto.Class)
+                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == gradeDto.Class)!.FK_Class == gradeDto.Class)
                 .FirstOrDefaultAsync();
 
-            if (Lesson is null)
+            if (lesson is null)
             {
                 throw new ArgumentNullException("Lesson dosen't exist");
             }
 
-            var Grade = new Grade()
+            var grade = new Grade()
             {
                 Description = gradeDto.Description,
                 GradeValue = gradeDto.GradeValue,
@@ -89,16 +88,16 @@ namespace SchoolDiary.api.Service
                 FK_UserUUID = gradeDto.UserUUID
             };
 
-            await DiaryDbContext.AddAsync(Grade);
+            await DiaryDbContext.AddAsync(grade);
             await DiaryDbContext.SaveChangesAsync();
 
-            var LessonGrade = new LessonGrade()
+            var lessonGrade = new LessonGrade()
             {
-                FK_GradeID = Grade.GradeID,
-                FK_LessonID = Lesson.LessonID
+                FK_GradeID = grade.GradeID,
+                FK_LessonID = lesson.LessonID
             };
 
-            await DiaryDbContext.AddAsync(LessonGrade);
+            await DiaryDbContext.AddAsync(lessonGrade);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -109,14 +108,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckGradeExist = await DiaryDbContext.Grade.FirstOrDefaultAsync(x => x.GradeID == id);
+            var checkGradeExist = await DiaryDbContext.Grade.FirstOrDefaultAsync(x => x.GradeID == id);
 
-            if (CheckGradeExist is null)
+            if (checkGradeExist is null)
             {
                 throw new ArgumentNullException("Grade dosen't exist");
             }
 
-            DiaryDbContext.Remove(CheckGradeExist);
+            DiaryDbContext.Remove(checkGradeExist);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

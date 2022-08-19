@@ -25,9 +25,9 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var EmailValidation = new EmailAddressAttribute().IsValid(teacher.Email);
+            var emailValidation = new EmailAddressAttribute().IsValid(teacher.Email);
 
-            if (!EmailValidation)
+            if (!emailValidation)
             {
                 throw new ArgumentOutOfRangeException("Invalid email");
             }
@@ -50,14 +50,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckTeacherExist = await DiaryDbContext.Teacher.FirstOrDefaultAsync(x => x.TeacherID == id);
+            var checkTeacherExist = await DiaryDbContext.Teacher.FirstOrDefaultAsync(x => x.TeacherID == id);
 
-            if (CheckTeacherExist is null)
+            if (checkTeacherExist is null)
             {
                 throw new ArgumentNullException("Given teacher dosen't exist");
             }
 
-            CheckTeacherExist = new Teacher()
+            checkTeacherExist = new Teacher()
             { 
                 Email = teacher.Email,
                 FirstName = teacher.FirstName,
@@ -66,7 +66,7 @@ namespace SchoolDiary.api.Service
                 Gender = teacher.Gender,
             };
 
-            DiaryDbContext.Update(CheckTeacherExist);
+            DiaryDbContext.Update(checkTeacherExist);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -77,14 +77,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckTeacherExist = await DiaryDbContext.Teacher.FirstOrDefaultAsync(x => x.TeacherID == id);
+            var checkTeacherExist = await DiaryDbContext.Teacher.FirstOrDefaultAsync(x => x.TeacherID == id);
 
-            if (CheckTeacherExist is null)
+            if (checkTeacherExist is null)
             {
                 throw new ArgumentNullException("Given teacher dosen't exist");
             }
 
-            DiaryDbContext.Remove(CheckTeacherExist);
+            DiaryDbContext.Remove(checkTeacherExist);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

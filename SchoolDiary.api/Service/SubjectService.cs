@@ -25,31 +25,25 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Subject = await DiaryDbContext.Subject
+            var subject = await DiaryDbContext.Subject
                 .Include(x => x.Lesson)
                 .Include(x => x.Teacher)
                 .Where(x => x.FK_Class == Class)
                 .ToListAsync();
 
-            if (Subject.Count <= 0)
+            if (subject.Count <= 0)
             {
                 throw new ArgumentNullException("Subjects dosen't exist");
             }
 
-            List<SubjectViewModel> subjectViewModels = new List<SubjectViewModel>();
-
-            for (int i = 0; i < Subject.Count; i++)
-            {
-                subjectViewModels.Add(
-                    new SubjectViewModel() 
-                    { 
-                        Lesson = Subject.Select(x => x.Lesson.Name).ToList()[i], 
-                        Teacher = Subject.Select(x => x.Teacher.FirstName + " " + x.Teacher.LastName).ToList()[i], 
-                        Day = Subject.Select(x => x.Lesson.Day).ToList()[i], 
-                        Hour = Subject.Select(x => x.Lesson.Hour).ToList()[i] 
-                    }
-                );
-            }
+            var subjectViewModels = subject.Select((t, i) => new SubjectViewModel()
+                {
+                    Lesson = subject.Select(x => x.Lesson.Name).ToList()[i],
+                    Teacher = subject.Select(x => x.Teacher.FirstName + " " + x.Teacher.LastName).ToList()[i],
+                    Day = subject.Select(x => x.Lesson.Day).ToList()[i],
+                    Hour = subject.Select(x => x.Lesson.Hour).ToList()[i]
+                })
+                .ToList();
 
             subjectViewModels = subjectViewModels
                 .OrderBy(x => x.Day)
@@ -89,18 +83,18 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var SubjectToChange = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
+            var subjectToChange = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
 
-            if (SubjectToChange is null)
+            if (subjectToChange is null)
             {
                 throw new ArgumentNullException("Subject dosen't exist");
             }
 
-            SubjectToChange.FK_Class = subject.Class;
-            SubjectToChange.FK_LessonID = subject.Lesson;
-            SubjectToChange.FK_TeacherID = subject.Teacher;
+            subjectToChange.FK_Class = subject.Class;
+            subjectToChange.FK_LessonID = subject.Lesson;
+            subjectToChange.FK_TeacherID = subject.Teacher;
 
-            DiaryDbContext.Update(SubjectToChange);
+            DiaryDbContext.Update(subjectToChange);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -111,14 +105,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var SubjectToDelete = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
+            var subjectToDelete = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
 
-            if (SubjectToDelete is null)
+            if (subjectToDelete is null)
             {
                 throw new ArgumentNullException("Subject dosen't exist");
             }
 
-            DiaryDbContext.Remove(SubjectToDelete);
+            DiaryDbContext.Remove(subjectToDelete);
             await DiaryDbContext.SaveChangesAsync();
         }
     }
