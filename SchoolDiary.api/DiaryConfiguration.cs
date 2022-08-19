@@ -397,6 +397,17 @@ namespace SchoolDiary.api
                         FK_RoleID = 5
                     }
                 );
+
+            //Assign admin to class
+            modelBuilder.Entity<PersonClass>().HasData
+                (
+                    new PersonClass()
+                    {
+                        UserClassID = 1000,
+                        FK_UserUUID = adminUUID,
+                        FK_ClassID = 1
+                    }
+                );
         }
     }
 }
