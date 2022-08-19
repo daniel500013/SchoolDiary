@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -29,7 +31,7 @@ namespace SchoolDiary.api.Service
         {
             if (uuid == Guid.Empty)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var parents = await DiaryDbContext.PersonParent
@@ -39,7 +41,7 @@ namespace SchoolDiary.api.Service
 
             if (parents.Count <= 0)
             {
-                throw new ArgumentNullException("No parents");
+                throw new NotFoundException("No parents");
             }
 
             return parents.Select(t => new ParentViewModel()
@@ -56,14 +58,14 @@ namespace SchoolDiary.api.Service
         {
             if (parentDto is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var emailValidation = new EmailAddressAttribute().IsValid(parentDto.Email);
 
             if (!emailValidation)
             {
-                throw new ArgumentOutOfRangeException("Invalid email");
+                throw new InvalidEmailException("Invalid email");
             }
 
             var parent = new Parent()
@@ -90,14 +92,14 @@ namespace SchoolDiary.api.Service
         {
             if (parentViewModel is null || id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var parentToChange = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
 
             if (parentToChange is null)
             {
-                throw new ArgumentNullException("Parent parent dosen't exist");
+                throw new NotFoundException("Parent parent doesn't exist");
             }
 
             parentToChange.FirstName = parentViewModel.FirstName;
@@ -113,21 +115,21 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentOutOfRangeException("Invalid id");
+                throw new InvalidDataException("Invalid id");
             }
 
             var parentPerson = await DiaryDbContext.PersonParent.FirstOrDefaultAsync(x => x.FK_ParentID == id);
 
             if (parentPerson is null)
             {
-                throw new ArgumentNullException("Parent dosen't exist");
+                throw new NotFoundException("Parent doesn't exist");
             }
 
             var parent = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
 
             if (parent is null)
             {
-                throw new ArgumentNullException("Parent dosen't exist");
+                throw new NotFoundException("Parent doesn't exist");
             }
 
             DiaryDbContext.Remove(parentPerson);

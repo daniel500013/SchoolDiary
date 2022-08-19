@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -22,14 +24,14 @@ namespace SchoolDiary.api.Service
         {
             if (uuid == Guid.Empty)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
 
             if (checkUserExist is null)
             {
-                throw new ArgumentNullException("User dosen't exist");
+                throw new NotFoundException("User doesn't exist");
             }
 
             var Approves = await DiaryDbContext.LessonApprove
@@ -40,7 +42,7 @@ namespace SchoolDiary.api.Service
 
             if (Approves.Count <= 0)
             {
-                throw new ArgumentNullException("No approves");
+                throw new NotFoundException("No approves");
             }
 
             var approveLessons = await DiaryDbContext.LessonApprove
@@ -64,7 +66,7 @@ namespace SchoolDiary.api.Service
         {
             if (approveDto is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var x = await DiaryDbContext.Lesson.ToListAsync();
@@ -79,7 +81,7 @@ namespace SchoolDiary.api.Service
 
             if (lesson is null)
             {
-                throw new ArgumentNullException("Lesson dosen't exist");
+                throw new NotFoundException("Lesson doesn't exist");
             }
 
             var approve = new Approve()
@@ -106,14 +108,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0) || approve is null)
             {
-                throw new NullReferenceException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkApproveExist = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
 
             if (checkApproveExist is null)
             {
-                throw new ArgumentNullException("Given approve dosen't exist");
+                throw new NotFoundException("Given approve doesn't exist");
             }
 
             checkApproveExist.Positive = approve.Positive;
@@ -127,14 +129,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var approveToRemove = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
 
             if (approveToRemove is null)
             {
-                throw new ArgumentNullException("Given approve dosen't exist");
+                throw new NotFoundException("Given approve doesn't exist");
             }
 
             DiaryDbContext.Remove(approveToRemove);

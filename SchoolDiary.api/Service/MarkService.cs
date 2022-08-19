@@ -1,4 +1,7 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using System.ComponentModel;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -21,14 +24,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassNumber == id);
 
             if (checkClassExist is null)
             {
-                throw new ArgumentNullException("Class dosen't exist");
+                throw new NotFoundException("Class doesn't exist");
             }
 
             var users = await DiaryDbContext.PersonClass
@@ -38,7 +41,7 @@ namespace SchoolDiary.api.Service
 
             if (users.Count <= 0)
             {
-                throw new ArgumentNullException("Class dosen't exist");
+                throw new NotFoundException("Class doesn't exist");
             }
 
             List<Mark> marks = new List<Mark>();
@@ -51,7 +54,7 @@ namespace SchoolDiary.api.Service
 
                 if (tmp_mark is null)
                 {
-                    throw new ArgumentNullException("Person dosen't exist");
+                    throw new NotFoundException("Person doesn't exist");
                 }
 
                 for (int j = 0; j < tmp_mark.Count; j++)
@@ -69,7 +72,7 @@ namespace SchoolDiary.api.Service
         {
             if (uuid.ToString().Length <= 0)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var marks = await DiaryDbContext.LessonMark
@@ -80,7 +83,7 @@ namespace SchoolDiary.api.Service
 
             if (marks.Count <= 0)
             {
-                throw new ArgumentNullException("No marks");
+                throw new NotFoundException("No marks");
             }
 
             var markLesson = await DiaryDbContext.LessonMark
@@ -104,7 +107,7 @@ namespace SchoolDiary.api.Service
         {
             if (markDto is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var lesson = await DiaryDbContext.Lesson
@@ -117,7 +120,7 @@ namespace SchoolDiary.api.Service
 
             if (lesson is null)
             {
-                throw new ArgumentNullException("Lesson dosen't exist");
+                throw new NotFoundException("Lesson doesn't exist");
             }
 
             var mark = new Mark()
@@ -144,7 +147,7 @@ namespace SchoolDiary.api.Service
         {
             if (markDto is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var lesson = await DiaryDbContext.Lesson
@@ -157,7 +160,7 @@ namespace SchoolDiary.api.Service
 
             if (lesson is null)
             {
-                throw new ArgumentNullException("Lesson dosen't exist");
+                throw new NotFoundException("Lesson doesn't exist");
             }
 
             var users = await DiaryDbContext.LessonMark
@@ -170,7 +173,7 @@ namespace SchoolDiary.api.Service
 
             if (users.Count <= 0)
             {
-                throw new ArgumentNullException("Empty mark list");
+                throw new NotFoundException("Empty mark list");
             }
 
             return users.Select(t => new MarkChangeViewModel()
@@ -186,14 +189,14 @@ namespace SchoolDiary.api.Service
         {
             if (mark is null || id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
 
             if (checkMarkExist is null)
             {
-                throw new ArgumentNullException("Given mark id dosen't exist");
+                throw new NotFoundException("Given mark id doesn't exist");
             }
 
             checkMarkExist.Present = mark.Present;
@@ -206,14 +209,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
 
             if (checkMarkExist is null)
             {
-                throw new ArgumentNullException("Mark dosen't exist");
+                throw new NotFoundException("Mark doesn't exist");
             }
 
             DiaryDbContext.Remove(checkMarkExist);
