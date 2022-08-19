@@ -24,8 +24,6 @@ School Diary API project created for educational purposes.
 - ``Managing assignment parents to students``
 <br />
 
-# Problems (To Do)
-- ``Teacher may insert a grade in a subject he dosen't teach``
 # Default login
 ### Admin
 `` Login: admin@admin.com``
