@@ -40,18 +40,18 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var ClassToChange = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
+            var classToChange = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
 
-            if (ClassToChange is null)
+            if (classToChange is null)
             {
                 throw new ArgumentNullException("Given id dosen't exist");
             }
 
-            ClassToChange.ClassNumber = NewClass.ClassNumber;
-            ClassToChange.Profile = NewClass.Profile;
-            ClassToChange.Description = NewClass.Description;
+            classToChange.ClassNumber = NewClass.ClassNumber;
+            classToChange.Profile = NewClass.Profile;
+            classToChange.Description = NewClass.Description;
 
-            DiaryDbContext.Update(ClassToChange);
+            DiaryDbContext.Update(classToChange);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -62,14 +62,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var ClassToDelete = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
+            var classToDelete = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
 
-            if (ClassToDelete is null)
+            if (classToDelete is null)
             {
                 throw new ArgumentNullException("Given id dosen't exist");
             }
 
-            DiaryDbContext.Remove(ClassToDelete);
+            DiaryDbContext.Remove(classToDelete);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

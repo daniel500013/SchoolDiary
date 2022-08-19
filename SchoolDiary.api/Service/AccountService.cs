@@ -23,116 +23,110 @@ namespace SchoolDiary.api.Service
         {
             var users = await DiaryDbContext.Person.ToListAsync();
 
-            var PersonViewModel = new List<PersonViewModel>();
-
-            for (int i = 0; i < users.Count; i++)
-            {
-                PersonViewModel.Add(new PersonViewModel()
+            return users.Select(t => new PersonViewModel()
                 {
-                    UserUUID = users[i].UserUUID,
-                    FirstName = users[i].FirstName,
-                    LastName = users[i].LastName,
-                    Address = users[i].Address,
-                    City = users[i].City,
-                    Email = users[i].Email,
-                    Phone = users[i].Phone,
-                    ZipCode = users[i].ZipCode,
-                });
-            }
-
-            return PersonViewModel;
+                    UserUUID = t.UserUUID,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName,
+                    Address = t.Address,
+                    City = t.City,
+                    Email = t.Email,
+                    Phone = t.Phone,
+                    ZipCode = t.ZipCode,
+                })
+                .ToList();
         }
 
-        public async Task Register(LoginDto User)
+        public async Task Register(LoginDto user)
         {
-            if (User is null)
+            if (user is null)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var EmailValidation = new EmailAddressAttribute().IsValid(User.Email);
+            var emailValidation = new EmailAddressAttribute().IsValid(user.Email);
 
-            if (!EmailValidation)
+            if (!emailValidation)
             {
                 throw new InvalidDataException("Wrong email format");
             }
 
-            var EmailExist = await DiaryDbContext.Person
-                .Where(x => x.Email == User.Email)
+            var emailExist = await DiaryDbContext.Person
+                .Where(x => x.Email == user.Email)
                 .ToListAsync();
 
-            if (EmailExist.Count >= 1)
+            if (emailExist.Count >= 1)
             {
                 throw new ArgumentNullException("Email already exist");
             }
 
-            var PasswordHash = PasswordHasher.HashPassword(User, User.Password);
+            var passwordHash = PasswordHasher.HashPassword(user, user.Password);
 
-            var UserUUID = Guid.NewGuid();
+            var userUuid = Guid.NewGuid();
 
             await DiaryDbContext.Person.AddAsync(new Model.Person()
             {
-                UserUUID = UserUUID,
-                Email = User.Email,
-                PasswordHash = PasswordHash
+                UserUUID = userUuid,
+                Email = user.Email,
+                PasswordHash = passwordHash
             });
 
             await DiaryDbContext.PersonRole.AddAsync(new PersonRole()
             {
-                FK_UserUUID = UserUUID,
+                FK_UserUUID = userUuid,
                 FK_RoleID = 1
             });
 
             await DiaryDbContext.PersonClass.AddAsync(new PersonClass()
             {
-                FK_UserUUID = UserUUID,
+                FK_UserUUID = userUuid,
                 FK_ClassID = 1
             });
 
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task<string> Login(LoginDto UserModel)
+        public async Task<string> Login(LoginDto userModel)
         {
-            if (UserModel is null)
+            if (userModel is null)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var User = await DiaryDbContext.Person
-                .Include(x => x.Roles)
+            var user = await DiaryDbContext.Person
+                .Include(x => x.Roles)!
                 .ThenInclude(x => x.Role)
-                .SingleOrDefaultAsync(x => x.Email == UserModel.Email);
+                .SingleOrDefaultAsync(x => x.Email == userModel.Email);
 
-            if (User is null)
+            if (user is null)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Password = PasswordHasher.VerifyHashedPassword(UserModel, User.PasswordHash, UserModel.Password);
+            var password = PasswordHasher.VerifyHashedPassword(userModel, user.PasswordHash, userModel.Password);
 
-            if (Password == PasswordVerificationResult.Failed)
+            if (password == PasswordVerificationResult.Failed)
             {
                 throw new ArgumentOutOfRangeException("Invalid email or password");
             }
 
-            var UserClass = await DiaryDbContext.PersonClass
+            var userClass = await DiaryDbContext.PersonClass
                 .Include(x => x.Class)
-                .SingleOrDefaultAsync(x => x.FK_UserUUID == User.UserUUID);
+                .SingleOrDefaultAsync(x => x.FK_UserUUID == user.UserUUID);
 
-            if (UserClass is null)
+            if (userClass is null)
             {
                 throw new ArgumentOutOfRangeException("No class assigment");
             }
 
             var claims = new List<Claim>()
             {
-                new Claim("uuid", User.UserUUID.ToString()),
-                new Claim(ClaimTypes.Name, User.Email),
-                new Claim("Class", UserClass.Class.ClassNumber.ToString())
+                new Claim("uuid", user.UserUUID.ToString()),
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim("Class", userClass.Class?.ClassNumber.ToString() ?? string.Empty)
             };
 
-            foreach (var role in User.Roles)
+            foreach (var role in user.Roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
             }

@@ -12,9 +12,9 @@ namespace SchoolDiary.api.Controllers
     {
         private readonly AccountService AccountService;
 
-        public AccountController(AccountService AccountService)
+        public AccountController(AccountService accountService)
         {
-            this.AccountService = AccountService;
+            this.AccountService = accountService;
         }
 
         /// <summary>

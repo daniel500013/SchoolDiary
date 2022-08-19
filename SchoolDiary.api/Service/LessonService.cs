@@ -24,35 +24,35 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Subjects = await DiaryDbContext.PersonClass
+            var subjects = await DiaryDbContext.PersonClass
                 .Include(x => x.Class)
-                .ThenInclude(x => x.Subject)
+                .ThenInclude(x => x.Subject)!
                 .ThenInclude(x => x.Lesson)
-                .Select(x => x.Class.Subject.Where(x => x.FK_Class == ClassID))
+                .Select(x => x.Class!.Subject!.Where(x => x.FK_Class == ClassID))
                 .SelectMany(x => x)
                 .GroupBy(x => x.FK_LessonID)
                 .Select(x => x.First())
                 .ToListAsync();
 
-            if (Subjects.Count <= 0)
+            if (subjects.Count <= 0)
             {
                 throw new ArgumentNullException("Lessons class dosen't exists");
             }
 
-            var Lessons = Subjects
+            var lessons = subjects
                 .Select(x => x.Lesson)
                 .OrderBy(x => x.Day)
                 .ToList();
 
 
-            var LessonList = new List<List<Lesson>>();
+            var lessonList = new List<List<Lesson>>();
 
             for (int i = 1; i < 6; i++)
             {
-                LessonList.Add(Lessons.Where(x => x.Day == i).ToList());
+                lessonList.Add(lessons.Where(x => x.Day == i).ToList()!);
             } 
 
-            return LessonList;
+            return lessonList;
         }
 
         public async Task CreateLesson(LessonDto lesson)
@@ -79,18 +79,18 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var LessonToChange = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
+            var lessonToChange = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
 
-            if (LessonToChange is null)
+            if (lessonToChange is null)
             {
                 throw new NullReferenceException("Given lesson dosen't exist");
             }
 
-            LessonToChange.Name = lesson.Name;
-            LessonToChange.Hour = lesson.Hour;
-            LessonToChange.Day = lesson.Day;
+            lessonToChange.Name = lesson.Name;
+            lessonToChange.Hour = lesson.Hour;
+            lessonToChange.Day = lesson.Day;
 
-            DiaryDbContext.Update(LessonToChange);
+            DiaryDbContext.Update(lessonToChange);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -101,14 +101,14 @@ namespace SchoolDiary.api.Service
                 throw new NullReferenceException("Invalid data");
             }
 
-            var LessonToDelete = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
+            var lessonToDelete = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
 
-            if (LessonToDelete is null)
+            if (lessonToDelete is null)
             {
                 throw new ArgumentNullException("Given lesson dosen't exist");
             }
 
-            DiaryDbContext.Remove(LessonToDelete);
+            DiaryDbContext.Remove(lessonToDelete);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

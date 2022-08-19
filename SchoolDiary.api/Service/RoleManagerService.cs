@@ -27,43 +27,36 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var UserRoles = await DiaryDbContext.PersonRole
+            var userRoles = await DiaryDbContext.PersonRole
                 .Include(x => x.Role)
                 .Where(x => x.FK_UserUUID == uuid)
                 .ToListAsync();
 
-            if (UserRoles is null)
+            if (userRoles is null)
             {
                 throw new ArgumentNullException("User dosen't exist");
             }
 
-            List<RoleManagerViewModel> roleList = new List<RoleManagerViewModel>();
-
-            for (int i = 0; i < UserRoles.Count; i++)
-            {
-                roleList.Add(new RoleManagerViewModel()
+            return userRoles.Select(t => new RoleManagerViewModel()
                 {
-                    PersonRoleID = UserRoles[i].PersonRoleID,
-                    RoleName = UserRoles[i].Role.Name,
-                    UserUUID = UserRoles[i].FK_UserUUID
-                });
-            }
-
-            return roleList;
+                    PersonRoleID = t.PersonRoleID,
+                    RoleName = t.Role.Name,
+                    UserUUID = t.FK_UserUUID
+                }).ToList();
         }
 
         public async Task AssignUserRole(RoleDto roleDto)
         {
-            var UserExist = await DiaryDbContext.Person.SingleOrDefaultAsync(x => x.UserUUID == roleDto.UserUUID);
+            var userExist = await DiaryDbContext.Person.SingleOrDefaultAsync(x => x.UserUUID == roleDto.UserUUID);
 
-            if (UserExist is null)
+            if (userExist is null)
             {
                 throw new ArgumentNullException("Invalid User uuid");
             }
 
-            var RoleExist = await DiaryDbContext.Role.SingleOrDefaultAsync(x => x.RoleID == roleDto.RoleID);
+            var roleExist = await DiaryDbContext.Role.SingleOrDefaultAsync(x => x.RoleID == roleDto.RoleID);
 
-            if (RoleExist is null)
+            if (roleExist is null)
             {
                 throw new ArgumentNullException("Invalid Role");
             }
@@ -77,33 +70,33 @@ namespace SchoolDiary.api.Service
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeUserRole(Guid UserUUID, int OldRoleID, int NewRoleID)
+        public async Task ChangeUserRole(Guid userUuid, int oldRoleId, int newRoleId)
         {
-            if (OldRoleID.Equals(0) || NewRoleID.Equals(0))
+            if (oldRoleId.Equals(0) || newRoleId.Equals(0))
             {
                 throw new ArgumentOutOfRangeException("Empty new or old role");
             }
 
-            var UserExist = await DiaryDbContext.PersonRole
-                .FirstOrDefaultAsync(x => x.FK_UserUUID == UserUUID);
+            var userExist = await DiaryDbContext.PersonRole
+                .FirstOrDefaultAsync(x => x.FK_UserUUID == userUuid);
 
-            if (UserExist is null)
+            if (userExist is null)
             {
                 throw new ArgumentNullException("Invalid user uuid");
             }
 
-            var OldRoleAssign = await DiaryDbContext.PersonRole
-                .Where(x => x.FK_UserUUID == UserUUID)
-                .SingleOrDefaultAsync(x => x.FK_RoleID == OldRoleID);
+            var oldRoleAssign = await DiaryDbContext.PersonRole
+                .Where(x => x.FK_UserUUID == userUuid)
+                .SingleOrDefaultAsync(x => x.FK_RoleID == oldRoleId);
 
-            if (OldRoleAssign is null)
+            if (oldRoleAssign is null)
             {
                 throw new ArgumentNullException("Given user uuid are dosen't assign to given role");
             }
 
-            OldRoleAssign.FK_RoleID = NewRoleID;
+            oldRoleAssign.FK_RoleID = newRoleId;
 
-            DiaryDbContext.PersonRole.Update(OldRoleAssign);
+            DiaryDbContext.PersonRole.Update(oldRoleAssign);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -114,15 +107,15 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var RoleToDelete = await DiaryDbContext.PersonRole
+            var roleToDelete = await DiaryDbContext.PersonRole
                 .FirstOrDefaultAsync(x => x.PersonRoleID == id);
 
-            if (RoleToDelete is null)
+            if (roleToDelete is null)
             {
                 throw new ArgumentNullException("Assigment dosen't exist");
             }
 
-            DiaryDbContext.PersonRole.Remove(RoleToDelete);
+            DiaryDbContext.PersonRole.Remove(roleToDelete);
 
             await DiaryDbContext.SaveChangesAsync();
         }

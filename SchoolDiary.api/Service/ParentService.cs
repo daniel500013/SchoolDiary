@@ -15,21 +15,14 @@ namespace SchoolDiary.api.Service
         {
             var parents = await DiaryDbContext.Parent.ToListAsync();
 
-            var parentsModel = new List<ParentViewModel>();
-
-            for (int i = 0; i < parents.Count; i++)
-            {
-                parentsModel.Add(new ParentViewModel()
+            return parents.Select(t => new ParentViewModel()
                 {
-                    ParentID = parents[i].ParentID,
-                    FirstName = parents[i].FirstName,
-                    LastName = parents[i].LastName,
-                    Email = parents[i].Email,
-                    Phone = parents[i].Phone
-                });
-            }
-
-            return parentsModel;
+                    ParentID = t.ParentID,
+                    FirstName = t.FirstName,
+                    LastName = t.LastName,
+                    Email = t.Email,
+                    Phone = t.Phone
+                }).ToList();
         }
 
         public async Task<List<ParentViewModel>> GetUserParents(Guid uuid)
@@ -39,53 +32,46 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Parents = await DiaryDbContext.PersonParent
+            var parents = await DiaryDbContext.PersonParent
                 .Include(x => x.Parent)
                 .Where(x => x.FK_UserUUID == uuid)
                 .ToListAsync();
 
-            if (Parents.Count <= 0)
+            if (parents.Count <= 0)
             {
                 throw new ArgumentNullException("No parents");
             }
 
-            List<ParentViewModel> ParentsModel = new List<ParentViewModel>();
-
-            for (int i = 0; i < Parents.Count; i++)
-            {
-                ParentsModel.Add(new ParentViewModel()
+            return parents.Select(t => new ParentViewModel()
                 {
-                    ParentID = Parents[i].Parent.ParentID,
-                    FirstName = Parents[i].Parent.FirstName,
-                    LastName = Parents[i].Parent.LastName,
-                    Email = Parents[i].Parent.Email,
-                    Phone = Parents[i].Parent.Phone
-                });
-            }
-
-            return ParentsModel;
+                    ParentID = t.Parent.ParentID,
+                    FirstName = t.Parent.FirstName,
+                    LastName = t.Parent.LastName,
+                    Email = t.Parent.Email,
+                    Phone = t.Parent.Phone
+                }).ToList();
         }
 
-        public async Task CreateParent(ParentDto ParentDto)
+        public async Task CreateParent(ParentDto parentDto)
         {
-            if (ParentDto is null)
+            if (parentDto is null)
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var EmailValidation = new EmailAddressAttribute().IsValid(ParentDto.Email);
+            var emailValidation = new EmailAddressAttribute().IsValid(parentDto.Email);
 
-            if (!EmailValidation)
+            if (!emailValidation)
             {
                 throw new ArgumentOutOfRangeException("Invalid email");
             }
 
             var parent = new Parent()
             {
-                Email = ParentDto.Email,
-                FirstName = ParentDto.FirstName,
-                LastName = ParentDto.LastName,
-                Phone = ParentDto.Phone
+                Email = parentDto.Email,
+                FirstName = parentDto.FirstName,
+                LastName = parentDto.LastName,
+                Phone = parentDto.Phone
             };
 
             await DiaryDbContext.AddAsync(parent);
@@ -93,33 +79,33 @@ namespace SchoolDiary.api.Service
 
             await DiaryDbContext.PersonParent.AddAsync(new PersonParent()
             {
-                FK_UserUUID = ParentDto.UserUUID,
+                FK_UserUUID = parentDto.UserUUID,
                 FK_ParentID = parent.ParentID
             });
 
             await DiaryDbContext.SaveChangesAsync();
         }
 
-        public async Task ChangeParent(int id, ParentDto ParentViewModel)
+        public async Task ChangeParent(int id, ParentDto parentViewModel)
         {
-            if (ParentViewModel is null || id.Equals(0))
+            if (parentViewModel is null || id.Equals(0))
             {
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var ParentToChange = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
+            var parentToChange = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
 
-            if (ParentToChange is null)
+            if (parentToChange is null)
             {
                 throw new ArgumentNullException("Parent parent dosen't exist");
             }
 
-            ParentToChange.FirstName = ParentViewModel.FirstName;
-            ParentToChange.LastName = ParentViewModel.LastName;
-            ParentToChange.Email = ParentViewModel.Email;
-            ParentToChange.Phone = ParentViewModel.Phone;
+            parentToChange.FirstName = parentViewModel.FirstName;
+            parentToChange.LastName = parentViewModel.LastName;
+            parentToChange.Email = parentViewModel.Email;
+            parentToChange.Phone = parentViewModel.Phone;
 
-            DiaryDbContext.Update(ParentToChange);
+            DiaryDbContext.Update(parentToChange);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -130,22 +116,22 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentOutOfRangeException("Invalid id");
             }
 
-            var ParentPerson = await DiaryDbContext.PersonParent.FirstOrDefaultAsync(x => x.FK_ParentID == id);
+            var parentPerson = await DiaryDbContext.PersonParent.FirstOrDefaultAsync(x => x.FK_ParentID == id);
 
-            if (ParentPerson is null)
+            if (parentPerson is null)
             {
                 throw new ArgumentNullException("Parent dosen't exist");
             }
 
-            var Parent = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
+            var parent = await DiaryDbContext.Parent.FirstOrDefaultAsync(x => x.ParentID == id);
 
-            if (Parent is null)
+            if (parent is null)
             {
                 throw new ArgumentNullException("Parent dosen't exist");
             }
 
-            DiaryDbContext.Remove(ParentPerson);
-            DiaryDbContext.Remove(Parent);
+            DiaryDbContext.Remove(parentPerson);
+            DiaryDbContext.Remove(parent);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

@@ -24,9 +24,9 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassNumber == id);
+            var checkClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassNumber == id);
 
-            if (CheckClassExist is null)
+            if (checkClassExist is null)
             {
                 throw new ArgumentNullException("Class dosen't exist");
             }
@@ -72,34 +72,32 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Marks = await DiaryDbContext.LessonMark
+            var marks = await DiaryDbContext.LessonMark
                 .Include(x => x.Mark)
                 .Select(x => x.Mark)
                 .Where(x => x.FK_UserUUID == uuid)
                 .ToListAsync();
 
-            if (Marks.Count <= 0)
+            if (marks.Count <= 0)
             {
                 throw new ArgumentNullException("No marks");
             }
 
-            var MarkLesson = await DiaryDbContext.LessonMark
+            var markLesson = await DiaryDbContext.LessonMark
                 .Include(x => x.Lesson)
                 .Select(x => x.Mark)
                 .Where(x => x.FK_UserUUID == uuid)
-                .Select(x => x.LessonMarks.Select(x => x.Lesson))
+                .Select(x => x.LessonMarks!.Select(x => x.Lesson))
                 .SelectMany(x => x)
                 .Select(x => x.Name)
                 .ToListAsync();
 
-            List<MarkManagerDto> MarksDto = new List<MarkManagerDto>();
-
-            for (int i = 0; i < Marks.Count; i++)
-            {
-                MarksDto.Add(new MarkManagerDto() { Present = Marks[i].Present, Data = Marks[i].Date, LessonName = MarkLesson[i] });
-            }
-
-            return MarksDto;
+            return marks.Select((t, i) => new MarkManagerDto()
+                {
+                    Present = t.Present,
+                    Data = t.Date,
+                    LessonName = markLesson[i]
+                }).ToList();
         }
 
         public async Task AddMark(MarkDto markDto)
@@ -109,36 +107,36 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Lesson = await DiaryDbContext.Lesson
+            var lesson = await DiaryDbContext.Lesson
                 .Include(x => x.Subjects)
                 .Where(x => x.Name == markDto.Lesson)
                 .Where(x => x.Day == markDto.Day)
                 .Where(x => x.Hour == markDto.Hour)
-                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == markDto.Class).FK_Class == markDto.Class)
+                .Where(x => x.Subjects!.FirstOrDefault(x => x.FK_Class == markDto.Class)!.FK_Class == markDto.Class)
                 .FirstOrDefaultAsync();
 
-            if (Lesson is null)
+            if (lesson is null)
             {
                 throw new ArgumentNullException("Lesson dosen't exist");
             }
 
-            var Mark = new Mark()
+            var mark = new Mark()
             {
                 Date = DateTime.Now.Date,
                 Present = markDto.Present,
                 FK_UserUUID = markDto.UserUUID
             };
 
-            await DiaryDbContext.AddAsync(Mark);
+            await DiaryDbContext.AddAsync(mark);
             await DiaryDbContext.SaveChangesAsync();
 
-            var LessonMark = new LessonMark()
+            var lessonMark = new LessonMark()
             {
-                FK_MarkID = Mark.MarkID,
-                FK_LessonID = Lesson.LessonID
+                FK_MarkID = mark.MarkID,
+                FK_LessonID = lesson.LessonID
             };
 
-            await DiaryDbContext.AddAsync(LessonMark);
+            await DiaryDbContext.AddAsync(lessonMark);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -149,46 +147,39 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var Lesson = await DiaryDbContext.Lesson
+            var lesson = await DiaryDbContext.Lesson
                 .Include(x => x.Subjects)
                 .Where(x => x.Name == markDto.Lesson)
                 .Where(x => x.Day == markDto.Day)
                 .Where(x => x.Hour == markDto.Hour)
-                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == markDto.Class).FK_Class == markDto.Class)
+                .Where(x => x.Subjects!.FirstOrDefault(x => x.FK_Class == markDto.Class)!.FK_Class == markDto.Class)
                 .FirstOrDefaultAsync();
 
-            if (Lesson is null)
+            if (lesson is null)
             {
                 throw new ArgumentNullException("Lesson dosen't exist");
             }
 
-            var Users = await DiaryDbContext.LessonMark
+            var users = await DiaryDbContext.LessonMark
                 .Include(x => x.Mark)
                 .ThenInclude(x => x.Person)
-                .Where(x => x.FK_LessonID == Lesson.LessonID)
+                .Where(x => x.FK_LessonID == lesson.LessonID)
                 .Select(x => x.Mark)
                 .Where(x => x.Date == markDto.Date)
                 .ToListAsync();
 
-            if (Users.Count <= 0)
+            if (users.Count <= 0)
             {
                 throw new ArgumentNullException("Empty mark list");
             }
 
-            List<MarkChangeViewModel> UsersViewModel = new List<MarkChangeViewModel>();
-
-            for (int i = 0; i < Users.Count; i++)
-            {
-                UsersViewModel.Add(new MarkChangeViewModel()
+            return users.Select(t => new MarkChangeViewModel()
                 {
-                    Present = Users[i].Present,
-                    MarkID = Users[i].MarkID,
-                    FirstName = Users[i].Person.FirstName,
-                    LastName = Users[i].Person.LastName
-                });
-            }
-
-            return UsersViewModel;
+                    Present = t.Present,
+                    MarkID = t.MarkID,
+                    FirstName = t.Person!.FirstName,
+                    LastName = t.Person.LastName
+                }).ToList();
         }
 
         public async Task ChangeMark(int id, MarkDto mark)
@@ -198,16 +189,16 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
+            var checkMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
 
-            if (CheckMarkExist is null)
+            if (checkMarkExist is null)
             {
                 throw new ArgumentNullException("Given mark id dosen't exist");
             }
 
-            CheckMarkExist.Present = mark.Present;
+            checkMarkExist.Present = mark.Present;
 
-            DiaryDbContext.Update(CheckMarkExist);
+            DiaryDbContext.Update(checkMarkExist);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -218,14 +209,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
+            var checkMarkExist = await DiaryDbContext.Mark.FirstOrDefaultAsync(x => x.MarkID == id);
 
-            if (CheckMarkExist is null)
+            if (checkMarkExist is null)
             {
                 throw new ArgumentNullException("Mark dosen't exist");
             }
 
-            DiaryDbContext.Remove(CheckMarkExist);
+            DiaryDbContext.Remove(checkMarkExist);
             await DiaryDbContext.SaveChangesAsync();
         }
     }

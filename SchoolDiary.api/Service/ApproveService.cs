@@ -25,9 +25,9 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var CheckUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
+            var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
 
-            if (CheckUserExist is null)
+            if (checkUserExist is null)
             {
                 throw new ArgumentNullException("User dosen't exist");
             }
@@ -43,23 +43,21 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("No approves");
             }
 
-            var ApproveLessons = await DiaryDbContext.LessonApprove
+            var approveLessons = await DiaryDbContext.LessonApprove
                 .Include(x => x.Lesson)
                 .Select(x => x.Approve)
                 .Where(x => x.FK_UserUUID == uuid)
-                .Select(x => x.LessonApproves.Select(x => x.Lesson))
+                .Select(x => x.LessonApproves!.Select(x => x.Lesson))
                 .SelectMany(x => x)
                 .Select(x => x.Name)
                 .ToListAsync();
 
-            List<ApproveManagerDto> ApproovesDto = new List<ApproveManagerDto>();
-
-            for (int i = 0; i < Approves.Count; i++)
-            {
-                ApproovesDto.Add(new ApproveManagerDto() { Positive = Approves[i].Positive, Description = Approves[i].Description, LessonName = ApproveLessons[i] });
-            }
-
-            return ApproovesDto;
+            return Approves.Select((t, i) => new ApproveManagerDto()
+                {
+                    Positive = t.Positive,
+                    Description = t.Description,
+                    LessonName = approveLessons[i]
+                }).ToList();
         }
 
         public async Task CreateApprove(ApproveDto approveDto)
@@ -71,36 +69,36 @@ namespace SchoolDiary.api.Service
 
             var x = await DiaryDbContext.Lesson.ToListAsync();
 
-            var Lesson = await DiaryDbContext.Lesson
+            var lesson = await DiaryDbContext.Lesson
                 .Include(x => x.Subjects)
                 .Where(x => x.Name == approveDto.Lesson)
                 .Where(x => x.Day == approveDto.Day)
                 .Where(x => x.Hour == approveDto.Hour)
-                .Where(x => x.Subjects.FirstOrDefault(x => x.FK_Class == approveDto.Class).FK_Class == approveDto.Class)
+                .Where(x => x.Subjects!.FirstOrDefault(x => x.FK_Class == approveDto.Class)!.FK_Class == approveDto.Class)
                 .FirstOrDefaultAsync();
 
-            if (Lesson is null)
+            if (lesson is null)
             {
                 throw new ArgumentNullException("Lesson dosen't exist");
             }
 
-            var Approve = new Approve()
+            var approve = new Approve()
             {
                 Description = approveDto.Description,
                 Positive = approveDto.Positive,
                 FK_UserUUID = approveDto.UserUUID
             };
 
-            await DiaryDbContext.AddAsync(Approve);
+            await DiaryDbContext.AddAsync(approve);
             await DiaryDbContext.SaveChangesAsync();
 
-            var LessonApprove = new LessonApprove()
+            var lessonApprove = new LessonApprove()
             {
-                FK_ApproveID = Approve.ApproveID,
-                FK_LessonID = Lesson.LessonID
+                FK_ApproveID = approve.ApproveID,
+                FK_LessonID = lesson.LessonID
             };
 
-            await DiaryDbContext.AddAsync(LessonApprove);
+            await DiaryDbContext.AddAsync(lessonApprove);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -111,17 +109,17 @@ namespace SchoolDiary.api.Service
                 throw new NullReferenceException("Invalid data");
             }
 
-            var CheckApproveExist = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
+            var checkApproveExist = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
 
-            if (CheckApproveExist is null)
+            if (checkApproveExist is null)
             {
                 throw new ArgumentNullException("Given approve dosen't exist");
             }
 
-            CheckApproveExist.Positive = approve.Positive;
-            CheckApproveExist.Description = approve.Description;
+            checkApproveExist.Positive = approve.Positive;
+            checkApproveExist.Description = approve.Description;
 
-            DiaryDbContext.Update(CheckApproveExist);
+            DiaryDbContext.Update(checkApproveExist);
             await DiaryDbContext.SaveChangesAsync();
         }
 
@@ -132,14 +130,14 @@ namespace SchoolDiary.api.Service
                 throw new ArgumentNullException("Invalid data");
             }
 
-            var ApproveToRemove = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
+            var approveToRemove = await DiaryDbContext.Approve.FirstOrDefaultAsync(x => x.ApproveID == id);
 
-            if (ApproveToRemove is null)
+            if (approveToRemove is null)
             {
                 throw new ArgumentNullException("Given approve dosen't exist");
             }
 
-            DiaryDbContext.Remove(ApproveToRemove);
+            DiaryDbContext.Remove(approveToRemove);
             await DiaryDbContext.SaveChangesAsync();
         }
     }
