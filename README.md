@@ -8,6 +8,9 @@ School Diary API project created for educational purposes.
 <br />
 ``Angular >14``
 
+# Documentation
+``https://daniel500013.github.io/SchoolDiary/Swagger/``
+
 # Graphic diagram of database
 ![](/git/baza.png)
 
