@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -21,7 +23,7 @@ namespace SchoolDiary.api.Service
         {
             if (Class is null || Class.ClassNumber == 0)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             await DiaryDbContext.AddAsync(new Class()
@@ -37,14 +39,14 @@ namespace SchoolDiary.api.Service
         {
             if (NewClass is null || id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var classToChange = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
 
             if (classToChange is null)
             {
-                throw new ArgumentNullException("Given id dosen't exist");
+                throw new NotFoundException("Given id doesn't exist");
             }
 
             classToChange.ClassNumber = NewClass.ClassNumber;
@@ -59,14 +61,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var classToDelete = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
 
             if (classToDelete is null)
             {
-                throw new ArgumentNullException("Given id dosen't exist");
+                throw new NotFoundException("Given id doesn't exist");
             }
 
             DiaryDbContext.Remove(classToDelete);

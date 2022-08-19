@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -24,7 +26,7 @@ namespace SchoolDiary.api.Service
         {
             if (uuid == Guid.Empty)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var userRoles = await DiaryDbContext.PersonRole
@@ -34,7 +36,7 @@ namespace SchoolDiary.api.Service
 
             if (userRoles is null)
             {
-                throw new ArgumentNullException("User dosen't exist");
+                throw new NotFoundException("User doesn't exist");
             }
 
             return userRoles.Select(t => new RoleManagerViewModel()
@@ -51,14 +53,14 @@ namespace SchoolDiary.api.Service
 
             if (userExist is null)
             {
-                throw new ArgumentNullException("Invalid User uuid");
+                throw new InvalidDataException("Invalid User uuid");
             }
 
             var roleExist = await DiaryDbContext.Role.SingleOrDefaultAsync(x => x.RoleID == roleDto.RoleID);
 
             if (roleExist is null)
             {
-                throw new ArgumentNullException("Invalid Role");
+                throw new InvalidDataException("Invalid Role");
             }
 
             await DiaryDbContext.PersonRole.AddAsync(new PersonRole()
@@ -74,7 +76,7 @@ namespace SchoolDiary.api.Service
         {
             if (oldRoleId.Equals(0) || newRoleId.Equals(0))
             {
-                throw new ArgumentOutOfRangeException("Empty new or old role");
+                throw new InvalidDataException("Empty new or old role");
             }
 
             var userExist = await DiaryDbContext.PersonRole
@@ -82,7 +84,7 @@ namespace SchoolDiary.api.Service
 
             if (userExist is null)
             {
-                throw new ArgumentNullException("Invalid user uuid");
+                throw new InvalidDataException("Invalid user uuid");
             }
 
             var oldRoleAssign = await DiaryDbContext.PersonRole
@@ -91,7 +93,7 @@ namespace SchoolDiary.api.Service
 
             if (oldRoleAssign is null)
             {
-                throw new ArgumentNullException("Given user uuid are dosen't assign to given role");
+                throw new InvalidDataException("Given user uuid are doesn't assign to given role");
             }
 
             oldRoleAssign.FK_RoleID = newRoleId;
@@ -104,7 +106,7 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var roleToDelete = await DiaryDbContext.PersonRole
@@ -112,7 +114,7 @@ namespace SchoolDiary.api.Service
 
             if (roleToDelete is null)
             {
-                throw new ArgumentNullException("Assigment dosen't exist");
+                throw new InvalidDataException("Assignment doesn't exist");
             }
 
             DiaryDbContext.PersonRole.Remove(roleToDelete);

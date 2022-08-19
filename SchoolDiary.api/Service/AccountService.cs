@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -41,14 +42,14 @@ namespace SchoolDiary.api.Service
         {
             if (user is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new Exceptions.InvalidDataException("Invalid data");
             }
 
             var emailValidation = new EmailAddressAttribute().IsValid(user.Email);
 
             if (!emailValidation)
             {
-                throw new InvalidDataException("Wrong email format");
+                throw new InvalidEmailException("Wrong email format");
             }
 
             var emailExist = await DiaryDbContext.Person
@@ -57,7 +58,7 @@ namespace SchoolDiary.api.Service
 
             if (emailExist.Count >= 1)
             {
-                throw new ArgumentNullException("Email already exist");
+                throw new InvalidEmailException("Email already exist");
             }
 
             var passwordHash = PasswordHasher.HashPassword(user, user.Password);
@@ -90,7 +91,7 @@ namespace SchoolDiary.api.Service
         {
             if (userModel is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new Exceptions.InvalidDataException("Invalid data");
             }
 
             var user = await DiaryDbContext.Person
@@ -100,14 +101,14 @@ namespace SchoolDiary.api.Service
 
             if (user is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new Exceptions.InvalidDataException("Invalid data");
             }
 
             var password = PasswordHasher.VerifyHashedPassword(userModel, user.PasswordHash, userModel.Password);
 
             if (password == PasswordVerificationResult.Failed)
             {
-                throw new ArgumentOutOfRangeException("Invalid email or password");
+                throw new LoginException("Invalid email or password");
             }
 
             var userClass = await DiaryDbContext.PersonClass
@@ -116,7 +117,7 @@ namespace SchoolDiary.api.Service
 
             if (userClass is null)
             {
-                throw new ArgumentOutOfRangeException("No class assigment");
+                throw new LoginException("No class assignment");
             }
 
             var claims = new List<Claim>()

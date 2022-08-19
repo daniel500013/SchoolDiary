@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -22,7 +24,7 @@ namespace SchoolDiary.api.Service
         {
             if (Class.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var subject = await DiaryDbContext.Subject
@@ -33,7 +35,7 @@ namespace SchoolDiary.api.Service
 
             if (subject.Count <= 0)
             {
-                throw new ArgumentNullException("Subjects dosen't exist");
+                throw new NotFoundException("Subjects doesn't exist");
             }
 
             var subjectViewModels = subject.Select((t, i) => new SubjectViewModel()
@@ -64,7 +66,7 @@ namespace SchoolDiary.api.Service
         {
             if (subject is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             await DiaryDbContext.AddAsync(new Subject()
@@ -80,14 +82,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0) || subject is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var subjectToChange = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
 
             if (subjectToChange is null)
             {
-                throw new ArgumentNullException("Subject dosen't exist");
+                throw new NotFoundException("Subject doesn't exist");
             }
 
             subjectToChange.FK_Class = subject.Class;
@@ -102,14 +104,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var subjectToDelete = await DiaryDbContext.Subject.FirstOrDefaultAsync(x => x.SubjectID == id);
 
             if (subjectToDelete is null)
             {
-                throw new ArgumentNullException("Subject dosen't exist");
+                throw new NotFoundException("Subject doesn't exist");
             }
 
             DiaryDbContext.Remove(subjectToDelete);

@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -21,14 +23,14 @@ namespace SchoolDiary.api.Service
         {
             if (uuid.ToString().Length <= 0)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == uuid);
 
             if (checkUserExist is null)
             {
-                throw new ArgumentNullException("User dosen't exist");
+                throw new NotFoundException("User doesn't exist");
             }
 
             var grades = await DiaryDbContext.LessonGrade
@@ -39,7 +41,7 @@ namespace SchoolDiary.api.Service
 
             if (grades.Count <= 0)
             {
-                throw new ArgumentNullException("No grades");
+                throw new NotFoundException("No grades");
             }
 
             var gradeLessons = await DiaryDbContext.LessonGrade
@@ -64,7 +66,7 @@ namespace SchoolDiary.api.Service
         {
             if (gradeDto is null || gradeDto.GradeValue == 0 || gradeDto.Weight == 0)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var lesson = await DiaryDbContext.Lesson
@@ -77,7 +79,7 @@ namespace SchoolDiary.api.Service
 
             if (lesson is null)
             {
-                throw new ArgumentNullException("Lesson dosen't exist");
+                throw new NotFoundException("Lesson doesn't exist");
             }
 
             var grade = new Grade()
@@ -105,14 +107,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkGradeExist = await DiaryDbContext.Grade.FirstOrDefaultAsync(x => x.GradeID == id);
 
             if (checkGradeExist is null)
             {
-                throw new ArgumentNullException("Grade dosen't exist");
+                throw new NotFoundException("Grade doesn't exist");
             }
 
             DiaryDbContext.Remove(checkGradeExist);

@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -17,18 +19,18 @@ namespace SchoolDiary.api.Service
             return lessons;
         }
 
-        public async Task<List<List<Lesson>>> GetClassLessons(int ClassID)
+        public async Task<List<List<Lesson>>> GetClassLessons(int classId)
         {
-            if (ClassID.Equals(0))
+            if (classId.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var subjects = await DiaryDbContext.PersonClass
                 .Include(x => x.Class)
                 .ThenInclude(x => x.Subject)!
                 .ThenInclude(x => x.Lesson)
-                .Select(x => x.Class!.Subject!.Where(x => x.FK_Class == ClassID))
+                .Select(x => x.Class!.Subject!.Where(x => x.FK_Class == classId))
                 .SelectMany(x => x)
                 .GroupBy(x => x.FK_LessonID)
                 .Select(x => x.First())
@@ -36,7 +38,7 @@ namespace SchoolDiary.api.Service
 
             if (subjects.Count <= 0)
             {
-                throw new ArgumentNullException("Lessons class dosen't exists");
+                throw new NotFoundException("Lessons class doesn't exists");
             }
 
             var lessons = subjects
@@ -59,7 +61,7 @@ namespace SchoolDiary.api.Service
         {
             if (lesson is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
             
             await DiaryDbContext.AddAsync(new Lesson()
@@ -76,14 +78,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0) || lesson is null)
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var lessonToChange = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
 
             if (lessonToChange is null)
             {
-                throw new NullReferenceException("Given lesson dosen't exist");
+                throw new NotFoundException("Given lesson doesn't exist");
             }
 
             lessonToChange.Name = lesson.Name;
@@ -98,14 +100,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new NullReferenceException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var lessonToDelete = await DiaryDbContext.Lesson.FirstOrDefaultAsync(x => x.LessonID == id);
 
             if (lessonToDelete is null)
             {
-                throw new ArgumentNullException("Given lesson dosen't exist");
+                throw new NotFoundException("Given lesson doesn't exist");
             }
 
             DiaryDbContext.Remove(lessonToDelete);

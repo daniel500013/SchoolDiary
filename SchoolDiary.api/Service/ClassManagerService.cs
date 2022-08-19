@@ -1,4 +1,6 @@
 ﻿using SchoolDiary.api.Dto;
+using SchoolDiary.api.Exceptions;
+using InvalidDataException = SchoolDiary.api.Exceptions.InvalidDataException;
 
 namespace SchoolDiary.api.Service
 {
@@ -22,7 +24,7 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var users = await DiaryDbContext.PersonClass
@@ -33,7 +35,7 @@ namespace SchoolDiary.api.Service
 
             if (users.Count <= 0)
             {
-                throw new ArgumentNullException("Class dosen't exist");
+                throw new NotFoundException("Class doesn't exist");
             }
 
             return users.Select((t, i) => new ClassManagerViewModel()
@@ -49,21 +51,21 @@ namespace SchoolDiary.api.Service
         {
             if (classManagerDto.UserUUID == Guid.Empty || classManagerDto.ClassID.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == classManagerDto.UserUUID);
             
             if (checkUserExist is null)
             {
-                throw new ArgumentNullException("User dosen't exist");
+                throw new NotFoundException("User doesn't exist");
             }
 
             var checkClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == classManagerDto.ClassID);
 
             if (checkClassExist is null)
             {
-                throw new ArgumentNullException("Class dosen't exist");
+                throw new NotFoundException("Class doesn't exist");
             }
 
             await DiaryDbContext.PersonClass.AddAsync(new PersonClass()
@@ -78,28 +80,28 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0) || classManagerDto.ClassID.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkUserExist = await DiaryDbContext.Person.FirstOrDefaultAsync(x => x.UserUUID == classManagerDto.UserUUID);
 
             if (checkUserExist is null)
             {
-                throw new ArgumentNullException("Given user dosen't exist");
+                throw new NotFoundException("Given user doesn't exist");
             }
 
             var checkClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == id);
 
             if (checkClassExist is null)
             {
-                throw new ArgumentNullException("Given class dosen't exist");
+                throw new NotFoundException("Given class doesn't exist");
             }
 
             var checkNewClassExist = await DiaryDbContext.Class.FirstOrDefaultAsync(x => x.ClassID == classManagerDto.ClassID);
 
             if (checkNewClassExist is null)
             {
-                throw new ArgumentNullException("Given class dosen't exist");
+                throw new NotFoundException("Given class doesn't exist");
             }
 
             var personToChange = await DiaryDbContext.PersonClass
@@ -108,7 +110,7 @@ namespace SchoolDiary.api.Service
 
             if (personToChange is null)
             {
-                throw new ArgumentNullException("Given user with typed role dosen't exist");
+                throw new NotFoundException("Given user with typed role doesn't exist");
             }
 
             personToChange.FK_ClassID = classManagerDto.ClassID;
@@ -121,14 +123,14 @@ namespace SchoolDiary.api.Service
         {
             if (id.Equals(0))
             {
-                throw new ArgumentNullException("Invalid data");
+                throw new InvalidDataException("Invalid data");
             }
 
             var checkRelationExist = await DiaryDbContext.PersonClass.FirstOrDefaultAsync(x => x.UserClassID == id);
 
             if (checkRelationExist is null)
             {
-                throw new ArgumentNullException("User assign dosen't exist");
+                throw new NotFoundException("User assign doesn't exist");
             }
 
             DiaryDbContext.Remove(checkRelationExist);
