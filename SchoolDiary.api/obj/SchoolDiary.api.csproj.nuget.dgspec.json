@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj",
-        "projectName": "SchoolDiary.Api",
+        "projectName": "SchoolDiary.api",
         "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj",
         "packagesPath": "C:\\Users\\bakuc\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\obj\\",
