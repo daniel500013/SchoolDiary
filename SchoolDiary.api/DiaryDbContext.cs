@@ -28,36 +28,6 @@ namespace SchoolDiary.api
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>();
-            
-            modelBuilder.Entity<Role>()
-                .Property(x => x.Name)
-                .IsRequired();
-
-            modelBuilder.Entity<PersonRole>();
-
-            modelBuilder.Entity<Class>();
-
-            modelBuilder.Entity<PersonClass>();
-            
-            modelBuilder.Entity<Subject>();
-            
-            modelBuilder.Entity<Teacher>();
-            
-            modelBuilder.Entity<Lesson>();
-
-            modelBuilder.Entity<Mark>();
-
-            modelBuilder.Entity<LessonMark>();
-            
-            modelBuilder.Entity<Grade>();
-            
-            modelBuilder.Entity<LessonGrade>();
-
-            modelBuilder.Entity<Approve>();
-
-            modelBuilder.Entity<LessonApprove>();
-
             new DiaryConfiguration(modelBuilder).Seed();
         }
     }
