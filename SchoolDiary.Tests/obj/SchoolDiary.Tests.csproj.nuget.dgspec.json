@@ -4,12 +4,12 @@
     "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.Tests\\SchoolDiary.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj": {
+    "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj",
-        "projectName": "SchoolDiary.api",
-        "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj",
+        "projectUniqueName": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj",
+        "projectName": "SchoolDiary.Api",
+        "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj",
         "packagesPath": "C:\\Users\\bakuc\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\obj\\",
         "projectStyle": "PackageReference",
@@ -147,8 +147,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj": {
-                "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj"
+              "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj": {
+                "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj"
               }
             }
           }

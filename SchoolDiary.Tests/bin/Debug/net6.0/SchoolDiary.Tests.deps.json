@@ -36,7 +36,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Testing": "6.0.7",
           "Microsoft.NET.Test.Sdk": "17.1.0",
-          "SchoolDiary.api": "1.0.0",
+          "SchoolDiary.Api": "1.0.0",
           "coverlet.collector": "3.1.2",
           "xunit": "2.4.1",
           "xunit.runner.visualstudio": "2.4.3",
@@ -2242,7 +2242,7 @@
         }
       },
       "xunit.runner.visualstudio/2.4.3": {},
-      "SchoolDiary.api/1.0.0": {
+      "SchoolDiary.Api/1.0.0": {
         "dependencies": {
           "Bogus": "34.0.2",
           "EntityFramework": "6.4.4",
@@ -5195,7 +5195,7 @@
       "path": "xunit.runner.visualstudio/2.4.3",
       "hashPath": "xunit.runner.visualstudio.2.4.3.nupkg.sha512"
     },
-    "SchoolDiary.api/1.0.0": {
+    "SchoolDiary.Api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
