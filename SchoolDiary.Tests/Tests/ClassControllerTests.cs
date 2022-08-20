@@ -72,11 +72,11 @@
                 Description = "Sample description of class"
             };
 
-            var NewJson = JsonConvert.SerializeObject(NewModel);
-            var NewHttpContext = new StringContent(NewJson, Encoding.UTF8, "application/json");
-            var NewResponse = await Client.PutAsync("/api/Class/1", NewHttpContext);
+            var newJson = JsonConvert.SerializeObject(NewModel);
+            var newHttpContext = new StringContent(newJson, Encoding.UTF8, "application/json");
+            var newResponse = await Client.PutAsync("/api/Class/1", newHttpContext);
 
-            NewResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+            newResponse.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
         [Fact]

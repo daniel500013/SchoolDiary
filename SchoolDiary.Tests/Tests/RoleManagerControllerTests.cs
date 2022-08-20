@@ -10,7 +10,7 @@ namespace SchoolDiary.Tests.Tests
 {
     public class RoleManagerControllerTests
     {
-        private HttpClient Client { get; set; }
+        private HttpClient Client { get; }
 
         public RoleManagerControllerTests()
         {

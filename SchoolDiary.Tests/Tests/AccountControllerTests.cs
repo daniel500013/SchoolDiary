@@ -2,7 +2,7 @@ namespace SchoolDiary.Tests.Tests
 {
     public class AccountControllerTests
     {
-        private HttpClient Client { get; set; }
+        private HttpClient Client { get; }
 
         public AccountControllerTests()
         {

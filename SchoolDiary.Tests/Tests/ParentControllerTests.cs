@@ -8,7 +8,7 @@ namespace SchoolDiary.Tests.Tests
 {
     public class ParentControllerTests
     {
-        private HttpClient Client { get; set; }
+        private HttpClient Client { get; }
 
         public ParentControllerTests()
         {
