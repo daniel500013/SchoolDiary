@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SchoolDiary.api\SchoolDiary.api.csproj" />
+    <ProjectReference Include="..\SchoolDiary.api\SchoolDiary.Api.csproj" />
   </ItemGroup>
 
 </Project>

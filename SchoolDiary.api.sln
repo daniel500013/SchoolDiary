@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolDiary.api", "SchoolDiary.api\SchoolDiary.api.csproj", "{5EAF9F09-728B-42A6-B577-624B9918C5FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolDiary.Api", "SchoolDiary.api\SchoolDiary.Api.csproj", "{5EAF9F09-728B-42A6-B577-624B9918C5FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolDiary.Tests", "SchoolDiary.Tests\SchoolDiary.Tests.csproj", "{573F2B43-C299-4040-9632-086C428BA573}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolDiary.Tests", "SchoolDiary.Tests\SchoolDiary.Tests.csproj", "{573F2B43-C299-4040-9632-086C428BA573}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

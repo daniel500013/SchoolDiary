@@ -2781,7 +2781,7 @@
           "build/netcoreapp2.1/xunit.runner.visualstudio.props": {}
         }
       },
-      "SchoolDiary.api/1.0.0": {
+      "SchoolDiary.Api/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -2797,10 +2797,10 @@
           "WebMotions.Fake.Authentication.JwtBearer": "6.1.0"
         },
         "compile": {
-          "bin/placeholder/SchoolDiary.api.dll": {}
+          "bin/placeholder/SchoolDiary.Api.dll": {}
         },
         "runtime": {
-          "bin/placeholder/SchoolDiary.api.dll": {}
+          "bin/placeholder/SchoolDiary.Api.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -9150,17 +9150,17 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "SchoolDiary.api/1.0.0": {
+    "SchoolDiary.Api/1.0.0": {
       "type": "project",
-      "path": "../SchoolDiary.api/SchoolDiary.api.csproj",
-      "msbuildProject": "../SchoolDiary.api/SchoolDiary.api.csproj"
+      "path": "../SchoolDiary.api/SchoolDiary.Api.csproj",
+      "msbuildProject": "../SchoolDiary.api/SchoolDiary.Api.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.AspNetCore.Mvc.Testing >= 6.0.7",
       "Microsoft.NET.Test.Sdk >= 17.1.0",
-      "SchoolDiary.api >= 1.0.0",
+      "SchoolDiary.Api >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.1",
       "xunit.runner.visualstudio >= 2.4.3"
@@ -9198,8 +9198,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj": {
-              "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj"
+            "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj": {
+              "projectPath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj"
             }
           }
         }

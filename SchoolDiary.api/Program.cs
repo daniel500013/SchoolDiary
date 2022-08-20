@@ -16,7 +16,6 @@ builder.Services.AddDbContext<DiaryDbContext>(options =>
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<RoleManagerService>();
 builder.Services.AddScoped<ParentService>();
-builder.Services.AddScoped<ParentManagerService>();
 builder.Services.AddScoped<ClassService>();
 builder.Services.AddScoped<ClassManagerService>();
 builder.Services.AddScoped<TeacherService>();
@@ -24,9 +23,6 @@ builder.Services.AddScoped<MarkService>();
 builder.Services.AddScoped<GradeService>();
 builder.Services.AddScoped<ApproveService>();
 builder.Services.AddScoped<LessonService>();
-builder.Services.AddScoped<MarkManagerService>();
-builder.Services.AddScoped<GradeManagerService>();
-builder.Services.AddScoped<ApproveManagerService>();
 builder.Services.AddScoped<SubjectService>();
 builder.Services.AddScoped<IPasswordHasher<LoginDto>, PasswordHasher<LoginDto>>();
 

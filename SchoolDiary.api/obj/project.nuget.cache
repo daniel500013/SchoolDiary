@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zqeAqyTIBAAmSY+jU/n0UVyDHEvs5GfVWL4+OvBVIKgxeshL7hmLkd4WYg3X4xLDhZEFms/CgKK6QpcO72YNHA==",
+  "dgSpecHash": "WzitW0yuFyAP3deRnkoQYUIybp9GBKIeiLkff3Ca4vj45gz9WdglYX9N7gR1Lyar7gGLr7f9JcKjqFNfTUWsBQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.api.csproj",
+  "projectFilePath": "C:\\Users\\bakuc\\source\\repos\\SchoolDiary\\SchoolDiary.api\\SchoolDiary.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bakuc\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\bakuc\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
