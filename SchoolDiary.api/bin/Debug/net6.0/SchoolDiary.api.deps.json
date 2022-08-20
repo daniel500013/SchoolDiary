@@ -32,7 +32,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "SchoolDiary.api/1.0.0": {
+      "SchoolDiary.Api/1.0.0": {
         "dependencies": {
           "Bogus": "34.0.2",
           "EntityFramework": "6.4.4",
@@ -336,10 +336,10 @@
           "WindowsBase": "4.0.0.0"
         },
         "runtime": {
-          "SchoolDiary.api.dll": {}
+          "SchoolDiary.Api.dll": {}
         },
         "compile": {
-          "SchoolDiary.api.dll": {}
+          "SchoolDiary.Api.dll": {}
         }
       },
       "Bogus/34.0.2": {
@@ -3010,7 +3010,7 @@
     }
   },
   "libraries": {
-    "SchoolDiary.api/1.0.0": {
+    "SchoolDiary.Api/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

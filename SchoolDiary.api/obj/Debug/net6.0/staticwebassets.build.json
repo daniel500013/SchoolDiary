@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "ylAhAe6+cn1GUfjru9dPwrI1B3D9+GP92knSjIHwslI=",
-  "Source": "SchoolDiary.api",
-  "BasePath": "_content/SchoolDiary.api",
+  "Hash": "ZmCC4ycqyctbCtvD3JGkLt21ES4U5SapuHy/QrbljSc=",
+  "Source": "SchoolDiary.Api",
+  "BasePath": "_content/SchoolDiary.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

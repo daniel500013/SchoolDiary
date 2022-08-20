@@ -2256,10 +2256,10 @@
           "WebMotions.Fake.Authentication.JwtBearer": "6.1.0"
         },
         "runtime": {
-          "SchoolDiary.api.dll": {}
+          "SchoolDiary.Api.dll": {}
         },
         "compile": {
-          "SchoolDiary.api.dll": {}
+          "SchoolDiary.Api.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/6.0.0.0": {
