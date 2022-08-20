@@ -1,12 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization.Policy;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using SchoolDiary.api;
-using WebMotions.Fake.Authentication.JwtBearer;
-
-namespace SchoolDiary.Tests.Tests
+﻿namespace SchoolDiary.Tests.Tests
 {
     public class RoleManagerControllerTests
     {

@@ -1,10 +1,4 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Authorization.Policy;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using SchoolDiary.api;
-
-namespace SchoolDiary.Tests.Tests
+﻿namespace SchoolDiary.Tests.Tests
 {
     public class ParentControllerTests
     {
