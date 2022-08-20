@@ -8,7 +8,7 @@ namespace SchoolDiary.Tests.Tests
 {
     public class ApproveControllerTests
     {
-        private HttpClient Client { get; set; }
+        private HttpClient Client { get; }
 
         public ApproveControllerTests()
         {
@@ -42,21 +42,21 @@ namespace SchoolDiary.Tests.Tests
         public async Task CreateApprove_WithoutParams_ReturnOkRequest()
         {
             //Add lesson
-            var LessonModel = new LessonDto()
+            var lessonModel = new LessonDto()
             {
                 Day = 1,
                 Hour = 1,
                 Name = "Physics"
             };
 
-            var LessonJson = JsonConvert.SerializeObject(LessonModel);
+            var lessonJson = JsonConvert.SerializeObject(lessonModel);
 
-            var LessonContext = new StringContent(LessonJson, Encoding.UTF8, "application/json");
+            var lessonContext = new StringContent(lessonJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Lesson", LessonContext);
+            await Client.PostAsync("/api/Lesson", lessonContext);
 
             //Add Teacher
-            var TeacherModel = new TeacherDto()
+            var teacherModel = new TeacherDto()
             {
                 Email = "teacher@teacher.com",
                 FirstName = "Joan",
@@ -65,25 +65,25 @@ namespace SchoolDiary.Tests.Tests
                 Phone = "123123123"
             };
 
-            var TeacherJson = JsonConvert.SerializeObject(TeacherModel);
+            var teacherJson = JsonConvert.SerializeObject(teacherModel);
 
-            var TeacherContext = new StringContent(TeacherJson, Encoding.UTF8, "application/json");
+            var teacherContext = new StringContent(teacherJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Teacher", TeacherContext);
+            await Client.PostAsync("/api/Teacher", teacherContext);
 
             //Add subject
-            var SubjectModel = new SubjectDto()
+            var subjectModel = new SubjectDto()
             {
                 Lesson = 1,
                 Class = 1,
                 Teacher = 1
             };
 
-            var SubjectJson = JsonConvert.SerializeObject(SubjectModel);
+            var subjectJson = JsonConvert.SerializeObject(subjectModel);
 
-            var SubjectContext = new StringContent(SubjectJson, Encoding.UTF8, "application/json");
+            var subjectContext = new StringContent(subjectJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Subject", SubjectContext);
+            await Client.PostAsync("/api/Subject", subjectContext);
 
             //Add approve
             var model = new ApproveDto()
@@ -110,21 +110,21 @@ namespace SchoolDiary.Tests.Tests
         public async Task ChangeApprove_WithoutParams_ReturnOkRequest()
         {
             //Add lesson
-            var LessonModel = new LessonDto()
+            var lessonModel = new LessonDto()
             {
                 Day = 1,
                 Hour = 1,
                 Name = "Physics"
             };
 
-            var LessonJson = JsonConvert.SerializeObject(LessonModel);
+            var lessonJson = JsonConvert.SerializeObject(lessonModel);
 
-            var LessonContext = new StringContent(LessonJson, Encoding.UTF8, "application/json");
+            var lessonContext = new StringContent(lessonJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Lesson", LessonContext);
+            await Client.PostAsync("/api/Lesson", lessonContext);
 
             //Add Teacher
-            var TeacherModel = new TeacherDto()
+            var teacherModel = new TeacherDto()
             {
                 Email = "teacher@teacher.com",
                 FirstName = "Joan",
@@ -133,25 +133,25 @@ namespace SchoolDiary.Tests.Tests
                 Phone = "123123123"
             };
 
-            var TeacherJson = JsonConvert.SerializeObject(TeacherModel);
+            var teacherJson = JsonConvert.SerializeObject(teacherModel);
 
-            var TeacherContext = new StringContent(TeacherJson, Encoding.UTF8, "application/json");
+            var teacherContext = new StringContent(teacherJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Teacher", TeacherContext);
+            await Client.PostAsync("/api/Teacher", teacherContext);
 
             //Add subject
-            var SubjectModel = new SubjectDto()
+            var subjectModel = new SubjectDto()
             {
                 Lesson = 1,
                 Class = 1,
                 Teacher = 1
             };
 
-            var SubjectJson = JsonConvert.SerializeObject(SubjectModel);
+            var subjectJson = JsonConvert.SerializeObject(subjectModel);
 
-            var SubjectContext = new StringContent(SubjectJson, Encoding.UTF8, "application/json");
+            var subjectContext = new StringContent(subjectJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Subject", SubjectContext);
+            await Client.PostAsync("/api/Subject", subjectContext);
 
             //Change Approve
             var model = new ApproveDto()
@@ -169,7 +169,7 @@ namespace SchoolDiary.Tests.Tests
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
             await Client.PostAsync("/api/Approve", httpContext);
 
-            var ModelToChange = new ApproveDto()
+            var modelToChange = new ApproveDto()
             {
                 Positive = false,
                 Description = "csed",
@@ -180,9 +180,9 @@ namespace SchoolDiary.Tests.Tests
                 UserUUID = Guid.NewGuid()
             };
 
-            var JsonToChange = JsonConvert.SerializeObject(ModelToChange);
-            var HttpContextToChange = new StringContent(JsonToChange, Encoding.UTF8, "application/json");
-            var response = await Client.PutAsync("/api/Approve/1", HttpContextToChange);
+            var jsonToChange = JsonConvert.SerializeObject(modelToChange);
+            var httpContextToChange = new StringContent(jsonToChange, Encoding.UTF8, "application/json");
+            var response = await Client.PutAsync("/api/Approve/1", httpContextToChange);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
@@ -191,21 +191,21 @@ namespace SchoolDiary.Tests.Tests
         public async Task RemoveApprove_WithoutParams_ReturnOkRequest()
         {
             //Add lesson
-            var LessonModel = new LessonDto()
+            var lessonModel = new LessonDto()
             {
                 Day = 1,
                 Hour = 1,
                 Name = "Physics"
             };
 
-            var LessonJson = JsonConvert.SerializeObject(LessonModel);
+            var lessonJson = JsonConvert.SerializeObject(lessonModel);
 
-            var LessonContext = new StringContent(LessonJson, Encoding.UTF8, "application/json");
+            var lessonContext = new StringContent(lessonJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Lesson", LessonContext);
+            await Client.PostAsync("/api/Lesson", lessonContext);
 
             //Add Teacher
-            var TeacherModel = new TeacherDto()
+            var teacherModel = new TeacherDto()
             {
                 Email = "teacher@teacher.com",
                 FirstName = "Joan",
@@ -214,25 +214,25 @@ namespace SchoolDiary.Tests.Tests
                 Phone = "123123123"
             };
 
-            var TeacherJson = JsonConvert.SerializeObject(TeacherModel);
+            var teacherJson = JsonConvert.SerializeObject(teacherModel);
 
-            var TeacherContext = new StringContent(TeacherJson, Encoding.UTF8, "application/json");
+            var teacherContext = new StringContent(teacherJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Teacher", TeacherContext);
+            await Client.PostAsync("/api/Teacher", teacherContext);
 
             //Add subject
-            var SubjectModel = new SubjectDto()
+            var subjectModel = new SubjectDto()
             {
                 Lesson = 1,
                 Class = 1,
                 Teacher = 1
             };
 
-            var SubjectJson = JsonConvert.SerializeObject(SubjectModel);
+            var subjectJson = JsonConvert.SerializeObject(subjectModel);
 
-            var SubjectContext = new StringContent(SubjectJson, Encoding.UTF8, "application/json");
+            var subjectContext = new StringContent(subjectJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Subject", SubjectContext);
+            await Client.PostAsync("/api/Subject", subjectContext);
             
             //Add Approve
             var model = new ApproveDto()
@@ -259,21 +259,21 @@ namespace SchoolDiary.Tests.Tests
         public async Task CreateApprove_WithoutParams_ReturnFailRequest()
         {
             //Add lesson
-            var LessonModel = new LessonDto()
+            var lessonModel = new LessonDto()
             {
                 Day = 1,
                 Hour = 1,
                 Name = "Physics"
             };
 
-            var LessonJson = JsonConvert.SerializeObject(LessonModel);
+            var lessonJson = JsonConvert.SerializeObject(lessonModel);
 
-            var LessonContext = new StringContent(LessonJson, Encoding.UTF8, "application/json");
+            var lessonContext = new StringContent(lessonJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Lesson", LessonContext);
+            await Client.PostAsync("/api/Lesson", lessonContext);
 
             //Add Teacher
-            var TeacherModel = new TeacherDto()
+            var teacherModel = new TeacherDto()
             {
                 Email = "teacher@teacher.com",
                 FirstName = "Joan",
@@ -282,25 +282,25 @@ namespace SchoolDiary.Tests.Tests
                 Phone = "123123123"
             };
 
-            var TeacherJson = JsonConvert.SerializeObject(TeacherModel);
+            var teacherJson = JsonConvert.SerializeObject(teacherModel);
 
-            var TeacherContext = new StringContent(TeacherJson, Encoding.UTF8, "application/json");
+            var teacherContext = new StringContent(teacherJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Teacher", TeacherContext);
+            await Client.PostAsync("/api/Teacher", teacherContext);
 
             //Add subject
-            var SubjectModel = new SubjectDto()
+            var subjectModel = new SubjectDto()
             {
                 Lesson = 1,
                 Class = 1,
                 Teacher = 1
             };
 
-            var SubjectJson = JsonConvert.SerializeObject(SubjectModel);
+            var subjectJson = JsonConvert.SerializeObject(subjectModel);
 
-            var SubjectContext = new StringContent(SubjectJson, Encoding.UTF8, "application/json");
+            var subjectContext = new StringContent(subjectJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Subject", SubjectContext);
+            await Client.PostAsync("/api/Subject", subjectContext);
 
             //Add approve
             var model = new ApproveDto()
@@ -322,21 +322,21 @@ namespace SchoolDiary.Tests.Tests
         public async Task ChangeApprove_WithoutParams_ReturnFailRequest()
         {
             //Add lesson
-            var LessonModel = new LessonDto()
+            var lessonModel = new LessonDto()
             {
                 Day = 1,
                 Hour = 1,
                 Name = "Physics"
             };
 
-            var LessonJson = JsonConvert.SerializeObject(LessonModel);
+            var lessonJson = JsonConvert.SerializeObject(lessonModel);
 
-            var LessonContext = new StringContent(LessonJson, Encoding.UTF8, "application/json");
+            var lessonContext = new StringContent(lessonJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Lesson", LessonContext);
+            await Client.PostAsync("/api/Lesson", lessonContext);
 
             //Add Teacher
-            var TeacherModel = new TeacherDto()
+            var teacherModel = new TeacherDto()
             {
                 Email = "teacher@teacher.com",
                 FirstName = "Joan",
@@ -345,25 +345,25 @@ namespace SchoolDiary.Tests.Tests
                 Phone = "123123123"
             };
 
-            var TeacherJson = JsonConvert.SerializeObject(TeacherModel);
+            var teacherJson = JsonConvert.SerializeObject(teacherModel);
 
-            var TeacherContext = new StringContent(TeacherJson, Encoding.UTF8, "application/json");
+            var teacherContext = new StringContent(teacherJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Teacher", TeacherContext);
+            await Client.PostAsync("/api/Teacher", teacherContext);
 
             //Add subject
-            var SubjectModel = new SubjectDto()
+            var subjectModel = new SubjectDto()
             {
                 Lesson = 1,
                 Class = 1,
                 Teacher = 1
             };
 
-            var SubjectJson = JsonConvert.SerializeObject(SubjectModel);
+            var subjectJson = JsonConvert.SerializeObject(subjectModel);
 
-            var SubjectContext = new StringContent(SubjectJson, Encoding.UTF8, "application/json");
+            var subjectContext = new StringContent(subjectJson, Encoding.UTF8, "application/json");
 
-            await Client.PostAsync("/api/Subject", SubjectContext);
+            await Client.PostAsync("/api/Subject", subjectContext);
 
             //Change Approve
             var model = new ApproveDto()
@@ -381,9 +381,9 @@ namespace SchoolDiary.Tests.Tests
             var httpContext = new StringContent(json, Encoding.UTF8, "application/json");
             await Client.PostAsync("/api/Approve", httpContext);
 
-            var JsonToChange = JsonConvert.SerializeObject(null);
-            var HttpContextToChange = new StringContent(JsonToChange, Encoding.UTF8, "application/json");
-            var response = await Client.PutAsync("/api/Approve/1", HttpContextToChange);
+            var jsonToChange = JsonConvert.SerializeObject(null);
+            var httpContextToChange = new StringContent(jsonToChange, Encoding.UTF8, "application/json");
+            var response = await Client.PutAsync("/api/Approve/1", httpContextToChange);
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
         }
