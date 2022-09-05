@@ -1,5 +1,7 @@
-SchoolDiary.Api\bin
-SchoolDiary.Frontend\.vscode
-SchoolDiary.Tests\bin
-.vs
-.idea
+SchoolDiary.Api/bin/
+SchoolDiary.Api/obj/
+SchoolDiary.Tests/bin/
+SchoolDiary.Tests/obj/
+SchoolDiary.Frontend/.vscode/
+.vs/
+.idea/
