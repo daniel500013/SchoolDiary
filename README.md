@@ -9,6 +9,7 @@ School Diary API project created for educational purposes.
 ``Angular >14``
 
 # Documentation
+If you wanna check documentation without cloning repository check link below
 [Link to documentation here](https://daniel500013.github.io/SchoolDiary/Swagger/)
 
 # Graphic diagram of database
@@ -35,6 +36,6 @@ School Diary API project created for educational purposes.
 ### Configuration
 To ensure that error dosen't occur when connecting to database, data needed for connection should be substituted in the file ``appsettings.json`` by line ``9``
 ### Adding 
-To add database from migration, use update-database command in package manager
+Use migrations.sh file in tool folder for migration
 #### Example
-> PM> update-database
+> ./migration.sh
