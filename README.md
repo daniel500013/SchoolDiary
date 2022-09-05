@@ -10,6 +10,7 @@ School Diary API project created for educational purposes.
 
 # Documentation
 If you wanna check documentation without cloning repository check link below
+<br/>
 [Link to documentation here](https://daniel500013.github.io/SchoolDiary/Swagger/)
 
 # Graphic diagram of database
